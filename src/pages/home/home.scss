@@ -1,0 +1,33 @@
+$CONTENT: #0f0f0f;
+page-home {
+	.tabbar {
+	    opacity: 1;
+	}
+
+	.tabs-ios .tabbar,
+	.tabs-md .tabbar {
+		background: -webkit-linear-gradient(left top, $CONTENT, $CONTENT);
+	    background: -o-linear-gradient(bottom right, $CONTENT, $CONTENT);
+	    background: -moz-linear-gradient(bottom right, $CONTENT, $CONTENT);
+	    background: linear-gradient(to bottom right, $CONTENT, $CONTENT);
+	}
+
+	.tabs-ios .tab-button, .tabs-md .tab-button {
+	    color: #8c8c8c;
+	}
+
+	.tabs-ios .tab-button:hover:not(.disable-hover), .tabs-ios .tab-button[aria-selected=true], 
+	.tabs-md .tab-button:hover:not(.disable-hover), .tabs-md .tab-button[aria-selected=true] {
+	    color: #fff;
+	}
+
+	.tabs-ios .tab-button-icon {
+	    color: #8c8c8c;
+	    font-size: 24px;
+	}
+
+	.tabs-ios .tab-button[aria-selected=true] .tab-button-icon, .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+	    color: #fff;
+	    font-size: 24px;
+	}
+}

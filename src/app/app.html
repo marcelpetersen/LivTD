@@ -1,0 +1,25 @@
+<ion-menu type="overlay" [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <div class="profile-image">
+        <div style="background-image: url('assets/LIV_logo_White.png');" [ngStyle]="{'background-image': 'url(' + userPhotoURL + ')'}" class="img-container" (click)="onChengePhotoClick()"></div>
+      </div>
+      <ion-title (click)="openMyProfilePage()" menuClose>{{userName}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+        <ion-item class="item-icon-left ion-item" *ngFor="let p of pages" (click)="openPage(p)" menuClose>
+          <ion-icon [name]="p.icon" item-left></ion-icon>{{p.title}}</ion-item>
+
+      <!-- <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button> -->
+    </ion-list>
+  </ion-content> 
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

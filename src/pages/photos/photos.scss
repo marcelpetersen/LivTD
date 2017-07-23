@@ -1,0 +1,484 @@
+// page-list {
+
+// }
+
+page-photos {
+  .image-newsfeed-col {
+    padding: 0 0 1px 0;
+  }
+  .card-ios,
+  .card-md,
+  .card-wp {
+    margin: 0;
+    width: 100%;
+  }
+  .item-ios,
+  .item-md,
+  .item-wp {
+    height: 45px;
+  }
+  .card-ios .item-ios ion-avatar[item-left], .item-ios ion-thumbnail[item-left],
+  .card-md .item-md ion-avatar[item-left], .item-md ion-thumbnail[item-left],
+  .card-wp .item-wp ion-avatar[item-left], .item-wp ion-thumbnail[item-left] {
+    margin: 0 15px 0 0;
+  }
+  .item-ios ion-avatar ion-img, .item-ios ion-avatar img,
+  .item-md ion-avatar ion-img, .item-md ion-avatar img,
+  .item-wp ion-avatar ion-img, .item-wp ion-avatar img {
+    border-width: 1px;
+    border-color: rgb( 214, 214, 214 );
+    border-style: solid;
+  }
+
+  .item-ios ion-avatar[item-left], .item-ios ion-thumbnail[item-left],
+  .item-md ion-avatar[item-left], .item-md ion-thumbnail[item-left],
+  .item-wp ion-avatar[item-left], .item-wp ion-thumbnail[item-left] {
+    margin: 5px 10px 5px 5px;
+  }
+
+  .item-ios ion-avatar[item-left] ion-icon.ion-ios-photo_folder,
+  .item-md ion-avatar[item-left] ion-icon.ion-md-photo_folder,
+  .item-wp ion-avatar[item-left] ion-icon.ion-wp-photo_folder {
+    font-size: 3.2rem;
+    line-height: 4.2rem;
+    min-width: 45px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 40px;
+    background-size: 28px;
+    background-image: url(../assets/img/folder.png);
+  }
+  .item-ios.item-block .item-inner,
+  .item-md.item-block .item-inner,
+  .item-wp.item-block .item-inner {
+    border: none;
+  }
+  .photo-name {
+    color: #acacac;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .photo-date {
+    color: #acacac;
+    margin: 0;
+    font-size: 12px;
+  }
+  .photo-onlydate {
+    color: #acacac;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .footercard {
+    height: auto;
+    padding-left: 0;
+    & .comments-full-area-class {
+      display: block;
+      //display: none;
+      width: 100%;
+      & .comments-area-class {
+        width: 100%;
+        padding-bottom: 30px;
+        color: #a7a7a8;
+        & .span-title-comments {
+          padding-left: 20px;
+          font-weight: 600;
+        }
+        & .col {
+          padding-bottom: 0;
+        }
+      }
+      & .comments-area-write {
+        width: 100%;
+        & .row {
+            border-bottom: 1px solid #c3c3c3;
+            border-top: 1px solid #c3c3c3;
+            margin-left: 10px;
+            margin-right: 10px;
+            & .text-input {
+              margin: 7px 8px 7px 0;
+              padding-left: 5px;
+            }
+            & .button {
+              margin: 0;
+            }
+        }
+        & .icon-send {
+          color: #1faf94;
+        }
+      }
+      & .comments-area-warning {
+          text-align: center;
+          width: 100%;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 10px;
+          padding-right: 5px;
+          & p {
+            color: #c3c3c3;
+            font-size: 13px;
+          }
+      }
+    }
+  }
+  .footercard button {
+    height: 32px;
+    padding: 4px;
+    & span {
+      color: #a7a7a8;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+  .footercard button ion-icon {
+    font-size: 2em;
+    color: rgb( 167, 167, 168 );
+    font-size: 3.2rem;
+    line-height: 4.2rem;
+    min-width: 45px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 40px;
+    background-size: 20px;
+  }
+  .footercard button ion-icon.ion-ios-photo_like,
+  .footercard button ion-icon.ion-md-photo_like,
+  .footercard button ion-icon.ion-wp-photo_like {
+    background-image: url(../assets/img/photo_like.png);
+  }
+  .footercard button ion-icon.ion-ios-photo_comment,
+  .footercard button ion-icon.ion-md-photo_comment,
+  .footercard button ion-icon.ion-wp-photo_comment {
+    background-image: url(../assets/img/photo_comment.png);
+  }
+  .footercard button ion-icon.ion-ios-photo_download,
+  .footercard button ion-icon.ion-md-photo_download,
+  .footercard button ion-icon.ion-wp-photo_download {
+    background-image: url(../assets/img/photo_download.png);
+  }
+
+  .heading-album {
+    height: 45px;
+  }
+
+  .heading-album-item {
+    background-color: #0f0f0f;
+  }
+
+  .folder-icon {
+    font-size: 28px;
+    color: rgb( 23, 151, 116 );
+    position:relative;
+    top: calc(50% - 14px);
+  }
+
+  .album-name {
+    color: #fff;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .album-date {
+    color: #fff;
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .album-onlydate {
+    color: #acacac;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .image-thumb-col {
+    padding-top: 1px;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-bottom: 1px;
+  }
+
+  .image-thumb {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .button-ios.add-to-calendar,
+  .button-md.add-to-calendar,
+  .button-wp.add-to-calendar {
+    height: 2.6rem;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .toolbar-ios {
+    padding: 0;
+  }
+
+  ion-list {
+    width: 100%;
+    & ion-item.item-ios.item-block {
+      padding-left: 0px;
+      padding-right: 0px;
+      margin-top: 10px;
+      & .item-inner {
+        padding-right: 0;
+        & .label-ios {
+          margin: 0;
+          & .item-heading {
+            height: 5rem;
+            color: #fff;
+          }
+        }
+      }
+    }
+    & ion-item.item-md.item-block {
+      padding-left: 0px;
+      padding-right: 0px;
+      margin-top: 10px;
+      & .item-inner {
+        padding-right: 0;
+        & .label-md {
+          margin: 0;
+          & .item-heading {
+            height: 5rem;
+            color: #fff;
+          }
+        }
+      }
+    }
+    & ion-item.item-wp.item-block {
+      padding-left: 0px;
+      padding-right: 0px;
+      margin-top: 10px;
+      & .item-inner {
+        padding-right: 0;
+        & .label-wp {
+          margin: 0;
+          & .item-heading {
+            height: 5rem;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  // .toolbar-ios ion-title,
+  // .toolbar-md ion-title,
+  // .toolbar-wp ion-title {
+  //   position: absolute;
+  //   bottom: 10px;
+  //   left: 0;
+  //   right: 0;
+  //   top: auto;
+  //   height: auto;
+  // }
+
+  // .segment-md .segment-button {
+  //   height: 4.2rem;
+  // }
+
+  // .toolbar-ios .segment-button,
+  // .toolbar-md .segment-button,
+  // .toolbar-wp .segment-button {
+  //   max-width: none;
+  // }
+
+  // .toolbar-ios .segment-button ion-icon,
+  // .toolbar-md .segment-button ion-icon,
+  // .toolbar-wp .segment-button ion-icon {
+  //   font-size: 3.2rem;
+  //   line-height: 4.2rem;
+  //   min-width: 45px;
+  //   width: 100%;
+  //   background-repeat: no-repeat;
+  //   background-position: center center;
+  //   height: 40px;
+  //   background-size: 22px;
+  // }
+  // .toolbar-ios .segment-button ion-icon {
+  //   &.ion-ios-photo_newsfeed {
+  //     background-image: url(../assets/img/photo_newsfeed.png);
+  //   }
+  //   &.ion-ios-photo_tiles {
+  //     background-image: url(../assets/img/photo_tiles.png);
+  //   }
+  //   &.ion-ios-photo_featured {
+  //     background-image: url(../assets/img/photo_featured.png);
+  //   }
+  // }
+  // .toolbar-md .segment-button ion-icon {
+  //   &.ion-md-photo_newsfeed {
+  //     background-image: url(../assets/img/photo_newsfeed.png);
+  //   }
+  //   &.ion-md-photo_tiles {
+  //     background-image: url(../assets/img/photo_tiles.png);
+  //   }
+  //   &.ion-md-photo_featured {
+  //     background-image: url(../assets/img/photo_featured.png);
+  //   }
+  // }
+  // .toolbar-wp .segment-button ion-icon {
+  //   &.ion-wp-photo_newsfeed {
+  //     background-image: url(../assets/img/photo_newsfeed.png);
+  //   }
+  //   &.ion-wp-photo_tiles {
+  //     background-image: url(../assets/img/photo_tiles.png);
+  //   }
+  //   &.ion-wp-photo_featured {
+  //     background-image: url(../assets/img/photo_featured.png);
+  //   }
+  // }
+  // .toolbar-ios .segment-button.segment-activated ion-icon {
+  //   &.ion-ios-photo_newsfeed {
+  //     background-image: url(../assets/img/photo_newsfeed_active.png);
+  //   }
+  //   &.ion-ios-photo_tiles {
+  //     background-image: url(../assets/img/photo_tiles_active.png);
+  //   }
+  //   &.ion-ios-photo_featured {
+  //     background-image: url(../assets/img/photo_featured_active.png);
+  //   }
+  // }
+  // .toolbar-md .segment-button.segment-activated ion-icon {
+  //   &.ion-md-photo_newsfeed {
+  //     background-image: url(../assets/img/photo_newsfeed_active.png);
+  //   }
+  //   &.ion-md-photo_tiles {
+  //     background-image: url(../assets/img/photo_tiles_active.png);
+  //   }
+  //   &.ion-md-photo_featured {
+  //     background-image: url(../assets/img/photo_featured_active.png);
+  //   }
+  // }
+  // .toolbar-wp .segment-button.segment-activated ion-icon {
+  //   &.ion-wp-photo_newsfeed {
+  //     background-image: url(../assets/img/photo_newsfeed_active.png);
+  //   }
+  //   &.ion-wp-photo_tiles {
+  //     background-image: url(../assets/img/photo_tiles_active.png);
+  //   }
+  //   &.ion-wp-photo_featured {
+  //     background-image: url(../assets/img/photo_featured_active.png);
+  //   }
+  // }
+
+  // .toolbar-content-ios,
+  // .toolbar-content-md,
+  // .toolbar-content-wp {
+  //   position: absolute;
+  //   width: 100%;
+  //   bottom: 0;
+  //   left: 0;
+  //   right: 0;
+  //   top: auto;
+  // }
+  // .toolbar-title-md,
+  // .toolbar-title-wp {
+  //   text-align: center;
+  // }
+  // .background-blue {
+  //   background-color: rgb( 40, 203, 186 );
+  //   height: 4.2rem;
+  // }
+  // .segment-ios .segment-button,
+  // .segment-md .segment-button,
+  // .segment-wp .segment-button {
+  //   color: rgb( 23, 151, 116 );
+  //   height: 4.2rem;
+  //   &.segment-activated {
+  //     color: #fff;
+  //   }
+  // }
+
+  // .header-span-segment {
+  //   position: absolute;
+  //   bottom: 52px;
+  //   color: #fff;
+  //   font-size: 2.2rem;
+  //   font-weight: 600;
+  //   text-align: center;
+  //   width: 100%;
+  // }
+
+  .grid {
+    padding: 0;
+  }
+
+  .item-ios p, .item-md p, .item-wp p {
+    &.font-size-18 {
+      color: #fff;
+      font-size: 18px;
+      padding-left: 25px;
+    }
+    &.font-size-11 {
+      color: #fff;
+      font-size: 11px;
+      padding-left: 25px;
+    }
+  }
+
+  .dayString, .subject, .timePhoto {
+    font-size: 18px;
+    line-height: 4rem;
+  }
+  .subject, .timePhoto {
+    color: #000;
+  }
+  .heading, .subheading, .timeEvents {
+    font-size: 16px;
+    line-height: 1.4rem;
+    color: rgb( 28, 167, 137 );
+  }
+
+  .timePhoto, .timeEvents {
+    padding-left: 25px;
+  }
+
+  .padding-5-25 {
+    padding: 5px 25px;
+  }
+
+  .item-subject.row {
+    border-top: 1px solid rgb( 147, 147, 147 );
+  }
+
+  .desc {
+    color: rgb( 116, 116, 118 );
+  }
+
+  .item-event {
+    border-top: 1px solid #939393;
+    padding: 10px 0 0 0;
+    & .row {
+      white-space: normal;
+    }
+  }
+
+  // ion-list {
+  //   ion-item {
+  //     background-color: transparent;
+  //     padding-left: 0;
+  //     position: relative;
+  //    //  & div{
+	 //    // white-space: normal;
+  //    //  }
+  //   }
+  //   ion-label {
+  //     div {
+  //       text-transform: none;
+  //       font-size: 0.8em;
+  //       padding: 1em 0;
+  //       white-space: normal;
+  //       text-align: justify;
+  //     }
+  //   }
+  // }
+}

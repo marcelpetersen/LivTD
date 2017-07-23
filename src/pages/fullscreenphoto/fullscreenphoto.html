@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+    <ion-buttons start>
+      <button ion-button clear (click)="closeModal()">
+          <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ion-card>
+    <ks-swiper-container [options]="example1SwipeOptions">
+      <ks-swiper-slide *ngFor="let image of images">
+        <img src="{{image.url}}" />
+      </ks-swiper-slide>
+    </ks-swiper-container>
+ </ion-card>
+</ion-content>

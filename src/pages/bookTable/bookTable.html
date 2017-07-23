@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Book a Table</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="table-content no-scroll">
+	<div class="img-book-table">
+		<img src="assets/S92lFOdYRHu83FzBZWLT_LIVgirl.jpg">
+	</div>
+
+	<form class="table-form">
+
+  		<ion-list>
+
+			<ion-item>
+			  <ion-label class="top-input">Date</ion-label>
+			  <ion-datetime displayFormat="MM/DD/YYYY" placeholder="MM/DD/YYYY"></ion-datetime>
+			</ion-item>
+
+		    <ion-item>
+		      <ion-label class="top-input">Females</ion-label>
+		      <ion-select>
+			    <ion-option value="0">0</ion-option>
+			    <ion-option value="1">1</ion-option>
+			    <ion-option value="2">2</ion-option>
+			    <ion-option value="3">3</ion-option>
+			    <ion-option value="4">4</ion-option>
+			    <ion-option value="5">5</ion-option>
+			    <ion-option value="6">6</ion-option>
+			    <ion-option value="7">7</ion-option>
+			    <ion-option value="8">8</ion-option>
+			    <ion-option value="9+">9+</ion-option>
+			  </ion-select>
+		    </ion-item>
+
+		    <ion-item>
+		      <ion-label class="top-input">Males</ion-label>
+		      <ion-select>
+			    <ion-option value="0">0</ion-option>
+			    <ion-option value="1">1</ion-option>
+			    <ion-option value="2">2</ion-option>
+			    <ion-option value="3">3</ion-option>
+			    <ion-option value="4">4</ion-option>
+			    <ion-option value="5">5</ion-option>
+			    <ion-option value="6">6</ion-option>
+			    <ion-option value="7">7</ion-option>
+			    <ion-option value="8">8</ion-option>
+			    <ion-option value="9+">9+</ion-option>
+			  </ion-select>
+		    </ion-item>
+
+		    <ion-item>
+		      <ion-label class="top-input">Phone Number</ion-label>
+		       <ion-input [textMask]="{mask: mask}" placeholder="(XXX) XXX XXXX"></ion-input>
+		    </ion-item>
+
+		    <ion-item>
+		      <ion-label class="top-input">Email</ion-label>
+		       <ion-input type="email" placeholder="example@example.com"></ion-input>
+		    </ion-item>
+
+			<button ion-button class="button button-calm button-block" type="submit" color="#000000">Submit</button>         
+ 		 </ion-list>
+	</form>
+</ion-content>

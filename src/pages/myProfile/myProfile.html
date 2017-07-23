@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-buttons start  style="order: 1 !important;">
+      <button ion-button menuToggle *ngIf="!isEdit">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <button start *ngIf="isEdit" ion-button clear (click)="cancelChanges()">
+          Cancel
+      </button>
+    </ion-buttons>
+
+    <ion-title>My Profile</ion-title>
+
+    <ion-buttons end >
+      <button *ngIf="!isEdit " ion-button clear (click)="editProfile()">
+          Edit
+      </button>
+      <button *ngIf="isEdit " ion-button clear (click)="saveProfile()">
+          Done
+      </button>
+    </ion-buttons>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="profile-content no-scroll">
+<form class="list" [formGroup]="profileForm"  novalidate>
+
+  <div class="profile-image">
+    <div [ngStyle]="{'background-image': 'url(' + userPhoto + ')'}" class="img-container" (click)="onChengePhotoClick()"></div>
+  </div>
+  <h4 class="title-name">{{userData.displayName}}</h4>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-icon name="ios-person" item-left></ion-icon>
+      <ion-input formControlName="name"  [disabled]="!isEdit" placeholder="Name"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!profileForm.controls.name.valid&&profileForm.controls.name.dirty&&isEdit">
+        <p style="color: red;"> Please, enter the correct name</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="ios-mail" item-left></ion-icon>
+      <ion-input formControlName="email" [disabled]="!isEdit" type="email" placeholder="example@example.com"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!profileForm.controls.email.valid&&profileForm.controls.email.dirty&&isEdit">
+      <p style="color: red;"> Please, enter the correct email</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="ios-call" item-left></ion-icon>
+      <ion-input [textMask]="{mask: mask}" [disabled]="!isEdit" formControlName="phoneNumber" placeholder="(XXX) XXX XXXX"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="ios-calendar" item-left></ion-icon>
+       <ion-label> {{userData.dob | date: 'MM/dd/yyyy' }} </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="ios-pin" item-left></ion-icon>
+       <ion-input [disabled]="!isEdit"  formControlName="zipCode" placeholder="XXXXXX"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="ios-musical-notes" item-left></ion-icon>
+       <ion-label (click)="onMusicPreferenceClick()" >Music Preference</ion-label>
+    </ion-item>
+
+    <button ion-button class="button button-assertive button-block" type="submit" (click)="logOutUser()">Log Out</button>          
+  </ion-list>
+</form>
+  
+</ion-content>

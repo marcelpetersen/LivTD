@@ -1,0 +1,19 @@
+page-tabhome {
+	.swiper-container {
+	    background-color: #0f0f0f;
+	}
+  	.card-ios, .card-md, .card-wp {
+	    -webkit-box-shadow: none;
+	    box-shadow: none;
+	    position: fixed;
+	    top: 50%;
+	    transform: translateY(-50%);
+	}
+	.scroll-content {
+		padding: 0 !important;
+	}
+	.swiper-slide {
+		background-size: cover;
+	    background-position: center center;
+	}
+}
