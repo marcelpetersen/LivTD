@@ -34,21 +34,21 @@
 
   <ion-list>
 
+    <div>
+      <p *ngIf="!isNameValid" style="color: red;"> Invalid name</p>
+      <p *ngIf="!isEmailValid" style="color: red;"> Invalid email</p>
+    </div>
     <ion-item>
       <ion-icon name="ios-person" item-left></ion-icon>
       <ion-input formControlName="name"  [disabled]="!isEdit" placeholder="Name"></ion-input>
     </ion-item>
-    <ion-item *ngIf="!profileForm.controls.name.valid&&profileForm.controls.name.dirty&&isEdit">
-        <p style="color: red;"> Please, enter the correct name</p>
-    </ion-item>
+   
 
     <ion-item>
       <ion-icon name="ios-mail" item-left></ion-icon>
       <ion-input formControlName="email" [disabled]="!isEdit" type="email" placeholder="example@example.com"></ion-input>
     </ion-item>
-    <ion-item *ngIf="!profileForm.controls.email.valid&&profileForm.controls.email.dirty&&isEdit">
-      <p style="color: red;"> Please, enter the correct email</p>
-    </ion-item>
+    
 
     <ion-item>
       <ion-icon name="ios-call" item-left></ion-icon>
@@ -70,7 +70,7 @@
        <ion-label (click)="onMusicPreferenceClick()" >Music Preference</ion-label>
     </ion-item>
 
-    <button ion-button class="button button-assertive button-block" type="submit" (click)="logOutUser()">Log Out</button>          
+    <button ion-button class="button button-assertive button-block"  (click)="logOutUser()">Log Out</button>          
   </ion-list>
 </form>
   

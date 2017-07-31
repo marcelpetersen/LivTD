@@ -7,57 +7,40 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content (ionScroll)="scrollHandler($event)">
+     <div class="up-button" (click) = "scrollToTop()">
+		<ion-icon name="ios-arrow-up" item-left></ion-icon>
+	</div>
+
 	<ion-grid class="livtv-grid">
-	    <ion-row>
-	        <ion-col>
-	        	<ion-searchbar placeholder="Search Videos..."></ion-searchbar>
-	        </ion-col>
-	  	</ion-row>
-	    <ion-row>
-	        <ion-col>
-				<div class="video-container">
-					<iframe src="https://www.youtube.com/embed/eGgWfNnLVYw?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0" frameborder="0" allowfullscreen></iframe>
-				</div>
-	        </ion-col>
-	  	</ion-row>
-	    <ion-row>
-	        <ion-col>
-				<h4 id="lIVTV-heading9" style="color:#FFFFFF;">Miami Music Week 2017</h4>
-			    <div id="lIVTV-markdown11" class="show-list-numbers-and-dots">
-			      <p style="color:#FFFFFF;">Miami Music Week 2017 at LIV Miami featuring Cedric Gervais, NGHTMRE, Martin Garrix, Tiesto, David Guetta and many more..! Until next year! </p>
-			    </div>
-	        </ion-col>
-	  	</ion-row>
+		<ion-row class="search-row">
+	       <form (ngSubmit)="onSearchClick()" style="width: 100%">
+    		<ion-searchbar  (ionInput)="onInput($event)" [ngModelOptions]="{standalone: true}"  [(ngModel)]="searchInput" placeholder="Search Videos..." ></ion-searchbar>
+    		</form>
+  		</ion-row>
+	  	<div *ngFor="let video of videos">
 	    <ion-row>
 	        <ion-col>
 				<div class="video-container">
-					<iframe src="https://www.youtube.com/embed/pw5d-5sjp6k?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0" frameborder="0" allowfullscreen></iframe>
+					<img class="play-youtube-video" src="assets/play-youtube.png" (click)="openVideo(video.id)">
+					<img [src]="video.img" (click)="openVideo(video.id)">
+					<!-- <iframe [src]="video.url | safe " frameborder="0" allowfullscreen></iframe> -->
 				</div>
-	        </ion-col>
+	        </ion-col>	
 	  	</ion-row>
 	    <ion-row>
 	        <ion-col>
-				<h4 id="lIVTV-heading8" style="color:#FFFFFF;">Skrillex New Year's Eve 2017</h4>
-			    <div id="lIVTV-markdown10" class="show-list-numbers-and-dots">
-			      <p style="color:#FFFFFF;">LIV Presents: SKRILLEX New Year's Eve 2017, Sat. December 31st. Sponsored By: Don Julio</p>
+				<p class="title-video">{{video.title}}</p>
+			    <div class="show-list-numbers-and-dots">
+			      <p class="description-video">{{video.description}}</p>
 			    </div>
 	        </ion-col>
 	  	</ion-row>
-	    <ion-row>
-	        <ion-col>
-				<div class="video-container">
-					<iframe src="https://www.youtube.com/embed/gM4NfrUhq0A?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0" frameborder="0" allowfullscreen></iframe>
-				</div>
-	        </ion-col>
-	  	</ion-row>
-	    <ion-row>
-	        <ion-col>
-				<h4 id="lIVTV-heading10" style="color:#FFFFFF;">Moet &amp; Chandon 'Bright Night Magnum' Launch Featuring ASAP FERG and DJ WHOO KID</h4>
-			    <div id="lIVTV-markdown12" class="show-list-numbers-and-dots">
-			      <p style="color:#FFFFFF;">Only at LIV</p>
-			    </div>
-	        </ion-col>
-	  	</ion-row>
+	  	</div>   
 	</ion-grid>
+
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+ </ion-infinite-scroll>
 </ion-content>
+<!-- (ionInput)="onInput($event)" -->

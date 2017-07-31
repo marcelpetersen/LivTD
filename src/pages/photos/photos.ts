@@ -5,8 +5,7 @@ import { FullscreenphotoPage } from '../fullscreenphoto/fullscreenphoto';
 
 import { FacebookService } from '../../providers/facebookService';
 import { AlertProvider } from '../../providers/alert';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map'
+
 
 
 @Component({
@@ -17,91 +16,95 @@ export class PhotosPage {
 
   albums: Array<any>;
   images: Array<any>;
+  endOfAlbumList: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public fbService : FacebookService, public loader : AlertProvider) {
 	  this.albums = [];
 
-	  this.images = [];
+	  this.loader.presentLoadingCustom();
 
-	  this.fbService.getAlbums().then(() => {
-		  this.fbService.getAlbumPhoto(25).then((data: any) => {
-			  console.log('DATA:');
-			  console.log(data);
-			  if (!data.isEnd) {
-				  this.addNewAlbum(data.album);
-				  this.addNewPhotos(data.photos);
-			  }
-		  });
-	  })
+	  this.loadAlbums().then(() => this.loader.dismissLoadingCustom());
+	 
   }
 
-  showFullPhoto(images, image) {
-    let modal = this.modalCtrl.create(FullscreenphotoPage, {images: images, image : image});
-    modal.present();
+  showFullPhoto(album:any) {
+  	this.navCtrl.push(FullscreenphotoPage,{
+  		selectedAlbum : album
+  	});
+    // let modal = this.modalCtrl.create(FullscreenphotoPage, {images: images, image : image});
+    // modal.present();
   }
 
-  addNewAlbum(albumData:any) {
-  	let newAlbum = {
-			"id": albumData.id,
-			"name" : albumData.name,
-			"created_at": albumData.created_time
+  addNewAlbums(data:any) {
+  	for(let album of data) {
+  		let presentedAlbum = {
+				coverURL: album.picture.data.url,
+				name:album.name,
+				photoCount: album.photo_count,
+				id : album.id,
+				createdTime: album.created_time
+  		}
+  		if (!this.albums.some(element => element.id === presentedAlbum.id)) {
+			this.albums.push(presentedAlbum);
+  		}
+		
   	}
-		if (!this.containAlbum(newAlbum))
-			this.albums.push(newAlbum);
   }
 
-  addNewPhotos(photosData: any) {
-
-	for(let data of photosData){
-		var newPhoto = {
-			"url": data.source,
-			"url_mini": data.picture,
-			"name" : "",//TODO
-			"album_id" : data.album.id,
-			"created_at": data.created_time
-		}
-		this.images.push(newPhoto);
-	}
-  }
-
-  containAlbum(newAlbum:any):boolean {
-	for (let album of this.albums)
-		if (album.id === newAlbum.id)
-			return true;
-	return false;
-  }
+ loadAlbums():Promise<any> {
+	return this.fbService.getAlbums().then((data: any) => {
+		this.addNewAlbums(data.data);
+		if (data.isEnd)			
+			this.endOfAlbumList = data.isEnd;
+	 });
+ }
 
   doInfinite(infiniteScroll: any) {
-	  this.fbService.getAlbumPhoto(25).then((data: any) => {
-		  if (!data.isEnd) {
-			  this.addNewAlbum(data.album);
-			  this.addNewPhotos(data.photos);
-		  }
-		  infiniteScroll.complete();
-	  });
+	  console.log("doInfinite");
+	 	if(!this.endOfAlbumList){			
+			this.loadAlbums().then(() => infiniteScroll.complete());			
+	 	} else 
+		  	infiniteScroll.complete();
   }
 
- // {"id": 1, "name": "Day of Knowledge", "created_at": "1488851976362"},
-      // {"id": 2, "name": "", "created_at": "1488851976362"},
-
-  // {"url": "http://www.hdwallpapers.in/walls/for_honor_tournament_4k_8k-wide.jpg", "url_mini": "assets/img/photos/1_mini.png", "name": "Walk in the park", "album_id": 1, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/minions_2017_4k_8k-wide.jpg", "url_mini": "assets/img/photos/2_mini.png", "name": "Photo name 1", "album_id": 1, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/despicable_me_3_minions_4k_8k-wide.jpg", "url_mini": "assets/img/photos/3_mini.png", "name": "Photo name 2", "album_id": 1, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/powerful_megaflares_4k_8k-wide.jpg", "url_mini": "assets/img/photos/3_mini.png", "name": "Photo name 3", "album_id": 1, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/minions_4k_8k-HD.jpg", "url_mini": "assets/img/photos/5_mini.png", "name": "Photo name 4", "album_id": 1, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/for_honor_tournament_4k_8k-wide.jpg", "url_mini": "assets/img/photos/6_mini.png", "name": "Photo name 5", "album_id": 1, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/despicable_me_3_minions_4k_8k-wide.jpg", "url_mini": "assets/img/photos/1_mini.png", "name": "Photo name 6", "album_id": 2, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/minions_4k_8k-HD.jpg", "url_mini": "assets/img/photos/1_mini.png", "name": "Walk in the park", "album_id": 1, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/despicable_me_3_minions_4k_8k-wide.jpg", "url_mini": "assets/img/photos/2_mini.png", "name": "Photo name 1", "album_id": 1, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/minions_4k_8k-HD.jpg", "url_mini": "assets/img/photos/2_mini.png", "name": "Photo name 7", "album_id": 2, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/for_honor_tournament_4k_8k-wide.jpg", "url_mini": "assets/img/photos/3_mini.png", "name": "Photo name 8", "album_id": 2, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/for_honor_tournament_4k_8k-wide.jpg", "url_mini": "assets/img/photos/4_mini.png", "name": "Photo name 9", "album_id": 2, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/minions_4k_8k-HD.jpg", "url_mini": "assets/img/photos/5_mini.png", "name": "Photo name 10", "album_id": 2, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/for_honor_tournament_4k_8k-wide.jpg", "url_mini": "assets/img/photos/6_mini.png", "name": "Photo name 11", "album_id": 2, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/despicable_me_3_minions_4k_8k-wide.jpg", "url_mini": "assets/img/photos/2_mini.png", "name": "Photo name 1", "album_id": 1, "created_at": "1488851976362", "author_id": "1"},
-      // {"url": "http://www.hdwallpapers.in/walls/minions_4k_8k-HD.jpg", "url_mini": "assets/img/photos/2_mini.png", "name": "Photo name 7", "album_id": 2, "created_at": "1488851976362", "author_id": "1"},
  
-	
-
 }
 
+// this.fbService.getAlbums().then(() => {
+// 	this.fbService.getAlbumPhoto(25).then((data: any) => {
+// 		console.log('DATA:');
+// 		console.log(data);
+// 		if (!data.isEnd) {
+// 			this.addNewAlbum(data.album);
+// 			this.addNewPhotos(data.photos);
+// 		}
+// 		this.loader.dismissLoadingCustom();
+// 	}).catch(() => {
+// 		this.loader.dismissLoadingCustom();
+// 	});
+// })
+
+
+// addNewAlbum(albumData:any) {
+// 	let newAlbum = {
+// 		"id": albumData.id,
+// 		"name": albumData.name,
+// 		"created_at": albumData.created_time
+// 	}
+// 	if (!this.albums.some(album => album.id === newAlbum.id))
+// 		this.albums.push(newAlbum);
+// }
+
+// addNewPhotos(photosData: any) {
+
+// 	for (let data of photosData) {
+// 		var newPhoto = {
+// 			"url": data.source,
+// 			"url_mini": data.picture,
+// 			"name": "",//TODO
+// 			"album_id": data.album.id,
+// 			"created_at": data.created_time
+// 		}
+// 		this.images.push(newPhoto);
+// 	}
+// }

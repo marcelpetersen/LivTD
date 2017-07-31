@@ -29,6 +29,17 @@ $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
 	color: white;
 	text-align: center;
 }
+
+ion-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 90px 1px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
 .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default,
 .bar-button-default-md, .bar-button-default.bar-button-md-default, .bar-button-clear-md-default {
 	color: white;
@@ -125,7 +136,7 @@ $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
 
 .alert-ios .alert-wrapper,
 .alert-md .alert-wrapper {
-	background-color: #fff;
+	background-color: rgba(255, 255, 255, 0.85);
     color: black;
 }
 .alert-ios .alert-radio-group, .alert-ios .alert-checkbox-group, .alert-md .alert-radio-group, .alert-md .alert-checkbox-group {
@@ -148,8 +159,4 @@ $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
 .loading-ios .loading-wrapper, .loading-md .loading-wrapper {
 	background: #1c1c1c !important;
     color: #fff !important;
-}
-
-.no-scroll .scroll-content{
-     overflow: hidden;
 }

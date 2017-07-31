@@ -20,8 +20,11 @@ import {MyProfilePage} from '../pages/myProfile/myProfile';
 import { Events } from 'ionic-angular';
 import { CameraProvider } from '../providers/camera';
 import { FirebaseProvider } from '../providers/firebaseProvider';
+import { AlertProvider } from '../providers/alert';
+import { InAppBrowserProvider } from '../providers/inAppBrowserProvider';
 
-import { InAppBrowserProvider } from '../providers/inAppBrowserProvider'
+import { EmojiPickerOptions } from 'angular2-emoji-picker';
+import { EmojiPickerAppleSheetLocator } from 'angular2-emoji-picker/lib-dist/sheets';
 
 
 @Component({
@@ -39,7 +42,8 @@ export class MyApp {
  
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public events: Events, 
-    public cameraProvider: CameraProvider, public firebaseProvider: FirebaseProvider, public browser : InAppBrowserProvider) {
+    public cameraProvider: CameraProvider, public firebaseProvider: FirebaseProvider, public browser : InAppBrowserProvider, public alertProvider : AlertProvider,
+    private emojiPickerOptions: EmojiPickerOptions) {
     
     this.initializeApp();   
     this.userName = "";
@@ -50,16 +54,16 @@ export class MyApp {
       { title: 'Upcoming Events', component: UpcomingEventsPage ,icon: "ios-calendar-outline"},
       { title: 'Buy Tickets', component: BuyTicketsPage, icon: 'ios-barcode-outline' },
       { title: 'Book a Table', component: BookTablePage, icon: 'md-wine' },
-      // { title: 'Fun', component: FunPage, icon: 'ios-heart-outline' },
+      { title: 'Fun', component: FunPage, icon: 'ios-heart-outline' },
       { title: 'Latest News', component: LatestNewsPage, icon: 'ios-redo' },
       { title: 'Photos', component: PhotosPage, icon: 'ios-images-outline' },
       { title: 'LIV TV', component: LivTVPage, icon: 'ios-videocam-outline' },
       { title: 'Shop', component: ShopPage, icon: 'md-basket' },
       { title: 'Hotel Reservations', component: HotelReservationsPage, icon: 'ios-alarm-outline' },
-      // { title: 'Contact', component: ContactPage, icon: 'ios-call' },
       { title: 'About', component: AboutPage, icon: 'ios-information-circle' },
       { title: 'My Profile', component: MyProfilePage, icon: 'ios-person' }
     ];
+
     /*const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         this.rootPage = LoginPage;
@@ -72,12 +76,20 @@ export class MyApp {
     events.subscribe('user:changed', (name, photoURL) => {
       this.userName = name;
       this.userPhotoURL = photoURL;
+      this.alertProvider.dismissLoadingCustom();  
     }); 
 
     events.subscribe('changedPhoto', (imageData, toUpload:boolean) => {
-      if (toUpload)
-        this.firebaseProvider.uploadPhoto(imageData);
-    }); 
+      if (toUpload){
+        this.alertProvider.presentLoadingCustom();
+        this.firebaseProvider.uploadUserPhoto(imageData);
+      }
+    });
+
+    this.emojiPickerOptions.setEmojiSheet({
+      url: '../../assets/sheets/sheet_apple_32.png',
+      locator: EmojiPickerAppleSheetLocator
+    });
   }
 
   initializeApp() {
@@ -96,7 +108,7 @@ export class MyApp {
        this.browser.openURL('https://www.tixr.com/groups/liv');
         break;
     case 'Buy Tickets':
-       this.browser.openURL('https://www.tixr.com/groups/liv');
+       this.browser.openURL('https://www.tixr.com/groups/story ');
         break;
     case 'Shop':
        this.browser.openURL('https://www.shopLIVmiami.com/');

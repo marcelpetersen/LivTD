@@ -1,3 +1,34 @@
-page-list {
-
+page-fun {
+	.list-ios, .list-md {
+		margin-top: 10px;
+		& .item-ios, .item-md {
+		    border: none;
+		    background-color: #0f0f0f;
+		    color: white;
+		    & ion-thumbnail img {
+		    	width: 80px;
+		    	height: 80px;
+		    }
+		    & h2 {
+		    	font-size: 1.5rem;
+		    	white-space: normal;
+		    }
+		    & p {
+		    	font-size: 1.3rem;
+		    }
+		    &.item-block .item-inner {
+		    	border: none !important;
+		    }
+		    & .item-button {
+	    	    font-size: 2.0rem;
+    			color: white;
+    			margin-right: 0;
+		    }
+		}
+	}
+	.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block,
+	.list-md > .item-block:last-child, .list-md > .item-wrapper:last-child .item-block,
+	.list-ios > .item-block:first-child, .list-md > .item-block:first-child {
+		border: none !important;
+	}
 }

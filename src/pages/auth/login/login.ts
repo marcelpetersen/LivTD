@@ -19,10 +19,11 @@ export class LoginPage {
 	
 	public loginForm : FormGroup;
 	public userPassword : string;
+  public errorMessage = null;
 
 	constructor(public navCtrl: NavController, public  firebaseProvider: FirebaseProvider, public formBuilder: FormBuilder,
   public alertProvider: AlertProvider, public modalCtrl: ModalController) {
-
+    this.userPassword = "";
 		this.loginForm = formBuilder.group({
           email: ['',Validators.compose([Validators.required,EmailValidator.isValid])],
           pswrd: ['', Validators.compose([Validators.required,Validators.minLength(6)])]       
@@ -30,14 +31,17 @@ export class LoginPage {
       );
 	}
 
-	signInUser():void{
+	signInUser():void {
+    this.errorMessage = null;
+    this.alertProvider.presentLoadingCustom();
 		this.firebaseProvider.loginUser(this.loginForm.value.email, this.userPassword).then(()=> {
+      this.alertProvider.dismissLoadingCustom();
   			this.navCtrl.setRoot(HomePage);
 		    }).catch((error:any) => {
             var errorMessage:string;
             switch (error.code) {
               case ("auth/invalid-email"):
-                errorMessage = "Invalid email";
+                errorMessage = "Please enter a valid e-mail";
                 break;
               case "auth/user-not-found":
               	errorMessage = "User not found";
@@ -49,7 +53,8 @@ export class LoginPage {
                 errorMessage = "Something went wrong";
                 break;
             }
-            this.alertProvider.presentAlertWithTittle(errorMessage);
+            this.alertProvider.dismissLoadingCustom();
+            this.errorMessage = errorMessage;
 		});
 	}
 
@@ -65,8 +70,11 @@ export class LoginPage {
 	}
 
 	onLogInWithFacebookClick():void {
+    this.errorMessage = null;
+    this.alertProvider.presentLoadingCustom();
 		this.firebaseProvider.logInUserWithFacebook().then(() => {
-        	console.log("Success facebook auth");       	
+        	console.log("Success facebook auth");
+          this.alertProvider.dismissLoadingCustom();       	
         	this.navCtrl.setRoot(HomePage);
 		}).catch((error: any) => {
 			    console.log("Failure facebook auth");
@@ -83,7 +91,8 @@ export class LoginPage {
                     errorMessage = "Something went wrong";
                     break;
             }
-          this.alertProvider.presentAlertWithTittle(errorMessage);
+          this.alertProvider.dismissLoadingCustom();
+          this.errorMessage = errorMessage;
 		});
 	}
 

@@ -39,6 +39,7 @@ import { StorageProvider } from '../providers/storage';
 import { CameraProvider } from '../providers/camera';
 import { AlertProvider } from '../providers/alert';
 import { FacebookService } from '../providers/facebookService';
+import { YouTubeService } from '../providers/youtubeService';
 import { Facebook } from '@ionic-native/facebook'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -47,8 +48,12 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { CallNumber } from '@ionic-native/call-number';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
-
+import { SafePipe } from '../providers/safePipe';
+import { EmojiPickerModule } from 'angular2-emoji-picker';
+import { PostmarkProvider } from '../providers/postmarkProvider'
 import  firebase from 'firebase';
+
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
  firebase.initializeApp({
       apiKey: "AIzaSyCGm_zj91dJXbel2VwqSSSWoOfyc1jERP8",
@@ -83,16 +88,20 @@ import  firebase from 'firebase';
     tabChatPage,
     ImageThumbGallery,
     GroupByPipe,
-    Safe
+    Safe,
+    SafePipe
   ],
   imports: [
     BrowserModule,
     KSSwiperModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: '',
+    }),
     TextMaskModule,
     IonicStorageModule.forRoot(),
     BrowserModule, 
-    HttpModule   
+    HttpModule,
+    EmojiPickerModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -119,6 +128,7 @@ import  firebase from 'firebase';
     UpcomingEventsPage
   ],
   providers: [
+    SafePipe,
     LaunchNavigator,
     FirebaseProvider,
     Clipboard,
@@ -126,6 +136,7 @@ import  firebase from 'firebase';
     EmailComposer,
     InAppBrowserProvider,   
     FacebookService,
+    YouTubeService,
     AlertProvider,
     CameraProvider,
     StorageProvider,
@@ -133,6 +144,8 @@ import  firebase from 'firebase';
     SplashScreen,
     Facebook,
     Camera,
+    YoutubeVideoPlayer,
+    PostmarkProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

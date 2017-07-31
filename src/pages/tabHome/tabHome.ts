@@ -1,6 +1,6 @@
 import { Component, ViewChild, AfterViewInit} from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
-import {KSSwiperContainer, KSSwiperSlide} from 'angular2-swiper';
+// import {KSSwiperContainer, KSSwiperSlide} from 'angular2-swiper';
 
 
 @Component({
@@ -8,9 +8,9 @@ import {KSSwiperContainer, KSSwiperSlide} from 'angular2-swiper';
   templateUrl: 'tabHome.html'
 })
 export class tabHomePage implements AfterViewInit{
-  @ViewChild(KSSwiperContainer) swiperContainer: KSSwiperContainer;
+  // @ViewChild(KSSwiperContainer) swiperContainer: KSSwiperContainer;
  images: any;
- swiperOptions: any;
+ // swiperOptions: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
    	this.images = Array(
@@ -19,14 +19,14 @@ export class tabHomePage implements AfterViewInit{
       {"urlPhoto": "assets/YO3b4z57TaaldEuA720P_lil-yachty-irie.jpg", "url": ""},
       {"urlPhoto": "assets/FCugJtlXRdSZ0ZcTSYuE_kevin-hart-irie-liv-on-sunday.jpg", "url": ""}
      );
-     this.swiperOptions = {
-      slidesPerView: 1,
-      loop: true,
-      // preloadImages: false,
-      // lazyLoading: true,
-      autoplay: 3000,
-      paginationIsActive: true,
-    };
+    //  this.swiperOptions = {
+    //   slidesPerView: 1,
+    //   loop: true,
+    //   // preloadImages: false,
+    //   // lazyLoading: true,
+    //   autoplay: 3000,
+    //   paginationIsActive: true,
+    // };
 
   }
 

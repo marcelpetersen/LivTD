@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { AlertProvider } from '../providers/alert';
 
 declare var cordova;
 
 @Injectable()
 export class InAppBrowserProvider {
 
-	constructor(public alertProvider: AlertProvider) {
+	constructor() {
 		// code...
 	}
 
 	openURL(url:string) {
-		this.alertProvider.presentLoadingCustom();
 
 		var ref = cordova.ThemeableBrowser.open(url, '_blank', {
-
+			statusbar: {
+				color: '#ffffffff'
+			},
 			toolbar: {
 				height: 56,
 				color: '#282828'
@@ -41,33 +41,21 @@ export class InAppBrowserProvider {
 				wwwImageDensity: 3,
 				align: 'left'
 			},
-			hidden: true,
-			"browserProgress": {
-	            "showProgress": true,
-	            "progressBgColor": "#016585",
-	            "progressColor": "#FFAA16"
-	        },
-            backButtonCanClose: false,
-            hardwareback: false,
-            shouldPauseOnSuspend: true
+			browserProgress: {
+				showProgress: true,
+				progressBgColor: '#282828',
+				progressColor: '#22ECFC'
+			},
+			disableAnimation: true
             
 		})
-		// .addEventListener('backPressed', function(e) {
-		//     console.log('backPressed');
-		// }).addEventListener('forwardPressed', function(e) {
-		//     console.log('forwardPressed');
-		// }).addEventListener('closePressed', function(e) {
-		//     ref.close();
-		// })
 
 		ref.addEventListener('loadstart', function() {
-    		
+
 		});
-		var loader_ = this.alertProvider;
+
 		ref.addEventListener('loadstop', function() {
-    		ref.show();
-    		console.log(loader_);
-    		loader_.dismissLoadingCustom();
+
 		});
 		ref.addEventListener('loaderror', function(params) {
     		var scriptErrorMesssage =

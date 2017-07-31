@@ -14,7 +14,7 @@ import { AlertProvider } from '../../../providers/alert';
 export class ResetPasswordPage {
 	
 	public resetForm : FormGroup;
-	
+	public errorMessage: string = null;
 	constructor(public viewController: ViewController, public  firebaseProvider: FirebaseProvider, public formBuilder: FormBuilder,
   public alertProvider: AlertProvider) {
 		this.resetForm = formBuilder.group({
@@ -24,8 +24,11 @@ export class ResetPasswordPage {
 	}
 
 	resetPassword():void {
+    this.errorMessage = null;
+    this.alertProvider.presentLoadingCustom();
 		this.firebaseProvider.resetPassword(this.resetForm.value.email).then(() => {
-  			this.alertProvider.presentAlertWithTittle("New passwor sent on your email");
+      this.alertProvider.presentAlertWithTittle("Reset instructions sent. Please check your e-mail.");
+        this.alertProvider.dismissLoadingCustom();
         this.viewController.dismiss().catch(() => console.log('not dismissed'));
 		    }).catch((error:any) => {
              var errorMessage:string;
@@ -40,7 +43,8 @@ export class ResetPasswordPage {
                   errorMessage = "Something went wrong";
                   break;
               }
-           this.alertProvider.presentAlertWithTittle(errorMessage);
+            this.alertProvider.dismissLoadingCustom();
+            this.errorMessage = errorMessage;
 		      });
 	}
 

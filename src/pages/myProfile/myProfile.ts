@@ -24,6 +24,9 @@ export class MyProfilePage {
   isEdit:boolean = false;
   public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
 
+  isNameValid: boolean = true;
+  isEmailValid: boolean = true;
+
   constructor(public navCtrl: NavController, public storageProvider: StorageProvider, public firebaseProvider: FirebaseProvider,
   public alertProvider: AlertProvider, public formBuilder: FormBuilder, public cameraProvider: CameraProvider, public events: Events) {
     
@@ -76,9 +79,12 @@ export class MyProfilePage {
   }
 
   logOutUser() {
-    this.firebaseProvider.logOutUser().then(() => {  
+    this.alertProvider.presentLoadingCustom();
+    this.firebaseProvider.logOutUser().then(() => {
+      this.alertProvider.dismissLoadingCustom();  
       this.navCtrl.setRoot(LoginPage);
     }).catch((error) => {
+        this.alertProvider.dismissLoadingCustom();
         console.log("MyProfilePage: logout error: " + error);
     })
   }
@@ -90,7 +96,10 @@ export class MyProfilePage {
   }
 
   saveProfile() {
-    if(this.profileForm.valid) {   
+    this.isNameValid = this.profileForm.controls.name.valid;
+    this.isEmailValid = this.profileForm.controls.email.valid;
+    if(this.profileForm.valid) { 
+      this.alertProvider.presentLoadingCustom();  
       this.isEdit = false;   
       var strObj = JSON.stringify(this.userData);
       var changedUserData = JSON.parse(strObj);
@@ -110,20 +119,20 @@ export class MyProfilePage {
                 this.alertProvider.presentAlertWithTittle('Failed to save email');
               });
         if (this.userPhoto !== this.userData.photoURL)
-          this.firebaseProvider.uploadPhoto(this.imageData);       
+        this.firebaseProvider.uploadUserPhoto(this.imageData);       
         this.userData = changedUserData;
         this.changedMusicPreference = null;
-        this.alertProvider.presentAlertWithTittle('Data saved!');      
+        this.alertProvider.presentAlertWithTittle('Data saved!');
+        this.alertProvider.dismissLoadingCustom();      
         this.setInputsData();
 
         }).catch((error:any) => {
+            this.alertProvider.dismissLoadingCustom();
             this.alertProvider.presentAlertWithTittle('Failed to save data');
             console.log(error);
          });
 
-    } else {
-      this.alertProvider.presentAlertWithTittle('Some inputs are invalid');
-      }
+    } 
   }
 
   onMusicPreferenceClick() {
@@ -172,9 +181,14 @@ export class MyProfilePage {
                   {
                     text: 'Ok',
                     handler: (data) => {
-                      if(this.isEdit)
+                      if(this.isEdit){
+                        this.changedMusicPreference.edm = false;
+                        this.changedMusicPreference.hipHop = false;
+                        this.changedMusicPreference.latin = false;
+                        this.changedMusicPreference.underground = false;
                         for(let i=0; i<data.length; i++ )
                           this.changedMusicPreference[data[i]] = true;
+                      }
                       }
                   }
                 ]
@@ -190,6 +204,8 @@ export class MyProfilePage {
   cancelChanges() {
     this.isEdit = false;
     this.changedMusicPreference = null;
+    this.isNameValid = true;
+    this.isEmailValid = true;
     this.setInputsData();
   }
 

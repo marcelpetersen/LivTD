@@ -1,1 +1,51 @@
-tabChat
+<ion-content>
+
+	<!-- <ion-scroll scrollX="false" scrollY="true" maxZoom="3" zoom="1" class="chat-scroll"> -->
+	<div class="chatLog">
+		<ion-grid class="chatLog" >
+			<div *ngFor="let message of messageStory; let last = last" (click)="onMessageClick(message)">
+				<p *ngIf="(message.recieverID === userID)">Reply to you</p>
+				<div *ngIf="!(message.senderID === userID)" class="chatRow to-me">
+					<div  class="chatPhoto">
+						<img width="35" height="35" [src]="message.photoURL">
+					</div>
+					<div class="chatMessage">
+						{{message.message}}
+						<img *ngIf="message.pictureURL " [src]="message.pictureURL">
+					</div>
+				</div>
+				<div *ngIf="(message.senderID === userID)" class="chatRow from-me">
+					<div class="chatMessage">
+						{{message.message}}
+						<img *ngIf="message.pictureURL " [src]="message.pictureURL">
+					</div>
+				</div>
+				{{last ? scrollFunction() : ''}}
+			</div>
+			
+		<!-- <div class="chatRow date-divider">
+			Monday, 10:40 am
+		</div> -->
+		</ion-grid>
+	</div>
+	<!-- </ion-scroll> -->
+
+	<div class="chatButtons">
+		<form (ngSubmit)="sendMessage()" class="chatTextarea" (emojiPickerCaretEmitter)="handleCurrentCaret($event)" contenteditable="true">
+			<ion-input class="chatInput" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}" placeholder="Say something..."></ion-input>
+		</form>
+		<div class="chatAddMedia">
+			<a (click)="uploadPhotoClick()"><img src="../assets/img/plus.png"></a>
+
+			<a><i class="emoji-toggle-button"
+				[attr.contenteditable]="contenteditable"
+    			(click)="toggled = !toggled"
+    			[(emojiPickerIf)]="toggled"
+    			[emojiPickerDirection]="'left' "
+    			[emojiPickerPreserveSelection]="true"
+    			[emojiPickerAutofocus]="true"
+    			(emojiPickerSelect)="handleSelection($event)"><img src="../assets/img/smile.png"></i>
+			</a>
+		</div>
+	</div>
+</ion-content>

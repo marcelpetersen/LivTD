@@ -8,7 +8,71 @@
 </ion-header>
 
 <ion-content no-bounce>
-  <ion-grid>
+
+  <ion-list>
+    <ion-item *ngFor="let album of albums" (click)="showFullPhoto(album)">
+      <ion-thumbnail item-start>
+          <img [src]="album.coverURL">
+        </ion-thumbnail>
+        <h2 light>{{album.name}}</h2>
+        <p style="white-space:normal;">{{album.photoCount}} photos</p>
+        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+    </ion-item>
+  </ion-list>
+
+   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+ </ion-infinite-scroll>
+</ion-content>
+
+    <!-- <ion-item (click)="showFullPhoto()">
+      <ion-thumbnail item-start>
+          <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
+        </ion-thumbnail>
+        <h2 light>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
+        <p style="white-space:normal;">300 photos</p>
+        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+    </ion-item>
+
+    <ion-item (click)="showFullPhoto()">
+      <ion-thumbnail item-start>
+          <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
+        </ion-thumbnail>
+        <h2 light>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
+        <p style="white-space:normal;">300 photos</p>
+        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+    </ion-item>
+
+    <ion-item (click)="showFullPhoto()">
+      <ion-thumbnail item-start>
+          <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
+        </ion-thumbnail>
+        <h2 light>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
+        <p style="white-space:normal;">300 photos</p>
+        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+    </ion-item>
+
+    <ion-item (click)="showFullPhoto()">
+      <ion-thumbnail item-start>
+          <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
+        </ion-thumbnail>
+        <h2 light>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
+        <p style="white-space:normal;">300 photos</p>
+        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+    </ion-item>
+
+    <ion-item (click)="showFullPhoto()">
+      <ion-thumbnail item-start>
+          <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
+        </ion-thumbnail>
+        <h2 light>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
+        <p style="white-space:normal;">300 photos</p>
+        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+    </ion-item> -->
+
+
+ 
+  <!-- <ion-grid>
     <div *ngFor="let album of albums">
       <ion-row class="heading-album">
         <ion-item class="heading-album-item">
@@ -29,6 +93,4 @@
   </ion-grid>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
    <ion-infinite-scroll-content></ion-infinite-scroll-content>
- </ion-infinite-scroll>
-</ion-content>
-
+ </ion-infinite-scroll> -->

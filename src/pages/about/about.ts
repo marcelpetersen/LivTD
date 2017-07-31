@@ -5,6 +5,7 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { CallNumber } from '@ionic-native/call-number';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { AlertProvider } from '../../providers/alert'
 
 declare var google;
 
@@ -18,12 +19,16 @@ export class AboutPage implements AfterViewInit {
   map: any;
   latLng: any;
   email: string = "events@LIVnightclub.com";
+  mediaEmail: string = "press@LIVnightclub.com";
   address: string = "4441 Collins Avenue Miami Beach, FL 33140";
   phone: string = "+1 305 674 4680";
+  lostItemPhone: string = "+1 305 674 4680";
+  officialPhone: string = "+1 305 674 4680";
   latitude: number = 25.817853;
   longitude: number = -80.122189;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, 
-	  public clipboard: Clipboard, public callNumber: CallNumber, private emailComposer: EmailComposer, private launchNavigator: LaunchNavigator) {
+	  public clipboard: Clipboard, public callNumber: CallNumber, private emailComposer: EmailComposer, private launchNavigator: LaunchNavigator, public alertProvider: AlertProvider) {
 
 	  this.latLng = new google.maps.LatLng(this.latitude, this.longitude);
   }	
@@ -38,14 +43,6 @@ export class AboutPage implements AfterViewInit {
 
 	this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-	
-	// this.map.addMarker({
-	// 	animation: google.maps.Animation.DROP,
-	// 	position: this.latLng,
-	// 	name : "LIV Miami",
-	// 	title : "LIV Miami",
-	// });
-
 	let marker = new google.maps.Marker({
 		map: this.map,
 		animation: google.maps.Animation.DROP,
@@ -54,22 +51,9 @@ export class AboutPage implements AfterViewInit {
 		optimized: false
 	});
 
-	/*let content = "<h3>LIV Miami</h3>";  
-	this.addInfoWindow(marker, content);*/
   }
 
-  /*addInfoWindow(marker, content) {
-
-	  let infoWindow = new google.maps.InfoWindow({
-		  content: content
-	  });
-
-	  google.maps.event.addListener(marker, 'click', () => {
-		infoWindow.open(this.map, marker);
-	  });
-
-  }*/
-
+ 
   ngAfterViewInit() {
 	  this.loadMap();
   }
@@ -88,6 +72,7 @@ export class AboutPage implements AfterViewInit {
 			text: "Copy Address",
 			handler: () => {
 				this.clipboard.copy(this.address);
+				this.alertProvider.presentCopyToast();
 				console.log("Copied");
 			}
 		}
@@ -97,17 +82,17 @@ export class AboutPage implements AfterViewInit {
 	addressAlert.present();
   }
 
-  onPhoneClick() {
-	  this.callNumber.callNumber(this.phone, true)
-		  .then(() => console.log('Launched dialer!'))
-		  .catch(() => console.log('Error launching dialer'));
+  onPhoneClick(phone) {
+    this.callNumber.callNumber(phone, true)
+	    .then(() => console.log('Launched dialer!'))
+	    .catch(() => console.log('Error launching dialer'));
   }
 
-  onEmailClick() {
-	let email = {
-		to: this.email,
+  onEmailClick(email) {
+	let emailMessage = {
+		to: email,
 	  };
-	this.emailComposer.open(email);
+	this.emailComposer.open(emailMessage);
   }
 
 }

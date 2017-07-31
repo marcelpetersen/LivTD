@@ -3,10 +3,57 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>Fun</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
- 
+	<ion-list>
+		
+		<ion-item>
+			<ion-thumbnail item-start>
+		      <img src="assets/WoUtHCy7TnyUaSDzoPTv_LIVemoji.jpg">
+		    </ion-thumbnail>
+		    <h2 light>Keyboard Emoji's</h2>
+		    <p style="white-space:normal;">Download your very own set of LIV keyboard emoji's</p>
+		    <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+		</ion-item>
+
+		<ion-item>
+			<ion-thumbnail item-start>
+		      <img src="assets/0KlffakqSRqGHTatl9T5_livlogo.jpg">
+		    </ion-thumbnail>
+		    <h2 light>LIV Light Stick</h2>
+		    <p style="white-space:normal;">Turn your mobile phone screen into an LED light stick</p>
+		    <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+		</ion-item>
+
+		<ion-item>
+			<ion-thumbnail item-start>
+		      <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
+		    </ion-thumbnail>
+		    <h2 light>Phone Wallpaper</h2>
+		    <p style="white-space:normal;">Download retina-ready wallpapers for your iPhone or Android</p>
+		    <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+		</ion-item>
+
+		<ion-item (click)="openLink('https://www.stanza.co/button/launch?calendar=https%3A%2F%2Fspoton.it%2Fschedules%2Flivmiami&amp;timeline=true#/')">
+			<ion-thumbnail item-start>
+		      <img src="assets/QwAVuPuTQNiJJ2fcMiBs_LIVevents.jpg">
+		    </ion-thumbnail>
+		    <h2 light>Events Calendar</h2>
+		    <p style="white-space:normal;">Sync upcoming events directly to your calendar. Never miss a beat!</p>
+		    <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+		</ion-item>
+
+		<ion-item (click)="openLink('https://itunes.apple.com/us/podcast/liv-podcast/id550537982?mt=2')">
+			<ion-thumbnail item-start>
+		      <img src="assets/RL85G1QXRKC3vdlJZ65u_LIVpodcast.jpg">
+		    </ion-thumbnail>
+		    <h2 light>LIV Podcast</h2>
+		    <p style="white-space:normal;">Subscribe to our official LIV Podcast hosted by resident DJ Mednas!</p>
+		    <button ion-button clear item-end><ion-icon name="ios-cloud-download-outline" item-left></ion-icon></button>
+		</ion-item>
+
+	</ion-list>
 </ion-content>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
+import { InAppBrowserProvider } from '../../providers/inAppBrowserProvider';
 
 
 @Component({
@@ -8,14 +8,9 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'fun.html'
 })
 export class FunPage {
- 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public browser : InAppBrowserProvider) {}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-   
-    }
-
-
-
-
-  
+  openLink(link) {
+    this.browser.openURL(link);
+  }
 }
