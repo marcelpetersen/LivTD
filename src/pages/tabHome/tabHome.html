@@ -1,10 +1,6 @@
-<ion-content no-bounce class="no-scroll">
-    <!-- <ks-swiper-container [options]="swiperOptions">
-      <ks-swiper-slide [ngStyle]="{'background-image': 'url(' + image.urlPhoto + ')'}" *ngFor="let image of images">
-      </ks-swiper-slide>
-    </ks-swiper-container> -->
+<ion-content class="no-scroll">
 
-    <ion-slides pager="true" paginationType='bullets' loop='true' autoplay='2500'>
-	  <ion-slide [ngStyle]="{'background-image': 'url(' + image.urlPhoto + ')'}" *ngFor="let image of images"></ion-slide>
+    <ion-slides *ngIf="images.length>0" pager="true" paginationType='bullets' loop='true' autoplay='2500'>
+	  <ion-slide [ngStyle]="{'background-image': 'url(' + image.coverURL + ')'}" *ngFor="let image of images" (click)="onEventClick(image)"></ion-slide>
 	</ion-slides>
 </ion-content>

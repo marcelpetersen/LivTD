@@ -3,6 +3,11 @@ page-login {
     border: 1px solid #ea6153;
   }
 
+  .item-input .label-md, .item-select .label-md, .item-datetime .label-md,
+  .item-input .label-ios, .item-select .label-ios, .item-datetime .label-ios {
+    color: #000;
+  }
+
   .login-content {
     background: url(https://s3.amazonaws.com/ionic-io-static/i5CxQkRSYaDOdTLgKiR3_12471867_977394868963092_4550193530738327890_o.jpg) no-repeat center;
     background-size:cover;
@@ -83,10 +88,11 @@ page-login {
     }
     .facebook-button {
       margin-top: 30px;
-      border: 1px solid white;
+      border: 1px solid #3b5998;
       border-radius: 4px;
       padding-bottom: 10px;
-      padding-top: 5px !important;
+      padding-top: 4px !important;
+      background: #3b5998;
       & .icon-facebook {
         font-size: 22px;
         margin-right: 10px;

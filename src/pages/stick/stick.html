@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="no-scroll">
+	<ion-slides *ngIf="gifs.length>0" pager="true" paginationType='bullets'>
+	  <ion-slide class="stick-div" [ngStyle]="{'background-image': 'url(' + stick.url + ')'}" *ngFor="let stick of gifs">
+	  </ion-slide>
+	</ion-slides>
+</ion-content>

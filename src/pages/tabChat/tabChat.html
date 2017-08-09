@@ -1,51 +1,81 @@
-<ion-content>
+<ion-content >
+	
+	<div class="relative">
+		<div class="chatLog">
 
-	<!-- <ion-scroll scrollX="false" scrollY="true" maxZoom="3" zoom="1" class="chat-scroll"> -->
-	<div class="chatLog">
-		<ion-grid class="chatLog" >
-			<div *ngFor="let message of messageStory; let last = last" (click)="onMessageClick(message)">
-				<p *ngIf="(message.recieverID === userID)">Reply to you</p>
-				<div *ngIf="!(message.senderID === userID)" class="chatRow to-me">
-					<div  class="chatPhoto">
-						<img width="35" height="35" [src]="message.photoURL">
-					</div>
-					<div class="chatMessage">
-						{{message.message}}
-						<img *ngIf="message.pictureURL " [src]="message.pictureURL">
+		
+			<ion-grid class="chatLog" >
+	<ion-infinite-scroll position="top" threshold="20%" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content>
+
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+				<div #sidebar *ngFor="let message of messageStory; let last = last" (press)="onMessagePress(message)">
+				    <div #task>
+				      	<!-- <p *ngIf="(message.recieverID === userID)">Reply to you</p> -->
+						<div *ngIf="!(message.senderID === userID)" class="chatRow to-me">
+							<div  class="chatPhoto">
+								<img width="35" height="35" [src]="chatUsers[message.senderID].photoURL" src="assets/default.png">
+							</div>
+							<div class="chatMessage">
+								{{message.message}}
+								<img *ngIf="message.pictureURL " [src]="message.pictureURL">
+							</div>
+						</div>
+						<div *ngIf="(message.senderID === userID)" class="chatRow from-me">
+							<div class="chatMessage">
+								{{message.message}}
+								<img *ngIf="message.pictureURL " [src]="message.pictureURL" src="assets/default.png">
+							</div>
+						</div>
+						{{last ? scrollFunction() : ''}}
 					</div>
 				</div>
-				<div *ngIf="(message.senderID === userID)" class="chatRow from-me">
-					<div class="chatMessage">
-						{{message.message}}
-						<img *ngIf="message.pictureURL " [src]="message.pictureURL">
-					</div>
-				</div>
-				{{last ? scrollFunction() : ''}}
-			</div>
-			
-		<!-- <div class="chatRow date-divider">
-			Monday, 10:40 am
-		</div> -->
-		</ion-grid>
-	</div>
-	<!-- </ion-scroll> -->
-
-	<div class="chatButtons">
-		<form (ngSubmit)="sendMessage()" class="chatTextarea" (emojiPickerCaretEmitter)="handleCurrentCaret($event)" contenteditable="true">
-			<ion-input class="chatInput" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}" placeholder="Say something..."></ion-input>
-		</form>
-		<div class="chatAddMedia">
-			<a (click)="uploadPhotoClick()"><img src="../assets/img/plus.png"></a>
-
-			<a><i class="emoji-toggle-button"
-				[attr.contenteditable]="contenteditable"
-    			(click)="toggled = !toggled"
-    			[(emojiPickerIf)]="toggled"
-    			[emojiPickerDirection]="'left' "
-    			[emojiPickerPreserveSelection]="true"
-    			[emojiPickerAutofocus]="true"
-    			(emojiPickerSelect)="handleSelection($event)"><img src="../assets/img/smile.png"></i>
-			</a>
+				
+			<!-- <div class="chatRow date-divider">
+				Monday, 10:40 am
+			</div> -->
+			</ion-grid>
 		</div>
+
+		
 	</div>
+
 </ion-content>
+<ion-footer>
+	<div class="chatButtons">
+		<form>
+			<div class="chatTextarea">
+				<ion-row class="chat-row">
+					<ion-col col-10 class="chat-col">
+						<ion-item class="chat-item">
+							<ion-input class="chatInput" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}" placeholder="Say something..."></ion-input>
+						</ion-item>
+					</ion-col>
+					<ion-col col-2 class="chat-col">
+							<a style="float: left; width: 100%; height: 100%;" (click)="sendMessage()"><ion-icon class="send-icon" name="ios-paper-plane" item-right></ion-icon></a>
+					</ion-col>
+				</ion-row>
+			</div>
+			<div class="chatAddMedia">
+				<ion-row style="margin-top: 9px;">
+					<ion-col>
+						<button (click)="uploadPhotoClick()"><img src="assets/img/plus.png"></button>
+					</ion-col>
+					<ion-col>
+						<button (click)="openEmoji()"><img src="assets/img/smile.png"></button>
+					</ion-col>
+				</ion-row>
+				
+				
+				
+			</div>
+			<emoji-input
+				  [(model)]="messageText"
+				  [popupAnchor]="'bottom'"
+				  (emojiClick)="openEmoji()" >
+			</emoji-input>
+		</form>
+	</div>
+</ion-footer>
+

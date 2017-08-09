@@ -1,6 +1,4 @@
-/**
- * Created by Yanislav on 7/10/2017.
- */
+
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { FirebaseProvider } from "../../../providers/firebaseProvider";
@@ -20,13 +18,12 @@ export class RegistrationPage {
   public regForm : FormGroup;
   public dateStr : string;
   public userPassword : string;
-  public conditionChecked : boolean;
   public musicPreference: any;
-  public firebaseErrorMessage: string = null;
-   
+  public firebaseErrorMessage: string = null;  
   errors: any;
-  constructor(public navCtrl: NavController, public firebaseProvider: FirebaseProvider, public formBuilder: FormBuilder,
-    public alertProvider: AlertProvider, public postmarkProvider: PostmarkProvider) {
+
+  constructor(public navCtrl: NavController, public firebaseProvider: FirebaseProvider, public formBuilder: FormBuilder, public alertProvider: AlertProvider
+    , public postmarkProvider: PostmarkProvider) {
 
     this.musicPreference = {
         edm: false,
@@ -47,6 +44,7 @@ export class RegistrationPage {
         Validators.maxLength(45),Validators.pattern("[a-z A-Z]*")])],
         dobStamp:['',Validators.compose([Validators.required])],
         email: ['',Validators.compose([Validators.required,EmailValidator.isValid])],
+        zipCode:[],
         pswrd: ['', Validators.compose([Validators.required,Validators.minLength(6)])]       
       }
     );
@@ -57,8 +55,8 @@ export class RegistrationPage {
     var ageDifMs = Date.now() - date.getTime();
     var ageDate = new Date(ageDifMs);
     return Math.abs(ageDate.getUTCFullYear() - 1970) > 20;
-
   }
+  
   signupUser() {
     this.errors.name = !this.regForm.controls.name.valid;
     this.errors.email = !this.regForm.controls.email.valid;
@@ -69,9 +67,10 @@ export class RegistrationPage {
     if(this.regForm.valid && !this.errors.age){
               this.alertProvider.presentLoadingCustom();
               var date:Date = new Date(this.dateStr);
-              this.firebaseProvider.signupUser(this.regForm.value.name, date.getTime(), this.regForm.value.email,
-                this.userPassword, this.musicPreference).then(() => {
-                    this.alertProvider.presentAlertWithTittle('You successfully registred!');
+
+                      this.firebaseProvider.signupUser(this.regForm.value.name, date.getTime(), this.regForm.value.email,
+              this.userPassword, this.musicPreference, this.regForm.value.zipCode ? this.regForm.value.zipCode : "" ).then(() => {
+                    this.alertProvider.presentAlertWithTittle('Welcome to LIV!');
                     this.alertProvider.dismissLoadingCustom();
                     this.postmarkProvider.sendGreettingEmail(this.regForm.value.email);
                             this.navCtrl.setRoot(HomePage);
@@ -82,7 +81,7 @@ export class RegistrationPage {
                             errorMessage = 'This email already in use';
                             break;
                           case ("auth/invalid-email"):
-                            errorMessage = "Invalid email";
+                            errorMessage = "Please enter a valid e-mail";
                             break;
                           case "auth/weak-password":
                             errorMessage = "Weak password";

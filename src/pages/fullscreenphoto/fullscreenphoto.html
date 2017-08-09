@@ -1,87 +1,27 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Album name</ion-title>
+    <ion-title>{{album.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content no-bounce>
+<ion-content no-bounce class="no-scroll">
 
-  <ion-card *ngFor="let photo of photos">
+  <ion-card *ngFor="let photo of photos" (click)="showFullPhoto(photo)">
     <ion-item>
       <ion-avatar item-left>
-        <img [src]="album.coverURL">
+        <div [ngStyle]="{'background-image': 'url(' + album.coverURL + ')'}" class="album-photo"></div>
+        <!-- <img [src]="album.coverURL"> -->
       </ion-avatar>
-      <h2 class="photo-name">{{photo.name}}</h2>
-      <p class="photo-date">{{photo.created_time}}</p>
+      <!-- <h2 class="photo-name">{{photo.name}}</h2> -->
+      <p class="photo-date">{{photo.created_time| date: 'MM/dd/yyyy'}}</p>
     </ion-item>
-    <img [src]="photo.source">
+    <img (press)="onPress(photo)" [src]="photo.source">
   </ion-card>
-
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
    <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  <!-- <ion-card>
-    <ks-swiper-container [options]="example1SwipeOptions">
-      <ks-swiper-slide *ngFor="let image of images">
-        <img src="{{image.url}}" />
-      </ks-swiper-slide>
-    </ks-swiper-container>
- </ion-card> -->
+
 </ion-content>
 
 
- <!--  <ion-card>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-      </ion-avatar>
-      <h2 class="photo-name">Name</h2>
-      <p class="photo-date">12/07/2017</p>
-    </ion-item>
-    <img src="assets/S92lFOdYRHu83FzBZWLT_LIVgirl.jpg">
-  </ion-card>
-
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-      </ion-avatar>
-      <h2 class="photo-name">Name</h2>
-      <p class="photo-date">12/07/2017</p>
-    </ion-item>
-    <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-  </ion-card>
-
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-      </ion-avatar>
-      <h2 class="photo-name">Name</h2>
-      <p class="photo-date">12/07/2017</p>
-    </ion-item>
-    <img src="assets/S92lFOdYRHu83FzBZWLT_LIVgirl.jpg">
-  </ion-card>
-
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-      </ion-avatar>
-      <h2 class="photo-name">Name</h2>
-      <p class="photo-date">12/07/2017</p>
-    </ion-item>
-    <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-  </ion-card>
-
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-      </ion-avatar>
-      <h2 class="photo-name">Name</h2>
-      <p class="photo-date">12/07/2017</p>
-    </ion-item>
-    <img src="assets/S92lFOdYRHu83FzBZWLT_LIVgirl.jpg">
-  </ion-card> -->

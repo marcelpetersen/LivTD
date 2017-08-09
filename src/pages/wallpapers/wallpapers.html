@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Wallpapers</ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="no-scroll">
+
+
+    <ion-slides *ngIf="images.length>0" pager="true" paginationType='bullets'>
+	  <ion-slide [ngStyle]="{'background-image': 'url(' + image.url + ')'}" *ngFor="let image of images">
+	  	<button (click)="saveWallpaper(image)" class="top-right" ion-button clear item-end><ion-icon name="ios-cloud-download-outline" item-left></ion-icon></button>
+	  </ion-slide>
+	</ion-slides>
+</ion-content>

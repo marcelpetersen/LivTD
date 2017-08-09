@@ -7,19 +7,19 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="no-scroll">
 	<ion-list>
 		
-		<ion-item>
+		<!-- <ion-item>
 			<ion-thumbnail item-start>
 		      <img src="assets/WoUtHCy7TnyUaSDzoPTv_LIVemoji.jpg">
 		    </ion-thumbnail>
 		    <h2 light>Keyboard Emoji's</h2>
 		    <p style="white-space:normal;">Download your very own set of LIV keyboard emoji's</p>
 		    <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
-		</ion-item>
+		</ion-item> -->
 
-		<ion-item>
+		<ion-item (click)="openStick()">
 			<ion-thumbnail item-start>
 		      <img src="assets/0KlffakqSRqGHTatl9T5_livlogo.jpg">
 		    </ion-thumbnail>
@@ -28,7 +28,7 @@
 		    <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
 		</ion-item>
 
-		<ion-item>
+		<ion-item (click)="onWallpapersClick()">
 			<ion-thumbnail item-start>
 		      <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
 		    </ion-thumbnail>

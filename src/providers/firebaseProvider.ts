@@ -8,7 +8,7 @@ export class FirebaseProvider {
 
   public userProfile: firebase.database.Reference;
   public userData: any;
-  public defaultPhotoURL: string = 'https://firebasestorage.googleapis.com/v0/b/liv-app-8af89.appspot.com/o/LIV_logo_White.png?alt=media&token=1b632aec-f59d-4d8c-8100-56ffcc778433';
+  public defaultPhotoURL: string = 'https://firebasestorage.googleapis.com/v0/b/liv-app-8af89.appspot.com/o/liv_logo_avatar.png?alt=media&token=c01f8eb4-1d54-431e-a8b1-01cacf9c36c3';
 
 
   constructor(public facebook: Facebook, public storageProvider: StorageProvider) {
@@ -33,11 +33,11 @@ export class FirebaseProvider {
   //
   */
 
-  signupUser(name: string, domTimeStamp: number, email: string, password: string, musicPreferences:any): firebase.Promise<any> {
+  signupUser(name: string, domTimeStamp: number, email: string, password: string, musicPreferences:any, zipCode: string): firebase.Promise<any> {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(newUser => {
-          this.saveDataToDataBase(name, domTimeStamp, email, this.defaultPhotoURL, musicPreferences);
-          this.saveDataToLocalStorage(name, domTimeStamp, email, this.defaultPhotoURL, "", "", musicPreferences);
+          this.saveDataToDataBase(name, domTimeStamp, email, this.defaultPhotoURL, musicPreferences, zipCode);
+          this.saveDataToLocalStorage(name, domTimeStamp, email, this.defaultPhotoURL, "", zipCode, musicPreferences);
       });
   }
 
@@ -77,7 +77,7 @@ export class FirebaseProvider {
         firebase.database().ref('/userProfile/').child(firebase.auth().currentUser.uid).once('value', (snapshot) => {
 
       if (!snapshot.exists()) {         
-           this.saveDataToDataBase(success['displayName'], 0, success['email'], photoURL, musicPreference);
+           this.saveDataToDataBase(success['displayName'], 0, success['email'], photoURL, musicPreference,"");
           } else {
             displayName = snapshot.val().displayName;
             photoURL = snapshot.val().photoURL;
@@ -110,7 +110,7 @@ export class FirebaseProvider {
     this.storageProvider.setItem(key, data);
   }
 
-  saveDataToDataBase(name: string, domTimeStamp: number, email: string, photoURL: string, musicPreferences:any) {
+  saveDataToDataBase(name: string, domTimeStamp: number, email: string, photoURL: string, musicPreferences:any,zipCode: string) {
     var currentUser = firebase.auth().currentUser;
     if (currentUser !== null) {
       firebase.database().ref('/userProfile').child(currentUser.uid)
@@ -121,7 +121,7 @@ export class FirebaseProvider {
           registrationDateStamp: new Date().getTime(),
           photoURL: photoURL,
           phoneNumber: "",
-          zipCode: "",
+          zipCode: zipCode,
           musicPreference: musicPreferences
         });
     }
@@ -230,6 +230,14 @@ export class FirebaseProvider {
 
   getUserRef(uid: string): any {
     return firebase.database().ref('/userProfile').child(uid);
+  }
+
+  getEventsRef():any {
+    return firebase.database().ref('/events');
+  }
+
+  getWallpapersRef():any {
+    return firebase.database().ref('/wallpapers');
   }
 
   getServerTimestamp():any{

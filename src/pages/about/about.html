@@ -7,7 +7,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="no-scroll">
 <div #map id="map"></div>
  <ion-row>
    <ion-col>
@@ -26,11 +26,9 @@
     <h4 class="h4-about"><b>Phone</b></h4>
    </ion-col>
  </ion-row>
- <ion-row (click)="onPhoneClick(this.phone)">
+ <ion-row  >
    <ion-col>
-    <ion-label class="label-about">
-     {{phone}}
-    </ion-label> 
+    <a class="white-link" href="tel: {{phone}}">{{phone}}</a>
    </ion-col>
  </ion-row>
  <ion-row>
@@ -51,11 +49,9 @@
     <h4 class="h4-about"><b>Lost an item?</b></h4>
    </ion-col>
  </ion-row>
- <ion-row (click)="onPhoneClick(this.lostItemPhone)">
+ <ion-row >
    <ion-col>
-    <ion-label class="label-about">
-    {{lostItemPhone}}
-    </ion-label> 
+    <a class="white-link" href="tel: {{lostItemPhone}}">{{lostItemPhone}}</a>
    </ion-col>
  </ion-row>
  <ion-row>
@@ -70,11 +66,12 @@
     </ion-label> 
    </ion-col>
  </ion-row>
- <ion-row (click)="onPhoneClick(this.officialPhone)">
+ <ion-row >
    <ion-col>
     <ion-label class="label-about">
-     Phone: <span class="span-email">{{officialPhone}}</span>
+     Phone:  <a class="white-link no-margin" href="tel: {{officialPhone}}">{{officialPhone}}</a>
     </ion-label> 
    </ion-col>
  </ion-row>
 </ion-content>
+

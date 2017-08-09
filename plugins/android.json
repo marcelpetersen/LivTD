@@ -1,0 +1,85 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.bunkerpalace.cordova.YoutubeVideoPlayer": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-clipboard": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-email-composer": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-facebook4": {
+            "APP_ID": "2002709960016162",
+            "APP_NAME": "LIV_app",
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-googlemaps": {
+            "API_KEY_FOR_ANDROID": "AIzaSyBzL2Zby_UmcGdt5VQ7jlQvDwiW428GQyY",
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-photo-library": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-themeablebrowser": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        }
+    },
+    "dependent_plugins": {
+        "com.googlemaps.ios": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-actionsheet": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-add-swift-support": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "arbi.liv.com"
+        }
+    }
+}

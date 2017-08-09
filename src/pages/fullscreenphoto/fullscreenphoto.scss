@@ -11,6 +11,18 @@ page-fullscreenphoto {
   .back-button-icon-ios, .back-button-icon-md {
     font-size: 2.5rem;
   }
+  .photo-name {
+    color: white;
+  }
+
+  .album-photo {
+    width: 36px;
+    height: 36px;
+    background-size: cover;
+    background-position: center center;
+    border: 1px solid transparent;
+    border-radius: 50%;
+  }
 
   // .card-ios,
   // .card-md,

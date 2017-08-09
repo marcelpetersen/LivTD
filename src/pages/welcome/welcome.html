@@ -1,0 +1,31 @@
+<ion-content class="no-scroll">
+
+    <button class="skip-button" ion-button clear (click)="onGetStartedClick()">Skip</button>
+
+    <ion-slides pager="true" paginationType='bullets' (ionSlideDidChange)="slideChanged()">
+
+	  <ion-slide class="welcome-slide">
+	  	<img src="assets/qSf6MlRTTzKezlUqNePz_livphone1.png">
+	  	<p class="title-text">Welcome to LIV app</p>
+	  	<p class="description-text">The official app for LIV Nightclub located in the Fontainebleau Hotel in Miami, Florida</p>
+	  </ion-slide>
+
+	  <ion-slide class="welcome-slide">
+	  	<img src="assets/1Pq7MMCtQqitpEn7T5GG_liv2.png">
+	  	<p class="title-text">Buy tickets & Book Tables</p>
+	  	<p class="description-text">Purchase pre-sale event tickets or reserve bottle service directly through the app</p>
+	  </ion-slide>
+
+	  <ion-slide class="welcome-slide">
+	  	<img src="assets/mb9whvKARhqiiNMZWfk0_LIVchat.png">
+	  	<p class="title-text">LIV Light Stick, Emoji's & Chat</p>
+	  	<p class="description-text">Download our Keyboard emoji's, chat with our staff and favorite DJ's, subscribe to our Podcast and turn your phone screen into LED light stick</p>
+	  </ion-slide>
+
+	  <ion-slide class="welcome-slide-last">
+	  	 <button class="getstarted-button" ion-button outline (click)="onGetStartedClick()">Get Started</button>
+	  </ion-slide>
+
+	</ion-slides>
+
+</ion-content>

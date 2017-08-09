@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowserProvider } from '../../providers/inAppBrowserProvider';
-
+import { StickPage } from '../stick/stick';
+import { WallpapersPage } from '../../pages/wallpapers/wallpapers';
 
 @Component({
   selector: 'page-fun',
@@ -12,5 +13,13 @@ export class FunPage {
 
   openLink(link) {
     this.browser.openURL(link);
+  }
+
+  openStick() {
+  	this.navCtrl.push(StickPage);
+  }
+  
+  onWallpapersClick() {
+	this.navCtrl.push(WallpapersPage);
   }
 }

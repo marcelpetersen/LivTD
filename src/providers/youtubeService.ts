@@ -19,7 +19,6 @@ export class YouTubeService {
 
 	getVideos():Promise<any> {
 		let query = this.searchURL + "&type=video&channelId=" + this.chanelID + this.nextPageToken + "&maxResults=" + this.maxResults + "&key=" + this.accessToken + this.nextPageToken;
-		console.log(this.doQuery(query));
 		return this.doQuery(query);
 	}
 
@@ -34,15 +33,12 @@ export class YouTubeService {
 			this.http.get(query)
 				.map(response => response.json())
 				.subscribe(data => {
-					// console.log(data)
-					// console.log(query);
 					if (!this.isLastPage) {
 						let items = data.items;
 						if (items.length < this.maxResults)
 							this.isLastPage = true;
 						else {
 							this.nextPageToken = "&pageToken=" + data.nextPageToken;
-
 						}
 						resolve(items);
 					}
@@ -56,4 +52,12 @@ export class YouTubeService {
 		this.isLastPage = false;
 	}
 
+	getVideoDescription(videoID: string): Promise<any>{
+		let url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' + videoID + '&key=' + this.accessToken;
+		return new Promise(resolve => {
+			this.http.get(url).map(response => response.json()).subscribe(data => {
+				resolve(data)
+			});
+		})
+	}
 }

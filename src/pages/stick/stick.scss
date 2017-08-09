@@ -1,0 +1,20 @@
+page-stick {
+	.stick-div {
+		background-size: cover;
+	    background-position: center center;
+	    // background-image: url('../assets/2OjexZSRezABYhqWPuXA_LIVgiffy.gif');
+        width: 100%;
+    	height: 100%;
+	}
+	.scroll-content {
+		padding: 0px !important;
+	}
+
+	.toolbar-background-ios, .toolbar-background-md {
+		background: transparent !important;
+		border: none !important;
+	}
+	.scroll-content, .fixed-content {
+		margin-top: 0 !important;
+	}
+}

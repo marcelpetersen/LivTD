@@ -10,21 +10,22 @@ export class StorageProvider {
 	}
 
 	setItem(key:string, data:any) {
-		console.log(data);
+		
 		this.storage.set(key, data).then(() => {
-			this.events.publish('user:changed', data.displayName, data.photoURL);
-			console.log('StorageProvider: Data saved');
+			if (key === 'curent_user')
+				this.events.publish('user:changed', data.displayName, data.photoURL);		
 		}).catch((error) => {
 			console.log('StorageProvider: Data saving fail with error: '+ error);
 		});
 	}
 
 	getItem(key:string):Promise<any> {
-		console.log(this.storage.get(key));
 		return this.storage.get(key);
 	}
 
 	clear(): Promise<any> {
-		return this.storage.clear();
+		this.storage.remove('pictureToPast');
+		return this.storage.remove('curent_user');
 	}
+
 }

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
-import { TextMaskModule } from 'angular2-text-mask';
+
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 
@@ -29,9 +29,14 @@ import { RegistrationPage } from "../pages/auth/registration/registration";
 import { LoginPage } from '../pages/auth/login/login';
 import { ResetPasswordPage } from '../pages/auth/resetPassword/resetPassword';
 import { FullscreenphotoPage } from '../pages/fullscreenphoto/fullscreenphoto';
+import { StickPage } from '../pages/stick/stick';
+import { PhotosSliderPage } from '../pages/photos-slider/photos-slider';
+import { ValetPage } from '../pages/valet/valet';
 
+import { WelcomePage } from '../pages/welcome/welcome';
 import { tabHomePage } from '../pages/tabHome/tabHome';
 import { tabChatPage } from '../pages/tabChat/tabChat';
+import { WallpapersPage } from '../pages/wallpapers/wallpapers';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { FirebaseProvider } from '../providers/firebaseProvider';
@@ -45,15 +50,20 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowserProvider } from '../providers/inAppBrowserProvider'
 import { Clipboard } from '@ionic-native/clipboard';
-import { CallNumber } from '@ionic-native/call-number';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { SafePipe } from '../providers/safePipe';
-import { EmojiPickerModule } from 'angular2-emoji-picker';
 import { PostmarkProvider } from '../providers/postmarkProvider'
+import { ScrollProvider } from '../providers/scroll'
 import  firebase from 'firebase';
 
+import {EmojiPickerModule} from 'ng-emoji-picker';
+import { TextMaskModule } from 'angular2-text-mask';
+
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { PhotoLibrary } from '@ionic-native/photo-library';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { FileTransferProvider } from '../providers/fileTransfer';
 
  firebase.initializeApp({
       apiKey: "AIzaSyCGm_zj91dJXbel2VwqSSSWoOfyc1jERP8",
@@ -84,12 +94,18 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
     ShopPage,
     UpcomingEventsPage,
     FullscreenphotoPage,
+    StickPage,
+    PhotosSliderPage,
     tabHomePage,
     tabChatPage,
+    WelcomePage,
+    WallpapersPage,
+    ValetPage,
     ImageThumbGallery,
     GroupByPipe,
     Safe,
     SafePipe
+
   ],
   imports: [
     BrowserModule,
@@ -101,7 +117,8 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
     IonicStorageModule.forRoot(),
     BrowserModule, 
     HttpModule,
-    EmojiPickerModule.forRoot()
+    EmojiPickerModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -123,16 +140,21 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
     PhotosPage,
     ShopPage,
     FullscreenphotoPage,
+    StickPage,
+    PhotosSliderPage,
     tabHomePage,
     tabChatPage,
-    UpcomingEventsPage
+    UpcomingEventsPage,
+    WelcomePage,
+    WallpapersPage,
+    ValetPage
   ],
   providers: [
+    FileTransfer,
     SafePipe,
     LaunchNavigator,
     FirebaseProvider,
     Clipboard,
-    CallNumber,
     EmailComposer,
     InAppBrowserProvider,   
     FacebookService,
@@ -146,6 +168,9 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
     Camera,
     YoutubeVideoPlayer,
     PostmarkProvider,
+    ScrollProvider,
+    PhotoLibrary,
+    FileTransferProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

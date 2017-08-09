@@ -24,15 +24,10 @@ export class AlertProvider {
       this.loading = this.loadingCtrl.create({
         content: '<div class="custom-spinner-container"><div class="custom-spinner-box"><ion-spinner name="circles"></ion-spinner>Loading Please Wait...</div></div>'
       });
-      this.loading.onDidDismiss(() => {
-        console.log('Dismissed loading');
-      });
-      console.log(this.loading);
       this.loading.present();
     }
   }
   dismissLoadingCustom() {
-    console.log(this.loading);
     if(this.loading){
       this.loading.dismiss();
       this.loading = null;
@@ -51,6 +46,17 @@ export class AlertProvider {
       position: 'middle'
     });
 
+    toast.present();
+  }
+
+  resetPasswordToast(message:string) {
+    let toast = this.toastController.create({
+      message: message,
+      showCloseButton :true,
+      closeButtonText: 'Ok',
+      position: 'middle'
+    });
+    
     toast.present();
   }
 }

@@ -2,7 +2,6 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Content } from 'ionic-angular';
 import { YouTubeService } from '../../providers/youtubeService'
-
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 
@@ -15,20 +14,22 @@ export class LivTVPage {
 
 	videos : Array<any>;
 	searchInput : string;
+	
 
 	constructor(public navCtrl: NavController, public element: ElementRef, public navParams: NavParams, public youtubeService: YouTubeService, private youtube: YoutubeVideoPlayer) {
 		this.videos = [];
+		this.youtubeService.changeMode();
 		this.loadVideos();
-		console.log(this.youtubeService);
+
   	}
 
   	scrollHandler(event) {
-  	   var result = this.element.nativeElement.querySelector('.up-button');
-	   if(event.scrollTop >= 500) {
-	   		result.style.display = 'block';
-	   } else {
-	   		result.style.display = 'none';
-	   }
+  	 //   var result = this.element.nativeElement.querySelector('.up-button');
+	   // if(event.scrollTop >= 500) {
+	   // 		result.style.display = 'block';
+	   // } else {
+	   // 		result.style.display = 'none';
+	   // }
 	 }
 
   	scrollToTop() {
@@ -43,24 +44,21 @@ export class LivTVPage {
 
   	addVideos(data:Array<any>) {
   		for(let obj of data){
-  			// if(obj.id.videoId !== underfined)
 				let video = {
 					url: "https://www.youtube.com/embed/" + obj.id.videoId + "?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0",
 					id: obj.id.videoId,
 					title : obj.snippet.title,
 					description : obj.snippet.description,
-					img: obj.snippet.thumbnails.high.url
+					img: obj.snippet.thumbnails.high.url,
+					toFullDescription :false,
+					fullDescription: null
 				}
-			console.log(obj.id.videoId);
 			this.videos.push(video);
   		}
-			console.log(this.videos);
   	}
 
   	loadVideos(): Promise<any>{
 		return this.youtubeService.getVideos().then(data => {
-			console.log("YouTube Data:");
-			console.log(data);
 			if (data)
 				this.addVideos(data);
 		});
@@ -100,5 +98,16 @@ export class LivTVPage {
 		this.videos = [];
 		this.youtubeService.changeMode();
 		this.loadVideos();
+	}
+
+	onSeeMoreClick(video:any){
+		
+		if (!video.fullDescription)
+			this.youtubeService.getVideoDescription(video.id).then(data => {
+				let fullDescription = data.items[0].snippet.description;
+				video.fullDescription = fullDescription;
+				video.toFullDescription = !video.toFullDescription;
+			})
+		else video.toFullDescription = !video.toFullDescription;
 	}
 }

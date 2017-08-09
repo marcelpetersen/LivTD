@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { FirebaseProvider} from "../../../providers/firebaseProvider";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmailValidator } from "../../../validators/email";
@@ -22,7 +22,7 @@ export class LoginPage {
   public errorMessage = null;
 
 	constructor(public navCtrl: NavController, public  firebaseProvider: FirebaseProvider, public formBuilder: FormBuilder,
-  public alertProvider: AlertProvider, public modalCtrl: ModalController) {
+    public alertProvider: AlertProvider, public modalCtrl: ModalController, public alertController: AlertController) {
     this.userPassword = "";
 		this.loginForm = formBuilder.group({
           email: ['',Validators.compose([Validators.required,EmailValidator.isValid])],
@@ -34,8 +34,9 @@ export class LoginPage {
 	signInUser():void {
     this.errorMessage = null;
     this.alertProvider.presentLoadingCustom();
-		this.firebaseProvider.loginUser(this.loginForm.value.email, this.userPassword).then(()=> {
+		this.firebaseProvider.loginUser(this.loginForm.value.email, this.userPassword).then((data)=> {
       this.alertProvider.dismissLoadingCustom();
+
   			this.navCtrl.setRoot(HomePage);
 		    }).catch((error:any) => {
             var errorMessage:string;
@@ -65,20 +66,60 @@ export class LoginPage {
 	}
 
 	onForgotPasswordClick():void {
- 		let myModal = this.modalCtrl.create(ResetPasswordPage);
-    myModal.present();	       
+    let alert = this.alertController.create({
+      title: ' Forgot Password?',
+      message: 'Enter your email so we can send you a reset password link.',
+      inputs: [
+        {
+          name: 'email',
+          placeholder: 'Email'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Send',
+          handler: (data) => {
+            this.errorMessage = null;
+            this.alertProvider.presentLoadingCustom();
+            this.firebaseProvider.resetPassword(data.email).then(() => {
+              this.alertProvider.resetPasswordToast("Reset instructions sent. Please check your e-mail.");
+              this.alertProvider.dismissLoadingCustom();
+            }).catch((error: any) => {
+              var errorMessage: string;
+              switch (error.code) {
+                case ("auth/invalid-email"):
+                  errorMessage = "Invalid email";
+                  break;
+                case "auth/user-not-found":
+                  errorMessage = "User not found";
+                  break;
+                default:
+                  errorMessage = "Something went wrong";
+                  break;
+              }
+              this.alertProvider.dismissLoadingCustom();
+              this.alertProvider.resetPasswordToast(errorMessage);
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
 	}
 
 	onLogInWithFacebookClick():void {
     this.errorMessage = null;
     this.alertProvider.presentLoadingCustom();
-		this.firebaseProvider.logInUserWithFacebook().then(() => {
-        	console.log("Success facebook auth");
-          this.alertProvider.dismissLoadingCustom();       	
-        	this.navCtrl.setRoot(HomePage);
+		this.firebaseProvider.logInUserWithFacebook().then((data) => {
+          this.alertProvider.dismissLoadingCustom();
+          if (data===undefined)
+            this.navCtrl.setRoot(HomePage);
+          else this.errorMessage = 'Something went wrong';
 		}).catch((error: any) => {
-			    console.log("Failure facebook auth");
-			    console.log("Firebase failure: " + JSON.stringify(error));
 			    var errorMessage:string;
 			    switch (error.code) {
             	    case "auth/user-not-found":

@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, Content } from 'ionic-angular';
+import { Component, ViewChild, ElementRef, ViewChildren, QueryList} from '@angular/core';
+import { NavController, NavParams, Content, ActionSheetController } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebaseProvider'
 import { StorageProvider } from '../../providers/storage'
 import { CameraProvider } from '../../providers/camera'
@@ -7,15 +7,20 @@ import { Events } from 'ionic-angular';
 import { Clipboard } from '@ionic-native/clipboard';
 import { AlertController } from 'ionic-angular';
 import { AlertProvider } from '../../providers/alert'
-
-import { CaretEvent, EmojiEvent} from "angular2-emoji-picker";
-
+import { ScrollProvider } from '../../providers/scroll'
+import { FileTransferProvider } from '../../providers/fileTransfer';
 
 @Component({
   selector: 'page-tabChat',
   templateUrl: 'tabChat.html'
 })
+
 export class tabChatPage {
+
+	@ViewChild(Content) content: Content;
+	@ViewChild('sidebar') sidebar: ElementRef;
+    @ViewChildren('task') taskCards: QueryList<ElementRef>; 
+
 	userID: string;
 	displayName: string;
 	recieverID: string = "";
@@ -24,20 +29,20 @@ export class tabChatPage {
 	pictureURL: string = null;
 	userPhotoURL: string;
 	messageStory: Array<any> = [];
-	chatUsers: Array<any> = [];
-
+	chatUsers: any = {};
 	public eventMock;
   	public eventPosMock;
-  	private _lastCaretEvent: CaretEvent;
-
-
 	isInitComplete: boolean = false;
-
-    @ViewChild(Content) content: Content
+	isInitCompleteInit: boolean = false;
+	isSending: boolean = false;
+	isLoading: boolean = false;
+	isSendingPicrute = false;
+	limitCount: any = 30;
+	prevScroll: any = 0;
 	
-  	constructor(public navCtrl: NavController, public element: ElementRef, public navParams: NavParams, public firebaseProvider : FirebaseProvider, public storageProvider : StorageProvider, 
-			public cameraProvider: CameraProvider, events: Events, public clipboard: Clipboard, public alertCtrl: AlertController,public alertProvider: AlertProvider) {
-		
+  	constructor(public navCtrl: NavController, private scrollFix: ScrollProvider, public element: ElementRef, public navParams: NavParams, public firebaseProvider : FirebaseProvider, public storageProvider : StorageProvider, 
+			public cameraProvider: CameraProvider, events: Events, public clipboard: Clipboard, public actionSheetController: ActionSheetController, public alertProvider: AlertProvider, public fileTransferProvider: FileTransferProvider) {
+
 		this.storageProvider.getItem('curent_user').then(data => {
 			this.userID = data.id
 			this.userPhotoURL = data.photoURL;
@@ -47,167 +52,189 @@ export class tabChatPage {
 	  	this.chatRef = this.firebaseProvider.getChatRef(); 
 
 		this.chatRef.on('child_added', data => { 
-			if(this.isInitComplete)
-				this.addMessage(data.val()) 
+			if(this.isInitComplete) {
+				this.isInitCompleteInit = true;
+				this.messageStory.push(this.addMessage(data.val()));
+			}
 		});
 	
-		this.chatRef.orderByChild("date").once('value', data => {
-			
+		this.chatRef.orderByChild("date").limitToLast(this.limitCount).once('value', data => {
 			this.initMessageStory(data);
 		});
 
-		events.subscribe('changedPhoto', (imageData, toUpload: boolean) => {							
-			if(!toUpload)
+		events.subscribe('chat:changedPhoto', (imageData) => {							
+			if(this.isSendingPicrute)
 			this.firebaseProvider.uploadChatPhoto(imageData).then(url => {
 				this.pictureURL = url 
 				this.sendMessage();
-				});
+			});
 		}); 
     }
 
-   //  //scrolls to bottom whenever the page has loaded
-  	// ionViewDidEnter(){
-  	// 	// this.content.scrollToBottom();
-	  //   // var res = this.element.nativeElement.querySelector('.chatLog');
-	  //   console.log(this.content);
-   //   //    res.scrollBottom = 500;
-  	// }
-
-	initMessageStory(snapshot: any) {
-		
-		let snapshotObj = snapshot.val();
-		if (snapshotObj) {
-			var keyNames = Object.keys(snapshotObj);
-			for (let name of keyNames) {
-				//console.log(snapshotObj[name]);
-				this.addMessage(snapshotObj[name]);
-			}
-			
-		}
-		this.isInitComplete = true;
-		console.log(this.chatUsers);
-		console.log(this.messageStory);
+    ngAfterViewInit() {
+        this.scrollFix.init(this.content._scrollContent.nativeElement);
+        let sub = this.taskCards.changes.subscribe(data => {
+            this.scrollFix.restore()
+        });
     }
 
-    
-   	
-  	addMessage(data) {
-		let msgData = data;
-		msgData.displayName = "";
-		msgData.photoURL = "";
-		this.messageStory.push(msgData);
-		
+    openEmoji() {
+    	var result = this.element.nativeElement.querySelector('[_nghost-c0] .emoji-search[_ngcontent-c0]');
+    	result.hidden = !result.hidden;
+    }
 
-		let chatUser = this.chatUsers.find(user => { return user.uid === data.senderID });
-		console.log(chatUser);
-		if (chatUser === undefined) {
-			chatUser = {
+    scrollHandler(event) {
+  //   	if(!this.isLoading) {
+	 //    	var result = this.element.nativeElement.querySelector('.spinner-chat');
+		//    if(event.scrollTop <= 100) {
+		//    		this.prevScroll = event.scrollTop;
+		//    		result.style.display = 'block';
+		//    		this.isLoading = true;
+		//    		this.loadMore(result);
+		//    } else {
+		//    		result.style.display = 'none';
+		//    }
+		// }
+    }
+
+	initMessageStory(snapshot: any) {
+		let snapshotObj = snapshot.val();
+		if (snapshotObj) {
+			this.alertProvider.presentLoadingCustom();
+			var keyNames = Object.keys(snapshotObj);
+			for (let name of keyNames) {
+				this.messageStory.push(this.addMessage(snapshotObj[name]));
+				this.isInitComplete = true;
+			}
+			this.alertProvider.dismissLoadingCustom();
+		}
+
+		this.isInitComplete = true;
+		this.isInitCompleteInit = true;
+    }
+
+  	addMessage(data) {
+		
+		if( !this.chatUsers[data.senderID] ) {
+			this.chatUsers[data.senderID] = {
 				uid: data.senderID,
 				displayName: "",
-				photoURL: ""
+				photoURL: '../../assets/default.png'
 			}
-			
-			this.firebaseProvider.getUserRef(data.senderID)
-				.once('value')
-				.then(snaphot => {
-					
-					
-					chatUser.displayName = snaphot.val().displayName,
-					chatUser.photoURL = snaphot.val().photoURL
-				
-					this.chatUsers.push(chatUser);					
-					msgData.displayName = chatUser.displayName;
-					msgData.photoURL = chatUser.photoURL;
-
-				}, 	function(error) { 
-					console.error(error);
-					}
-				)
-			
+			this.firebaseProvider.getUserRef(data.senderID).once('value').then(snaphot => {
+				this.chatUsers[data.senderID].displayName = snaphot.val().displayName;
+				this.chatUsers[data.senderID].photoURL = snaphot.val().photoURL;						
+			}, 	function(error) { 
+				console.error(error);
+			})
 		}
-		else {
-
-			console.log(chatUser);
-			msgData.displayName = chatUser.displayName;
-			msgData.photoURL = chatUser.photoURL;
-		}
-	
-
+		return data;
   	}
-
-
-  
 
 	sendMessage() {
 		let messageText = this.messageText.trim()
-		if(messageText!==""){
-
-		let message = {
-			senderID: this.userID,
-			recieverID: this.recieverID,
-			message: messageText,
-			date: this.firebaseProvider.getServerTimestamp(),
-			pictureURL: this.pictureURL
-		}
-		this.chatRef.push(message);
-		this.messageText = "";
-		this.recieverID = "";
-		this.pictureURL = null;
+		if(messageText!==""|| this.pictureURL){
+			this.isSending = true;
+			let message = {
+				senderID: this.userID,
+				recieverID: this.recieverID,
+				message: messageText,
+				date: this.firebaseProvider.getServerTimestamp(),
+				pictureURL: this.pictureURL
+			}
+			this.chatRef.push(message);
+			this.messageText = "";
+			this.recieverID = "";
+			this.pictureURL = null;
+			this.isSendingPicrute = false;
 		}
 	}
 
 	uploadPhotoClick() {
-		this.cameraProvider.showChoiceAlert(false);
+		this.isSendingPicrute = true;
+		this.storageProvider.getItem('pictureToPast').then(data => {
+			let alert = this.cameraProvider.showChoiceAlert(CameraProvider.TO_CHAT);
+			if(data){
+				alert.addButton(
+					{
+						text: 'Past image',
+						handler: () => {
+							this.pictureURL = data;
+							this.sendMessage();
+						}
+					})			
+			}
+			alert.present();
+		})
 	}
 	
-
-	onMessageClick(message) {
-		console.log(message);
-		
-
-		let addressAlert = this.alertCtrl.create({
-			buttons: [
-				{
-					text: "Reply",
-					handler: () => {
-						this.recieverID = message.senderID;
-						this.messageText = '@(' + message.displayName + '), ' + this.messageText;
-					}
-				},
-
-				{
-					text: "Copy Address",
-					handler: () => {
-						let msgToCopy = '@(' + message.displayName + '):' + '"' + message.message + '"';
-						this.clipboard.copy(msgToCopy);
-						this.alertProvider.presentCopyToast();
-						console.log("Copied");
-					}
+	onMessagePress(message) {
+		let messageSheet = this.actionSheetController.create({
+			buttons: [{
+				text: "Reply",
+				icon: 'ios-mail-outline',
+				handler: () => {
+					this.recieverID = message.senderID;
+					this.messageText = '@(' + this.chatUsers[message.senderID].displayName + '), ' + this.messageText;
 				}
-			]
+			},
+			{
+				text: "Copy",
+				icon: 'ios-copy-outline',
+				handler: () => {
+					let msgToCopy = '@(' + this.chatUsers[message.senderID].displayName + '):' + '"' + message.message + '"';
+					this.clipboard.copy(msgToCopy);
+					this.alertProvider.presentCopyToast();
+				}
+			}]
 		})
-
-		addressAlert.present();
-	}	
+		if (message.pictureURL) {
+			messageSheet.addButton({
+				text: "Save Image",
+				icon: 'ios-cloud-download-outline',
+				handler:() => {
+					this.fileTransferProvider.saveImage(message.pictureURL);
+				}
+			})
+		}
+		messageSheet.present();
+	}
 
 	scrollFunction() {
-	    this.content.scrollToBottom(0);
-		// console.log(this.content);
+		if( this.isSending ) {
+			this.content.scrollToBottom(0);
+	    	this.isSending = false;
+		} else if( this.isInitCompleteInit ) {
+			this.content.scrollToBottom(0);
+	    	this.isInitCompleteInit = false;
+		}
     }
 
-    handleSelection(event: EmojiEvent) {
-    	console.log(this._lastCaretEvent);
-	    this.messageText = this.messageText.slice(0, this._lastCaretEvent.caretOffset) + event.char + this.messageText.slice(this._lastCaretEvent.caretOffset);
-	    this.eventMock = JSON.stringify(event);
-	  }
+	doInfinite(event){		
+		
+		this.chatRef.orderByChild("date").endAt(this.messageStory[0].date).limitToLast(this.limitCount).once('value', data => {
 
-	  handleCurrentCaret(event: CaretEvent) {
-	    this._lastCaretEvent = event;
-	    this.eventPosMock = '{ caretOffset : ${event.caretOffset}, caretRange: Range{...}, textContent: ${event.textContent} }';
-	  }
+			let snapshotObj = data.val();
+			
+			if (snapshotObj) {
+				var keyNames = Object.keys(snapshotObj).sort().reverse();
+				if (!keyNames||keyNames.length <= 1)
+					event.complete();
+				else
+				for (let name of keyNames) {
+					if (name !== keyNames[0])
+						this.messageStory.unshift(this.addMessage(snapshotObj[name]));
+					if (name === keyNames[keyNames.length - 1]) {						
+						event.complete();	
+					}
+				}
+			} else {
+				event.complete();
+			}
+		});
+	}
 }
 
 
 
 
- 

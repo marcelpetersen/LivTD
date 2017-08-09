@@ -6,15 +6,20 @@ import { Events } from 'ionic-angular';
 @Injectable()
 
 export class CameraProvider {
-	
+
+	static TO_SIDE_MENU :number  = 0;
+	static TO_MYPROFILE: number = 1;
+	static TO_CHAT: number = 2;
 	cameraOptions: CameraOptions;
 
 	constructor(public camera: Camera, public alertProvider: AlertProvider, public events: Events) {
 		this.cameraOptions = {
-      		quality:100,
+      		quality:60,
       		destinationType : this.camera.DestinationType.DATA_URL,
       		encodingType: this.camera.EncodingType.JPEG,
-      		mediaType: this.camera.MediaType.PICTURE
+      		mediaType: this.camera.MediaType.PICTURE,
+      		targetWidth: 300,
+      		targetHeight: 300
     	}
 	}
 
@@ -33,33 +38,47 @@ export class CameraProvider {
 		this.cameraOptions.targetHeight = 300;
 	}
 
-	showChoiceAlert(toUpload: boolean):void {
+	showChoiceAlert(destinationType:number):any {
 		let alert = this.alertProvider.alertCtrl.create({
 			buttons: [
 				{
 					text: 'Choose From Gallery',
 					handler: () => {
+						
 						this.choosePhotoFromGalery().then((imageData) => {
-							this.events.publish('changedPhoto', imageData, toUpload);
-						}).catch((error: any) => {
+							this.events.publish('loading_photo');
+							this.sendImageDataTuSubscibers(imageData, destinationType);
+							}).catch((error: any) => {
 							console.log(error);
 						});
-
+						
 					}
 				},
 				{
 					text: 'Take a photo',
 					handler: () => {
+						;
 						this.takePhotoFromCamera().then((imageData) => {
-							this.events.publish('changedPhoto', imageData, toUpload);
+							this.events.publish('loading_photo')
+							this.events.publish('changedPhoto', imageData, destinationType);						
 						}).catch((error: any) => {
 							console.log(error);
+
 						});
 
 					}
 				}
 			]
 		});
-		alert.present();
+		return alert;
 	}
-} 
+
+	sendImageDataTuSubscibers(imageData:any, destinationType:number) {
+		if (destinationType === CameraProvider.TO_SIDE_MENU)
+			this.events.publish('sideMenu:changedPhoto', imageData);
+		else if (destinationType === CameraProvider.TO_CHAT)
+			this.events.publish('chat:changedPhoto', imageData);
+		else
+			this.events.publish('myProfile:changedPhoto',imageData);
+	}
+}  

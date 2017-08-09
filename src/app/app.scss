@@ -28,22 +28,34 @@ $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
 .toolbar-title-ios, .toolbar-title-md {
 	color: white;
 	text-align: center;
+	padding-left: 30px;
+	padding-right: 30px;
 }
 
-ion-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0 90px 1px;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-}
+// ion-title {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   padding: 0 90px 1px;
+//   width: 100%;
+//   height: 100%;
+//   text-align: center;
+// }
 
 .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default,
 .bar-button-default-md, .bar-button-default.bar-button-md-default, .bar-button-clear-md-default {
 	color: white;
+	position: absolute;
 }
+
+.bar-button-default-md, .bar-button-default.bar-button-md-default, .bar-button-clear-md-default {
+	margin-top: 10px;
+}
+
+.bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default {
+	margin-top: 0px;
+}
+
 .content-ios, .content-md {
 	color: #fff;
     background: -webkit-linear-gradient(left top, $CONTENT, $CONTENT);
@@ -58,11 +70,12 @@ ion-title {
 
 .menu-inner > ion-header, .menu-inner > ion-content, .menu-inner > ion-footer{
 	background:black;
-    & .toolbar-background-ios, .toolbar-background-md {
+    & .avatar-background {
     	background: -webkit-linear-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
 	    background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
 	    background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
 	    background: linear-gradient(to bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+	    height: 199px;
     }
     & .toolbar-ios ion-title, .toolbar-md ion-title {
 		position: relative;
@@ -75,7 +88,7 @@ ion-title {
 		height: 20px;
 	}
 	& .profile-image{
-		margin-top: 40px;
+		padding-top: 40px;
 	    img{
 		    max-width: 102px;
 		    max-height: 102px;
@@ -109,6 +122,14 @@ ion-title {
 	}
 	& .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block, .list-md > .item-block:last-child, .list-md > .item-wrapper:last-child .item-block {
     	border: none;
+    }
+    & .list-ios > .item-block:first-child, .list-md > .item-block:first-child {
+    	border: none;
+    }
+    & p {
+	    text-align: center;
+	    font-size: 16px;
+	    font-weight: 600;
     }
 	& .ion-item{
 	    background:black;
@@ -152,6 +173,11 @@ ion-title {
     background-color: black;
 }
 
+.alert-ios .alert-title, .alert-md .alert-title {
+    font-size: 16px !important;
+    text-align: center;
+}
+
 
 .ion-backdrop.backdrop-no-tappable {
     background-color: black !important;
@@ -159,4 +185,39 @@ ion-title {
 .loading-ios .loading-wrapper, .loading-md .loading-wrapper {
 	background: #1c1c1c !important;
     color: #fff !important;
+}
+
+.item-ios.activated {
+	background-color: #555555 !important;
+}
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.item-ios.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-ios.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+	border: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.overflow-scroll{overflow-y:auto;}
+
+
+.action-sheet-ios .action-sheet-container, .action-sheet-md .action-sheet-container {
+	padding: 0;
+}
+.action-sheet-ios .action-sheet-group, .action-sheet-md .action-sheet-group {
+	border-radius: 0;
+	&:last-child {
+		margin: 0;
+	}
+}
+.action-sheet-ios .action-sheet-button, .action-sheet-md .action-sheet-button {
+	border: none;
+    width: 50%;
+	.button-inner {
+		color: #49494a;
+	    font-size: 16px;
+	}
+}
+
+.scroll-content {
+	overflow-y: auto;
 }

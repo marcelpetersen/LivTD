@@ -2,7 +2,7 @@
   <ion-navbar>
 
     <ion-buttons start  style="order: 1 !important;">
-      <button ion-button menuToggle *ngIf="!isEdit">
+      <button ion-button menuToggle *ngIf="!isEdit" style="margin-top: -15px;">
         <ion-icon name="menu"></ion-icon>
       </button>
       <button start *ngIf="isEdit" ion-button clear (click)="cancelChanges()">
@@ -28,15 +28,17 @@
 <form class="list" [formGroup]="profileForm"  novalidate>
 
   <div class="profile-image">
-    <div [ngStyle]="{'background-image': 'url(' + userPhoto + ')'}" class="img-container" (click)="onChengePhotoClick()"></div>
+    <div style="background-image: url('../assets/default.png');" [ngStyle]="{'background-image': 'url(' + userPhoto + ')'}" class="img-container" (click)="onChengePhotoClick()">
+      <ion-spinner style = "margin: 0 auto; display: block;" name="circles" *ngIf="isPhotoLoading" class="spinner-chat"></ion-spinner>
+    </div>
   </div>
   <h4 class="title-name">{{userData.displayName}}</h4>
 
   <ion-list>
 
     <div>
-      <p *ngIf="!isNameValid" style="color: red;"> Invalid name</p>
-      <p *ngIf="!isEmailValid" style="color: red;"> Invalid email</p>
+      <p *ngIf="!isNameValid" style="color: red;"> Please enter a valid name</p>
+      <p *ngIf="!isEmailValid" style="color: red;"> Please enter a valid e-mail</p>
     </div>
     <ion-item>
       <ion-icon name="ios-person" item-left></ion-icon>
@@ -52,7 +54,7 @@
 
     <ion-item>
       <ion-icon name="ios-call" item-left></ion-icon>
-      <ion-input [textMask]="{mask: mask}" [disabled]="!isEdit" formControlName="phoneNumber" placeholder="(XXX) XXX XXXX"></ion-input>
+      <ion-input type="tel" [textMask]="{mask: mask}" [disabled]="!isEdit" formControlName="phoneNumber" placeholder="(XXX) XXX XXXX"></ion-input>
     </ion-item>
 
     <ion-item>

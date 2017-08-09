@@ -17,9 +17,10 @@ import { Events } from 'ionic-angular';
 export class MyProfilePage {
 
   userData : any;
-  userPhoto : any;
+  userPhoto: any = "../assets/default.png";
   imageData: any;
   changedMusicPreference : any;
+  isPhotoLoading: boolean = false;
   public profileForm : FormGroup;
   isEdit:boolean = false;
   public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
@@ -47,7 +48,7 @@ export class MyProfilePage {
           underground:false
           }
       };
-    this.userPhoto = "";
+    
     this.profileForm = formBuilder.group({
         name: ['',Validators.compose([Validators.required,
         Validators.maxLength(45),Validators.pattern("[a-z A-Z]*")])],
@@ -69,13 +70,15 @@ export class MyProfilePage {
       this.userPhoto = photoURL;
     });  
 
-    events.subscribe('changedPhoto', (imageData, toUpload: boolean) => {
-      if(!toUpload){
+    events.subscribe('myProfile:changedPhoto', (imageData) => {
+     
         this.userPhoto = 'data:image/jpeg;base64,' + imageData;
         this.imageData = imageData;
-      }
+        this.isPhotoLoading = false;
+      
     });
 
+    events.subscribe('loading_photo', () => this.isPhotoLoading = true)
   }
 
   logOutUser() {
@@ -197,8 +200,10 @@ export class MyProfilePage {
   }
 
   onChengePhotoClick() {
-    if(this.isEdit)
-      this.cameraProvider.showChoiceAlert(false);
+    if (this.isEdit) {
+      let alert = this.cameraProvider.showChoiceAlert(CameraProvider.TO_MYPROFILE);
+      alert.present();
+    }
   }
 
   cancelChanges() {
@@ -211,12 +216,12 @@ export class MyProfilePage {
 
 
 
-setInputsData() {
-  this.profileForm.get('name').setValue(this.userData.displayName);
-  this.profileForm.get('email').setValue(this.userData.email);
-  this.profileForm.get('phoneNumber').setValue(this.userData.phoneNumber);
-  this.profileForm.get('zipCode').setValue(this.userData.zipCode);
-  this.userPhoto = this.userData.photoURL;
-}
+  setInputsData() {
+    this.profileForm.get('name').setValue(this.userData.displayName);
+    this.profileForm.get('email').setValue(this.userData.email);
+    this.profileForm.get('phoneNumber').setValue(this.userData.phoneNumber);
+    this.profileForm.get('zipCode').setValue(this.userData.zipCode);
+    this.userPhoto = this.userData.photoURL;
+  }
 
 }

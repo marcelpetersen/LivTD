@@ -2,7 +2,6 @@ import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Clipboard } from '@ionic-native/clipboard';
-import { CallNumber } from '@ionic-native/call-number';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { AlertProvider } from '../../providers/alert'
@@ -27,29 +26,29 @@ export class AboutPage implements AfterViewInit {
   latitude: number = 25.817853;
   longitude: number = -80.122189;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, 
-	  public clipboard: Clipboard, public callNumber: CallNumber, private emailComposer: EmailComposer, private launchNavigator: LaunchNavigator, public alertProvider: AlertProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public clipboard: Clipboard, private emailComposer: EmailComposer 
+    , private launchNavigator: LaunchNavigator, public alertProvider: AlertProvider) {
 
 	  this.latLng = new google.maps.LatLng(this.latitude, this.longitude);
   }	
 
   loadMap():void {
 	
-	let mapOptions = {
-		center: this.latLng,
-		zoom: 15,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	}
+  	let mapOptions = {
+  		center: this.latLng,
+  		zoom: 15,
+  		mapTypeId: google.maps.MapTypeId.ROADMAP
+  	}
 
-	this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+  	this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-	let marker = new google.maps.Marker({
-		map: this.map,
-		animation: google.maps.Animation.DROP,
-		position: this.latLng,
-		title:"LIV Miami",
-		optimized: false
-	});
+  	let marker = new google.maps.Marker({
+  		map: this.map,
+  		animation: google.maps.Animation.DROP,
+  		position: this.latLng,
+  		title:"LIV Miami",
+  		optimized: false
+  	});
 
   }
 
@@ -73,26 +72,21 @@ export class AboutPage implements AfterViewInit {
 			handler: () => {
 				this.clipboard.copy(this.address);
 				this.alertProvider.presentCopyToast();
-				console.log("Copied");
 			}
 		}
   		]
   	})
 
-	addressAlert.present();
+	  addressAlert.present();
   }
 
-  onPhoneClick(phone) {
-    this.callNumber.callNumber(phone, true)
-	    .then(() => console.log('Launched dialer!'))
-	    .catch(() => console.log('Error launching dialer'));
-  }
+
 
   onEmailClick(email) {
-	let emailMessage = {
-		to: email,
-	  };
-	this.emailComposer.open(emailMessage);
+  	let emailMessage = {
+  		to: email,
+  	  };
+  	this.emailComposer.open(emailMessage);
   }
 
 }

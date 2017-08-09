@@ -1,37 +1,41 @@
-import { Component, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
-// import {KSSwiperContainer, KSSwiperSlide} from 'angular2-swiper';
-
+import { FirebaseProvider } from '../../providers/firebaseProvider'
+import { InAppBrowserProvider } from '../../providers/inAppBrowserProvider';
+import { AlertProvider } from '../../providers/alert'
 
 @Component({
   selector: 'page-tabHome',
   templateUrl: 'tabHome.html'
 })
-export class tabHomePage implements AfterViewInit{
-  // @ViewChild(KSSwiperContainer) swiperContainer: KSSwiperContainer;
- images: any;
- // swiperOptions: any;
+export class tabHomePage {
+ 
+ images: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
-   	this.images = Array(
-      {"urlPhoto": "assets/V13xWyu6TQivk2uYlDa5_pyt-presents-ruen.jpg", "url": ""},
-      {"urlPhoto": "assets/2EwMEn9RQHePiiafKyo6_kaskade.jpg", "url": ""},
-      {"urlPhoto": "assets/YO3b4z57TaaldEuA720P_lil-yachty-irie.jpg", "url": ""},
-      {"urlPhoto": "assets/FCugJtlXRdSZ0ZcTSYuE_kevin-hart-irie-liv-on-sunday.jpg", "url": ""}
-     );
-    //  this.swiperOptions = {
-    //   slidesPerView: 1,
-    //   loop: true,
-    //   // preloadImages: false,
-    //   // lazyLoading: true,
-    //   autoplay: 3000,
-    //   paginationIsActive: true,
-    // };
+
+ constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public firebaseProvider: FirebaseProvider, public browser: InAppBrowserProvider, public alertProvider: AlertProvider) {
+    this.images = [];
+    this.alertProvider.presentLoadingCustom();
+    let eventsRef = this.firebaseProvider.getEventsRef();
+
+    eventsRef.once('value', snapshot => {
+    
+    let snapshotObj = snapshot.val();
+
+    if (snapshotObj) {
+      var keyNames = Object.keys(snapshotObj);
+      for (let name of keyNames) {
+        this.images.push(snapshotObj[name]);
+      }
+
+    }
+    this.alertProvider.dismissLoadingCustom();
+    })
 
   }
 
-  ngAfterViewInit() {
-    // console.log(this.swiperContainer);
+  onEventClick(image) {
+    this.browser.openURL(image.url);
   }
   
 }

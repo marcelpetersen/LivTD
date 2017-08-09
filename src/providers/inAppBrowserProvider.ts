@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 declare var cordova;
 
 @Injectable()
@@ -13,7 +12,7 @@ export class InAppBrowserProvider {
 
 		var ref = cordova.ThemeableBrowser.open(url, '_blank', {
 			statusbar: {
-				color: '#ffffffff'
+				color: '#282828'
 			},
 			toolbar: {
 				height: 56,
@@ -45,25 +44,8 @@ export class InAppBrowserProvider {
 				showProgress: true,
 				progressBgColor: '#282828',
 				progressColor: '#22ECFC'
-			},
-			disableAnimation: true
+			}
             
-		})
-
-		ref.addEventListener('loadstart', function() {
-
-		});
-
-		ref.addEventListener('loadstop', function() {
-
-		});
-		ref.addEventListener('loaderror', function(params) {
-    		var scriptErrorMesssage =
-	       "alert('Sorry we cannot open that page. Message from the server is : "
-	       + params.message + "');"
-
-		    ref.close();
-		    ref = undefined;
 		});
 	}
 }

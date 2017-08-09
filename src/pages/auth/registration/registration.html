@@ -1,4 +1,4 @@
-<ion-content  padding="true" class="manual-ios-statusbar-padding registration-content" scroll="false">
+<ion-content  padding="true" class="manual-ios-statusbar-padding registration-content no-scroll" scroll="false">
 
   <div class="error-box" *ngIf="errors.name || errors.email || errors.password || firebaseErrorMessage || errors.age">
     <p *ngIf="errors.name">Please enter a valid name</p>
@@ -27,24 +27,28 @@
       </ion-item>   
 
       <ion-item>
-        <ion-label>DOB:</ion-label>
-        <ion-datetime formControlName="dobStamp" [(ngModel)]="dateStr"  displayFormat="MM/DD/YYYY" ></ion-datetime>
+        <ion-label>Birthday:</ion-label>
+        <ion-datetime formControlName="dobStamp" [(ngModel)]="dateStr"  displayFormat="MMM DD, YYYY" ></ion-datetime>
       </ion-item>
        
       <ion-item>
-        <ion-icon name="ios-musical-notes" item-left></ion-icon>
-        <ion-label (click)="onMusicPreferenceClick()" >Music Preference</ion-label>
+        <ion-icon name="ios-pin" item-left></ion-icon>
+         <ion-input   formControlName="zipCode" placeholder="XXXXXX"></ion-input>
       </ion-item>
 
-      <ion-item>      
-        <ion-checkbox class="item item-checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="conditionChecked">
-        </ion-checkbox> 
-        <ion-label>I agree to the  <a class="terms-style" ui-sref="#" (click)="presentAgreementAlert()" >Terms & Conditions & Privacy Policy</a></ion-label> 
+      <ion-item (click)="onMusicPreferenceClick()">
+        <ion-icon name="ios-musical-notes" item-left></ion-icon>
+        <ion-label  >Select Music Preference</ion-label>
+        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
       </ion-item>
           
     </ion-list>
 
-    <button ion-button class="button button-calm button-block" type="submit" color="#000000" [disabled]="!conditionChecked" >Sign Up</button>
+    <button ion-button class="button button-calm button-block" type="submit" color="#000000"  >Sign Up</button>
     <a ui-sref="#" (click)="onExistAccountClick()" class="button button-light button-block button-clear have-account">Already have an account?</a>
   </form>
 </ion-content>
+
+<ion-footer style="text-align: center; height: 40px;">
+  <small class="agreement-text">By signing up, you are agreeing to the Terms of Use & Privacy Policy</small>
+</ion-footer>

@@ -7,12 +7,12 @@
   	</ion-navbar>
 </ion-header>
 
-<ion-content no-bounce>
+<ion-content no-bounce class="no-scroll">
 
   <ion-list>
     <ion-item *ngFor="let album of albums" (click)="showFullPhoto(album)">
       <ion-thumbnail item-start>
-          <img [src]="album.coverURL">
+          <div [ngStyle]="{'background-image': 'url(' + album.coverURL + ')'}" class="album-photo"></div>
         </ion-thumbnail>
         <h2 light>{{album.name}}</h2>
         <p style="white-space:normal;">{{album.photoCount}} photos</p>
@@ -25,72 +25,4 @@
  </ion-infinite-scroll>
 </ion-content>
 
-    <!-- <ion-item (click)="showFullPhoto()">
-      <ion-thumbnail item-start>
-          <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-        </ion-thumbnail>
-        <h2 light>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
-        <p style="white-space:normal;">300 photos</p>
-        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
-    </ion-item>
-
-    <ion-item (click)="showFullPhoto()">
-      <ion-thumbnail item-start>
-          <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-        </ion-thumbnail>
-        <h2 light>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
-        <p style="white-space:normal;">300 photos</p>
-        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
-    </ion-item>
-
-    <ion-item (click)="showFullPhoto()">
-      <ion-thumbnail item-start>
-          <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-        </ion-thumbnail>
-        <h2 light>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
-        <p style="white-space:normal;">300 photos</p>
-        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
-    </ion-item>
-
-    <ion-item (click)="showFullPhoto()">
-      <ion-thumbnail item-start>
-          <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-        </ion-thumbnail>
-        <h2 light>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
-        <p style="white-space:normal;">300 photos</p>
-        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
-    </ion-item>
-
-    <ion-item (click)="showFullPhoto()">
-      <ion-thumbnail item-start>
-          <img src="assets/yke02RAtT9S0uiDYLVNm_livwpcopy.jpg">
-        </ion-thumbnail>
-        <h2 light>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
-        <p style="white-space:normal;">300 photos</p>
-        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
-    </ion-item> -->
-
-
- 
-  <!-- <ion-grid>
-    <div *ngFor="let album of albums">
-      <ion-row class="heading-album">
-        <ion-item class="heading-album-item">
-          <ion-avatar item-left>
-            <ion-icon text-center name="photo_folder"></ion-icon>
-          </ion-avatar>
-          <p class="album-name" *ngIf="album.name">{{album.name}}</p>
-          <p class="album-date" *ngIf="album.name">{{album.created_at | date:'d MMMM y'}}</p>
-          <p class="album-onlydate" *ngIf="!album.name">{{album.created_at | date:'d MMMM y'}}</p>
-        </ion-item>
-      </ion-row>
-      <ion-row wrap>
-        <ion-col class="image-thumb-col" col-4 width-33 *ngFor="let image of images | groupbypipe:{album_id:album.id}">
-          <div class="image-thumb" [ngStyle]="{'background-image': 'url(' + image.url_mini + ')'}" style="width: 100%; height: 100%;" image-thumb-gallery (click)="showFullPhoto(images, image)"></div>
-        </ion-col>
-      </ion-row>
-    </div>
-  </ion-grid>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-   <ion-infinite-scroll-content></ion-infinite-scroll-content>
- </ion-infinite-scroll> -->
+   

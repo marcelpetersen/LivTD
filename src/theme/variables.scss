@@ -46,14 +46,18 @@ $colors: (
 // --------------------------------------------------
 // iOS only Sass variables can go here
 $spinner-ios-circles-color: '#fff';
+$tabs-ios-tab-min-height: 49px;
 
+$toolbar-ios-title-text-align: center;
 
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 $spinner-md-circles-color: '#fff';
+$tabs-md-tab-min-height: 49px;
 
+$toolbar-md-title-text-align: center;
 
 
 // App Windows Variables

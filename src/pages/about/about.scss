@@ -1,5 +1,16 @@
 page-about {
 
+	.white-link:hover, .white-link:visited, .white-link:link, .white-link:active {
+		margin: 4px 16px;
+		font-weight: 400;
+		text-decoration: none;
+		color: white;
+	}
+
+	.no-margin {
+		margin: 4px 0;
+	}
+
 	.scroll {
 		height: 100%
 	}

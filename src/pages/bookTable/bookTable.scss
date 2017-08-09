@@ -13,7 +13,7 @@ page-book-table {
 	}
 
 	.table-form {
-		margin-top: 10%;
+		margin-top: 16px;
 	    margin-left: 20px;
     	margin-right: 20px;
 	}
@@ -72,4 +72,19 @@ page-book-table {
 	.button-ios, .button-md {
 		margin-top: 20px;
 	}
+	.disclaimer {
+	    border: 1px solid white !important;
+	    border-radius: 10px;
+	    margin-bottom: 10px;
+	    p {
+    	    white-space: normal;
+		    text-align: justify;
+		    color: white;
+		    font-size: 11px;
+	    }
+	}
+
+	.button-ios, .button-md {
+	    background-color: #22ECFC;
+	  }
 }

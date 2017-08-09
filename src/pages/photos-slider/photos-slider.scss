@@ -1,0 +1,11 @@
+page-photos-slider {
+	.toolbar-background-ios, .toolbar-background-md {
+		background: none;
+	}
+
+	.photo-slide {
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: contain;
+	}
+}

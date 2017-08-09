@@ -1,0 +1,33 @@
+wallpapers-page {
+	.swiper-container {
+	    background-color: #0f0f0f;
+	}
+  	.card-ios, .card-md, .card-wp {
+	    -webkit-box-shadow: none;
+	    box-shadow: none;
+	    position: fixed;
+	    top: 50%;
+	    transform: translateY(-50%);
+	}
+	.scroll-content {
+		padding: 0 !important;
+	}
+	.swiper-slide {
+		background-size: cover;
+	    background-position: center center;
+	}
+	.swiper-pagination-bullet-active {
+		background-color: black;
+	}
+	.top-right {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		top: auto;
+		left: auto;
+		ion-icon {
+		    font-size: 2.2em;
+    		color: white;
+		}
+	}
+}
