@@ -9,6 +9,7 @@ import { AlertController } from 'ionic-angular';
 import { AlertProvider } from '../../providers/alert'
 import { ScrollProvider } from '../../providers/scroll'
 import { FileTransferProvider } from '../../providers/fileTransfer';
+import {InAppBrowserProvider} from '../../providers/inAppBrowserProvider'
 
 @Component({
   selector: 'page-tabChat',
@@ -33,16 +34,18 @@ export class tabChatPage {
 	public eventMock;
   	public eventPosMock;
 	isInitComplete: boolean = false;
-	isInitCompleteInit: boolean = false;
+	isInitCompleteInit: boolean = true;
 	isSending: boolean = false;
 	isLoading: boolean = false;
 	isSendingPicrute = false;
 	limitCount: any = 30;
 	prevScroll: any = 0;
+
 	
-  	constructor(public navCtrl: NavController, private scrollFix: ScrollProvider, public element: ElementRef, public navParams: NavParams, public firebaseProvider : FirebaseProvider, public storageProvider : StorageProvider, 
+	constructor(public navCtrl: NavController, private scrollFix: ScrollProvider, public element: ElementRef, public navParams: NavParams, public firebaseProvider: FirebaseProvider, public storageProvider: StorageProvider,public inAppBrowserProvider: InAppBrowserProvider, 
 			public cameraProvider: CameraProvider, events: Events, public clipboard: Clipboard, public actionSheetController: ActionSheetController, public alertProvider: AlertProvider, public fileTransferProvider: FileTransferProvider) {
 
+		
 		this.storageProvider.getItem('curent_user').then(data => {
 			this.userID = data.id
 			this.userPhotoURL = data.photoURL;
@@ -72,16 +75,13 @@ export class tabChatPage {
     }
 
     ngAfterViewInit() {
-        this.scrollFix.init(this.content._scrollContent.nativeElement);
-        let sub = this.taskCards.changes.subscribe(data => {
-            this.scrollFix.restore()
-        });
+       // this.isInitCompleteInit = false;
     }
 
-    openEmoji() {
-    	var result = this.element.nativeElement.querySelector('[_nghost-c0] .emoji-search[_ngcontent-c0]');
-    	result.hidden = !result.hidden;
-    }
+    // openEmoji() {
+    // 	var result = this.element.nativeElement.querySelector('[_nghost-c0] .emoji-search[_ngcontent-c0]');
+    // 	result.hidden = !result.hidden;
+    // }
 
     scrollHandler(event) {
   //   	if(!this.isLoading) {
@@ -104,13 +104,11 @@ export class tabChatPage {
 			var keyNames = Object.keys(snapshotObj);
 			for (let name of keyNames) {
 				this.messageStory.push(this.addMessage(snapshotObj[name]));
-				this.isInitComplete = true;
 			}
 			this.alertProvider.dismissLoadingCustom();
 		}
 
 		this.isInitComplete = true;
-		this.isInitCompleteInit = true;
     }
 
   	addMessage(data) {
@@ -128,6 +126,11 @@ export class tabChatPage {
 				console.error(error);
 			})
 		}
+		var urlRegex = /(https?:\/\/[^\s]+)/g;
+		data.message = data.message.replace(urlRegex, function(url){
+			data.link = url;
+			return '<a>' + url + '</a>';
+		})
 		return data;
   	}
 
@@ -206,7 +209,7 @@ export class tabChatPage {
 	    	this.isSending = false;
 		} else if( this.isInitCompleteInit ) {
 			this.content.scrollToBottom(0);
-	    	this.isInitCompleteInit = false;
+	    	
 		}
     }
 
@@ -233,6 +236,14 @@ export class tabChatPage {
 			}
 		});
 	}
+
+	openURL(message){
+		console.log('bla')	
+		if(message.link){
+			this.inAppBrowserProvider.openURL(message.link);
+		}
+	}
+	
 }
 
 

@@ -86,5 +86,16 @@ page-book-table {
 
 	.button-ios, .button-md {
 	    background-color: #22ECFC;
-	  }
+	}
+
+	.call-a {
+	    width: 100%;
+	    height: 100%;
+	    display: block;
+	    padding-right: 10px;
+	    color: white;
+	    ion-icon {
+	    	font-size: 2.2em;
+	    }
+	}
 }

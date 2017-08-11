@@ -11,7 +11,7 @@
   <ion-content>
     <div class="avatar-background">
       <div class="profile-image">
-        <div style="background-image: url('../assets/default.png');" [ngStyle]="{'background-image': 'url(' + userPhotoURL + ')'}" class="img-container" (click)="onChengePhotoClick()"></div>
+        <div style="background-image: url('../assets/default.png');" [ngStyle]="{'background-image': 'url(' + userPhotoURL + ')'}" class="img-container" on-tap ="onChengePhotoClick()"></div>
       </div>
       <p (click)="openMyProfilePage()" menuClose>{{userName}}</p>
     </div>

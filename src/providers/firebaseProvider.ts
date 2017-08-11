@@ -3,6 +3,8 @@ import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { StorageProvider } from '../providers/storage';
 
+declare var window: any;
+
 @Injectable()
 export class FirebaseProvider {
 
@@ -209,11 +211,47 @@ export class FirebaseProvider {
   }
 
   uploadPhotoToStorage(storageRef:any, imageData:any):any {
-    var photoURL = 'data:image/jpeg;base64,' + imageData;
-    const filename = Math.floor(Date.now() / 1000);
-    const imageRef = storageRef.child(`/${filename}.jpg`);
-    return imageRef.putString(photoURL, firebase.storage.StringFormat.DATA_URL).then(() => {
-        return imageRef.getDownloadURL();  
+   // var photoURL = 'data:image/jpeg;base64,' + imageData;
+   // const filename = Math.floor(Date.now() / 1000);
+    return this.makeFileIntoBlob(imageData).then((blob:any) => {
+
+
+      let filename = blob.name;
+      const imageRef = storageRef.child(`/${filename}.jpg`);
+     // return imageRef.putString(photoURL, firebase.storage.StringFormat.DATA_URL).then(() => {
+     //   return imageRef.getDownloadURL();
+     // });
+      return imageRef.put(blob).then(() => {
+        return imageRef.getDownloadURL();
+     })
+    })
+  }
+
+  
+
+  makeFileIntoBlob(_imagePath) {
+
+    // INSTALL PLUGIN - cordova plugin add cordova-plugin-file
+    return new Promise((resolve, reject) => {
+      window.resolveLocalFileSystemURL(_imagePath, (fileEntry) => {
+
+        fileEntry.file((resFile) => {
+
+          var reader = new FileReader();
+          reader.onloadend = (evt: any) => {
+            var imgBlob: any = new Blob([evt.target.result], { type: 'image/jpeg' });
+            imgBlob.name = Math.floor(Date.now() / 1000);
+            resolve(imgBlob);
+          };
+
+          reader.onerror = (e) => {
+            console.log('Failed file read: ' + e.toString());
+            reject(e);
+          };
+
+          reader.readAsArrayBuffer(resFile);
+        });
+      });
     });
   }
   /*

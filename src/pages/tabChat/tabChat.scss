@@ -51,7 +51,6 @@ page-tabchat {
 			&.chatMessage {
 			    border-radius: 10px;
 				background-color: #4a4a48;
-				margin-right: 26px;
 				color: #e5e5e5;
 			    &:before {
 	    	        content: ' ';
@@ -69,10 +68,16 @@ page-tabchat {
 			float: right;
 		}
 		.chatPhoto {
-			img {
+			.photo-div {
 				display: block;
 				margin: 7px auto 0 auto;
 			    border-radius: 50%;
+			    width: 35px; 
+			    height: 35px; 
+			    background-image: url(assets/default.png);
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    background-size: cover;
 			}
 			width: 20%;
 		}
@@ -92,8 +97,11 @@ page-tabchat {
 	    height: 70px;
 	    width: 100%;
 		.chatTextarea {
-		    width: calc(100% - 100px);
-		    padding: 15px;
+		    width: calc(100% - 70px);
+	        padding-bottom: 15px;
+    		padding-top: 15px;
+    		padding-left: 10px;
+    		padding-right: 5px;
 		    margin: 10px;
 		    height: 50px;
 		    float: left;
@@ -118,17 +126,23 @@ page-tabchat {
 		    border-top-left-radius: 10px;
     		border-bottom-left-radius: 10px;
 			padding: 0;
-			width: 80px;
+			width: 50px;
 			height: 50px;
 			float: left;
 		    margin: 10px 0;
 		    button {
 		    	background: none;
 		    	padding-right: 0;
+		    	width: 100%;
+    			height: 100%;
 		    }
 		    img {
 	    	    width: 17px;
     			height: 17px;
+		    }
+		    ion-icon {
+		    	font-size: 2.2em;
+    			color: white;
 		    }
 		}
 	}
@@ -137,36 +151,36 @@ page-tabchat {
 		height: 70px;
 	}
 	
-	emoji-input input {
-	    width: 100%;
-	    height: 10px;
-	    border: none;
-	    background: #f2f2f2;
-	    color: black;
-	    display: none;
-	}
+	// emoji-input input {
+	//     width: 100%;
+	//     height: 10px;
+	//     border: none;
+	//     background: #f2f2f2;
+	//     color: black;
+	//     display: none;
+	// }
 
-	.emoji-search.bottom {
-		background-color: #302f2f !important;
-    	border: 1px solid #302f2f !important;
-    	height: 200px;
-	    top: -190px;
-	    width: 100%;
-	    height: 160px;
-    	& .search-header {
-		    background-color: #302f2f !important;
-    		border-bottom: 1px solid #302f2f !important;
-    	}
-	}
+	// .emoji-search.bottom {
+	// 	background-color: #302f2f !important;
+ //    	border: 1px solid #302f2f !important;
+ //    	height: 200px;
+	//     top: -190px;
+	//     width: 100%;
+	//     height: 160px;
+ //    	& .search-header {
+	// 	    background-color: #302f2f !important;
+ //    		border-bottom: 1px solid #302f2f !important;
+ //    	}
+	// }
 
-	[_nghost-c0] .emoji-search[_ngcontent-c0] .emojis-container[_ngcontent-c0] {
-		height: 150px;
-		text-align: justify;
-	}
+	// [_nghost-c0] .emoji-search[_ngcontent-c0] .emojis-container[_ngcontent-c0] {
+	// 	height: 150px;
+	// 	text-align: justify;
+	// }
 
-	[_nghost-c0] {
-		bottom: -41px;
-	}
+	// [_nghost-c0] {
+	// 	bottom: -41px;
+	// }
 
 	.send-icon {
 	    font-size: 1.9em;

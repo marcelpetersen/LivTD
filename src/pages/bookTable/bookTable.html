@@ -5,8 +5,8 @@
     </button>
     <ion-title>Book a Table</ion-title>
 
-    <ion-buttons end >
-      <a ion-button href="tel: {{phone}}" style="margin-right: 10px;"><ion-icon style="font-size: 1.6em;" name="ios-call" item-left></ion-icon></a>
+    <ion-buttons end>
+      <a class="call-a" href="tel: {{phone}}"><ion-icon name="ios-call" item-left></ion-icon></a>
     </ion-buttons>
 
   </ion-navbar>
@@ -21,7 +21,7 @@
 
   		<ion-list>
 			<ion-item class="disclaimer">
-				<p>Submit your request below and a VIP Host will contact you. This form is not a table reservation confirmation and does not guarantee entry.</p>
+				<p>Submit your request below and a VIP Host will contact you shortly later. This form is not a table reservation confirmation and does not guarantee entry.</p>
 			</ion-item>
   		<div style="color:red;">
   			<p *ngIf="!isDateValid">Please enter a valid date</p>
@@ -29,7 +29,7 @@
   		</div>
 			<ion-item>
 			  <ion-label class="top-input">Date</ion-label>
-			  <ion-datetime formControlName="date" displayFormat="MMM DD, YYYY" placeholder="MMM DD, YYYY"></ion-datetime>
+			  <ion-datetime [min]="minDate" [max]="maxDate" formControlName="date" displayFormat="MMM DD, YYYY" placeholder="MMM DD, YYYY"></ion-datetime>
 			</ion-item>
 
 		    <ion-item>
@@ -66,7 +66,7 @@
 
 		    <ion-item>
 		      <ion-label class="top-input">Phone Number</ion-label>
-		       <ion-input type="tel" formControlName="phoneNumber" [textMask]="{mask: mask}" placeholder="(XXX) XXX XXXX"></ion-input>
+		       <ion-input type="tel" formControlName="phoneNumber" [textMask]="{mask: mask}" placeholder="+X(XXX) XXX XXXX"></ion-input>
 		    </ion-item>
 
 		    <ion-item>

@@ -15,16 +15,19 @@
 				      	<!-- <p *ngIf="(message.recieverID === userID)">Reply to you</p> -->
 						<div *ngIf="!(message.senderID === userID)" class="chatRow to-me">
 							<div  class="chatPhoto">
-								<img width="35" height="35" [src]="chatUsers[message.senderID].photoURL" src="assets/default.png">
+								<div class="photo-div" [ngStyle]="{'background-image': 'url(' + chatUsers[message.senderID].photoURL + ')'}"></div>
 							</div>
-							<div class="chatMessage">
-								{{message.message}}
+							<div  class="chatMessage">
+								<div [innerHtml]="message.message" (click)="openURL(message)"><!-- {{message.message}} --></div>
 								<img *ngIf="message.pictureURL " [src]="message.pictureURL">
 							</div>
 						</div>
 						<div *ngIf="(message.senderID === userID)" class="chatRow from-me">
-							<div class="chatMessage">
-								{{message.message}}
+							<div  class="chatPhoto">
+								<div class="photo-div" [ngStyle]="{'background-image': 'url(' + chatUsers[message.senderID].photoURL + ')'}"></div>
+							</div>
+							<div  class="chatMessage">
+								<div [innerHtml]="message.message" (click)="openURL(message)"><!-- {{message.message}} --></div>
 								<img *ngIf="message.pictureURL " [src]="message.pictureURL" src="assets/default.png">
 							</div>
 						</div>
@@ -53,28 +56,26 @@
 						</ion-item>
 					</ion-col>
 					<ion-col col-2 class="chat-col">
-							<a style="float: left; width: 100%; height: 100%;" (click)="sendMessage()"><ion-icon class="send-icon" name="ios-paper-plane" item-right></ion-icon></a>
+							<a style="float: left; width: 100%; height: 100%;" (click)="sendMessage()"><ion-icon class="send-icon" name="ios-arrow-dropup-circle" item-right></ion-icon></a>
 					</ion-col>
 				</ion-row>
 			</div>
 			<div class="chatAddMedia">
-				<ion-row style="margin-top: 9px;">
+				<button (click)="uploadPhotoClick()"><ion-icon name="ios-camera" item-right></ion-icon></button>
+				<!-- <ion-row style="margin-top: 9px;">
 					<ion-col>
-						<button (click)="uploadPhotoClick()"><img src="assets/img/plus.png"></button>
+						<button (click)="uploadPhotoClick()"><ion-icon name="ios-camera" item-right></ion-icon></button>
 					</ion-col>
 					<ion-col>
 						<button (click)="openEmoji()"><img src="assets/img/smile.png"></button>
 					</ion-col>
-				</ion-row>
-				
-				
-				
+				</ion-row> -->
 			</div>
-			<emoji-input
+			<!-- <emoji-input
 				  [(model)]="messageText"
 				  [popupAnchor]="'bottom'"
 				  (emojiClick)="openEmoji()" >
-			</emoji-input>
+			</emoji-input> -->
 		</form>
 	</div>
 </ion-footer>

@@ -3,6 +3,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertProvider } from '../providers/alert';
 import { Events } from 'ionic-angular';
 
+
+
 @Injectable()
 
 export class CameraProvider {
@@ -15,7 +17,7 @@ export class CameraProvider {
 	constructor(public camera: Camera, public alertProvider: AlertProvider, public events: Events) {
 		this.cameraOptions = {
       		quality:60,
-      		destinationType : this.camera.DestinationType.DATA_URL,
+      		destinationType : this.camera.DestinationType.FILE_URI,
       		encodingType: this.camera.EncodingType.JPEG,
       		mediaType: this.camera.MediaType.PICTURE,
       		targetWidth: 300,
@@ -46,8 +48,11 @@ export class CameraProvider {
 					handler: () => {
 						
 						this.choosePhotoFromGalery().then((imageData) => {
-							this.events.publish('loading_photo');
-							this.sendImageDataTuSubscibers(imageData, destinationType);
+							//this.events.publish('loading_photo');
+							
+								this.sendImageDataTuSubscibers(imageData, destinationType);
+							
+							
 							}).catch((error: any) => {
 							console.log(error);
 						});
@@ -59,8 +64,11 @@ export class CameraProvider {
 					handler: () => {
 						;
 						this.takePhotoFromCamera().then((imageData) => {
-							this.events.publish('loading_photo')
-							this.events.publish('changedPhoto', imageData, destinationType);						
+							//this.events.publish('loading_photo')
+							
+								this.sendImageDataTuSubscibers(imageData, destinationType);
+					
+							//this.sendImageDataTuSubscibers(imageData, destinationType);						
 						}).catch((error: any) => {
 							console.log(error);
 
@@ -72,6 +80,8 @@ export class CameraProvider {
 		});
 		return alert;
 	}
+
+	
 
 	sendImageDataTuSubscibers(imageData:any, destinationType:number) {
 		if (destinationType === CameraProvider.TO_SIDE_MENU)

@@ -21,14 +21,17 @@ export class BookTablePage {
   isEmailValid: boolean = true;
   isDateValid: boolean = true;
   public mask: Array<string | RegExp>
+  minDate: string;
+  maxDate: string;
   // public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http,
     formBuilder: FormBuilder, public postmarkProvider: PostmarkProvider, public alertProvider: AlertProvider) {
-  	
-  	this.mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
+    
+    this.initDateInterval();
+  this.mask = ['+', /\d{1}/, ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
-     this.bookTableForm = formBuilder.group({
+    this.bookTableForm = formBuilder.group({
        email: ['', Validators.compose([Validators.required,EmailValidator.isValid])],
        phoneNumber : ['', Validators.required],
        females: ['', Validators.required],
@@ -52,6 +55,15 @@ export class BookTablePage {
      }
       
   }
+
+  initDateInterval(){
+    let today = new Date();
+    this.minDate = today.toISOString().substring(0, 10);
+    let maxDateObj = today;
+    maxDateObj.setFullYear(today.getFullYear() + 1);
+    this.maxDate = maxDateObj.toISOString().substring(0, 10);
+  }
+  
   
 }
  

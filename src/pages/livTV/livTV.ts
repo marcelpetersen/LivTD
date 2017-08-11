@@ -14,7 +14,7 @@ export class LivTVPage {
 
 	videos : Array<any>;
 	searchInput : string;
-	
+	isSearchResultEmpty: boolean = false;
 
 	constructor(public navCtrl: NavController, public element: ElementRef, public navParams: NavParams, public youtubeService: YouTubeService, private youtube: YoutubeVideoPlayer) {
 		this.videos = [];
@@ -77,12 +77,15 @@ export class LivTVPage {
 	}
 
 	onSearchClick() {
+		this.isSearchResultEmpty = false;
 		if (this.searchInput !== "") {
 			this.videos = [];
 			this.youtubeService.changeMode();
 			this.youtubeService.getFoundVideos(this.searchInput).then(data => {
-				if (data)
+				if (data.length > 0)
 					this.addVideos(data);
+				else this.isSearchResultEmpty = true;
+
 			});
 		}
 	}
@@ -95,6 +98,7 @@ export class LivTVPage {
 	}
 
 	toDefaultMode()	{
+		this.isSearchResultEmpty = false;
 		this.videos = [];
 		this.youtubeService.changeMode();
 		this.loadVideos();

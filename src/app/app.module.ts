@@ -57,7 +57,7 @@ import { PostmarkProvider } from '../providers/postmarkProvider'
 import { ScrollProvider } from '../providers/scroll'
 import  firebase from 'firebase';
 
-import {EmojiPickerModule} from 'ng-emoji-picker';
+// import {EmojiPickerModule} from 'ng-emoji-picker';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
@@ -116,8 +116,8 @@ import { FileTransferProvider } from '../providers/fileTransfer';
     TextMaskModule,
     IonicStorageModule.forRoot(),
     BrowserModule, 
-    HttpModule,
-    EmojiPickerModule
+    HttpModule
+    // EmojiPickerModule
 
   ],
   bootstrap: [IonicApp],

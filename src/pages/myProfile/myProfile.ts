@@ -23,7 +23,7 @@ export class MyProfilePage {
   isPhotoLoading: boolean = false;
   public profileForm : FormGroup;
   isEdit:boolean = false;
-  public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
+  public mask = ['+', /\d{1}/, ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   isNameValid: boolean = true;
   isEmailValid: boolean = true;
@@ -71,14 +71,13 @@ export class MyProfilePage {
     });  
 
     events.subscribe('myProfile:changedPhoto', (imageData) => {
-     
-        this.userPhoto = 'data:image/jpeg;base64,' + imageData;
-        this.imageData = imageData;
-        this.isPhotoLoading = false;
+      this.userPhoto = encodeURI(imageData);
+      this.imageData = imageData;
+      this.isPhotoLoading = false;
       
     });
 
-    events.subscribe('loading_photo', () => this.isPhotoLoading = true)
+    // events.subscribe('loading_photo', () => this.isPhotoLoading = true)
   }
 
   logOutUser() {
@@ -125,7 +124,7 @@ export class MyProfilePage {
         this.firebaseProvider.uploadUserPhoto(this.imageData);       
         this.userData = changedUserData;
         this.changedMusicPreference = null;
-        this.alertProvider.presentAlertWithTittle('Data saved!');
+        this.alertProvider.presentAlertWithTittle('Info saved!');
         this.alertProvider.dismissLoadingCustom();      
         this.setInputsData();
 

@@ -92,7 +92,7 @@ export class LoginPage {
               var errorMessage: string;
               switch (error.code) {
                 case ("auth/invalid-email"):
-                  errorMessage = "Invalid email";
+                  errorMessage = "Please enter a valid e-mail.";
                   break;
                 case "auth/user-not-found":
                   errorMessage = "User not found";

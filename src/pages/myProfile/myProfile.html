@@ -28,8 +28,8 @@
 <form class="list" [formGroup]="profileForm"  novalidate>
 
   <div class="profile-image">
-    <div style="background-image: url('../assets/default.png');" [ngStyle]="{'background-image': 'url(' + userPhoto + ')'}" class="img-container" (click)="onChengePhotoClick()">
-      <ion-spinner style = "margin: 0 auto; display: block;" name="circles" *ngIf="isPhotoLoading" class="spinner-chat"></ion-spinner>
+    <div style="background-image: url('../assets/default.png');" [ngStyle]="{'background-image': 'url(' + userPhoto + ')'}" class="img-container"  on-tap="onChengePhotoClick()">
+     <!--  <ion-spinner style = "margin: 0 auto; display: block;" name="circles" *ngIf="isPhotoLoading" class="spinner-chat"></ion-spinner> -->
     </div>
   </div>
   <h4 class="title-name">{{userData.displayName}}</h4>
@@ -54,7 +54,7 @@
 
     <ion-item>
       <ion-icon name="ios-call" item-left></ion-icon>
-      <ion-input type="tel" [textMask]="{mask: mask}" [disabled]="!isEdit" formControlName="phoneNumber" placeholder="(XXX) XXX XXXX"></ion-input>
+      <ion-input type="tel" [textMask]="{mask: mask}" [disabled]="!isEdit" formControlName="phoneNumber" placeholder="+X(XXX) XXX XXXX"></ion-input>
     </ion-item>
 
     <ion-item>

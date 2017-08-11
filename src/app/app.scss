@@ -150,7 +150,7 @@ $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
 	    }
 	    & .label-ios, .label-md {
 	    	margin: 11px 8px 6px 0;
-	    	font-size: 1.4rem;
+	    	font-size: 1.5rem;
 	    }
 	}
 }
@@ -187,7 +187,7 @@ $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
     color: #fff !important;
 }
 
-.item-ios.activated {
+.item-ios.activated, .item-md.activated {
 	background-color: #555555 !important;
 }
 .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,

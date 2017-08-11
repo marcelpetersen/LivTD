@@ -7,14 +7,13 @@
 <ion-content no-bounce class="no-scroll">
 
   <ion-card *ngFor="let photo of photos" (click)="showFullPhoto(photo)">
-    <ion-item>
-      <ion-avatar item-left>
+    <!-- <ion-item> -->
+      <!-- <ion-avatar item-left>
         <div [ngStyle]="{'background-image': 'url(' + album.coverURL + ')'}" class="album-photo"></div>
-        <!-- <img [src]="album.coverURL"> -->
-      </ion-avatar>
+      </ion-avatar> -->
       <!-- <h2 class="photo-name">{{photo.name}}</h2> -->
-      <p class="photo-date">{{photo.created_time| date: 'MM/dd/yyyy'}}</p>
-    </ion-item>
+      <!-- <p class="photo-date">{{photo.created_time| date: 'MM/dd/yyyy'}}</p> -->
+    <!-- </ion-item> -->
     <img (press)="onPress(photo)" [src]="photo.source">
   </ion-card>
 
