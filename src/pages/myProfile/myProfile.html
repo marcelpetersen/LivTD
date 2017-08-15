@@ -25,7 +25,7 @@
 </ion-header>
 
 <ion-content padding class="profile-content no-scroll">
-<form class="list" [formGroup]="profileForm"  novalidate>
+<form class="list" [formGroup]="profileForm" (ngSubmit)="saveProfile()" novalidate>
 
   <div class="profile-image">
     <div style="background-image: url('../assets/default.png');" [ngStyle]="{'background-image': 'url(' + userPhoto + ')'}" class="img-container"  on-tap="onChengePhotoClick()">
@@ -64,16 +64,16 @@
 
     <ion-item>
       <ion-icon name="ios-pin" item-left></ion-icon>
-       <ion-input [disabled]="!isEdit"  formControlName="zipCode" placeholder="XXXXXX"></ion-input>
+       <ion-input type="tel" [disabled]="!isEdit"  formControlName="zipCode" placeholder="XXXXXX"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-icon name="ios-musical-notes" item-left></ion-icon>
        <ion-label (click)="onMusicPreferenceClick()" >Music Preference</ion-label>
     </ion-item>
-
-    <button ion-button class="button button-assertive button-block"  (click)="logOutUser()">Log Out</button>          
+    <button ion-button class="button button-assertive button-block"  on-tap="logOutUser()">Log Out</button>  
   </ion-list>
 </form>
+
   
 </ion-content>

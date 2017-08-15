@@ -32,6 +32,7 @@ import { FullscreenphotoPage } from '../pages/fullscreenphoto/fullscreenphoto';
 import { StickPage } from '../pages/stick/stick';
 import { PhotosSliderPage } from '../pages/photos-slider/photos-slider';
 import { ValetPage } from '../pages/valet/valet';
+import { LightShowPage } from '../pages/lightShow/lightShow';
 
 import { WelcomePage } from '../pages/welcome/welcome';
 import { tabHomePage } from '../pages/tabHome/tabHome';
@@ -100,6 +101,7 @@ import { FileTransferProvider } from '../providers/fileTransfer';
     tabChatPage,
     WelcomePage,
     WallpapersPage,
+    LightShowPage,
     ValetPage,
     ImageThumbGallery,
     GroupByPipe,
@@ -147,7 +149,8 @@ import { FileTransferProvider } from '../providers/fileTransfer';
     UpcomingEventsPage,
     WelcomePage,
     WallpapersPage,
-    ValetPage
+    ValetPage,
+    LightShowPage
   ],
   providers: [
     FileTransfer,

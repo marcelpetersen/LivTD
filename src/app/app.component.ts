@@ -18,6 +18,7 @@ import {LoginPage} from '../pages/auth/login/login';
 import {MyProfilePage} from '../pages/myProfile/myProfile';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { ValetPage } from '../pages/valet/valet';
+import { LightShowPage } from '../pages/lightShow/lightShow';
 
 import { Events } from 'ionic-angular';
 import { CameraProvider } from '../providers/camera';
@@ -73,6 +74,7 @@ export class MyApp {
       { title: 'Upcoming Events', component: UpcomingEventsPage ,icon: "ios-calendar-outline"},
       { title: 'Buy Tickets', component: BuyTicketsPage, icon: 'ios-barcode-outline' },
       { title: 'Book a Table', component: BookTablePage, icon: 'ios-people' },
+      { title: 'Light Show', component: LightShowPage, icon: 'ios-flash' },
       { title: 'Fun', component: FunPage, icon: 'ios-heart-outline' },
       { title: 'Valet', component: ValetPage, icon: 'md-car' },
       { title: 'Latest News', component: LatestNewsPage, icon: 'ios-redo' },
@@ -81,7 +83,7 @@ export class MyApp {
       { title: 'Shop', component: ShopPage, icon: 'ios-basket' },
       { title: 'Hotel Reservations', component: HotelReservationsPage, icon: 'ios-alarm-outline' },
       { title: 'About', component: AboutPage, icon: 'ios-information-circle' },
-      { title: 'My Profile', component: MyProfilePage, icon: 'ios-person' }
+      { title: 'My Profile', component: MyProfilePage, icon: 'ios-person' }      
     ];
 
     events.subscribe('user:changed', (name, photoURL) => {
@@ -89,11 +91,6 @@ export class MyApp {
       this.userPhotoURL = photoURL;
       this.alertProvider.dismissLoadingCustom();  
     }); 
-
-    events.subscribe('sideMenu:changedPhoto', (imageData) => {     
-        this.alertProvider.presentLoadingCustom();
-        this.firebaseProvider.uploadUserPhoto(imageData);     
-    });
 
   }
 
@@ -133,8 +130,13 @@ export class MyApp {
     this.nav.setRoot(MyProfilePage);
   }
 
+  imageReadyHandler(imageData: any) {
+    this.alertProvider.presentLoadingCustom();
+    this.firebaseProvider.uploadUserPhoto(imageData);
+  }
+
   onChengePhotoClick(){
-    let alert = this.cameraProvider.showChoiceAlert(CameraProvider.TO_SIDE_MENU);
+    let alert = this.cameraProvider.showChoiceAlert(this);
     alert.present();
   }
 }

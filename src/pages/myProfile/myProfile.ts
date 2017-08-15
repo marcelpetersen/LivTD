@@ -70,12 +70,7 @@ export class MyProfilePage {
       this.userPhoto = photoURL;
     });  
 
-    events.subscribe('myProfile:changedPhoto', (imageData) => {
-      this.userPhoto = encodeURI(imageData);
-      this.imageData = imageData;
-      this.isPhotoLoading = false;
-      
-    });
+
 
     // events.subscribe('loading_photo', () => this.isPhotoLoading = true)
   }
@@ -197,10 +192,14 @@ export class MyProfilePage {
     });
     alert.present(); 
   }
-
+  imageReadyHandler(imageData: any) {
+    this.userPhoto = encodeURI(imageData);
+    this.imageData = imageData;
+    this.isPhotoLoading = false;
+  }
   onChengePhotoClick() {
     if (this.isEdit) {
-      let alert = this.cameraProvider.showChoiceAlert(CameraProvider.TO_MYPROFILE);
+      let alert = this.cameraProvider.showChoiceAlert(this);
       alert.present();
     }
   }

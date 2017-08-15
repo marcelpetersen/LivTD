@@ -9,9 +9,7 @@ import { Events } from 'ionic-angular';
 
 export class CameraProvider {
 
-	static TO_SIDE_MENU :number  = 0;
-	static TO_MYPROFILE: number = 1;
-	static TO_CHAT: number = 2;
+	
 	cameraOptions: CameraOptions;
 
 	constructor(public camera: Camera, public alertProvider: AlertProvider, public events: Events) {
@@ -21,7 +19,8 @@ export class CameraProvider {
       		encodingType: this.camera.EncodingType.JPEG,
       		mediaType: this.camera.MediaType.PICTURE,
       		targetWidth: 300,
-      		targetHeight: 300
+      		targetHeight: 300,
+			correctOrientation: true
     	}
 	}
 
@@ -40,7 +39,7 @@ export class CameraProvider {
 		this.cameraOptions.targetHeight = 300;
 	}
 
-	showChoiceAlert(destinationType:number):any {
+	showChoiceAlert(obj:any):any {
 		let alert = this.alertProvider.alertCtrl.create({
 			buttons: [
 				{
@@ -48,13 +47,9 @@ export class CameraProvider {
 					handler: () => {
 						
 						this.choosePhotoFromGalery().then((imageData) => {
-							//this.events.publish('loading_photo');
-							
-								this.sendImageDataTuSubscibers(imageData, destinationType);
-							
-							
-							}).catch((error: any) => {
-							console.log(error);
+							obj.imageReadyHandler(imageData);
+						}).catch((error: any) => {
+							console.log('Error2' + error);
 						});
 						
 					}
@@ -64,11 +59,7 @@ export class CameraProvider {
 					handler: () => {
 						;
 						this.takePhotoFromCamera().then((imageData) => {
-							//this.events.publish('loading_photo')
-							
-								this.sendImageDataTuSubscibers(imageData, destinationType);
-					
-							//this.sendImageDataTuSubscibers(imageData, destinationType);						
+							obj.imageReadyHandler(imageData);						
 						}).catch((error: any) => {
 							console.log(error);
 
@@ -83,12 +74,4 @@ export class CameraProvider {
 
 	
 
-	sendImageDataTuSubscibers(imageData:any, destinationType:number) {
-		if (destinationType === CameraProvider.TO_SIDE_MENU)
-			this.events.publish('sideMenu:changedPhoto', imageData);
-		else if (destinationType === CameraProvider.TO_CHAT)
-			this.events.publish('chat:changedPhoto', imageData);
-		else
-			this.events.publish('myProfile:changedPhoto',imageData);
-	}
 }  

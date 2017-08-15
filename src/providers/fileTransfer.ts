@@ -20,7 +20,7 @@ export class FileTransferProvider  {
 			let targetPath = entry.toURL();
 			this.photoLibrary.requestAuthorization().then(() => {
 				this.photoLibrary.saveImage(targetPath, 'LIV App').then(() => {
-					this.alertProvider.presentCustomToast("Saved");
+					this.alertProvider.presentCustomToast("Saved to your camera roll");
 				}).catch(error => console.log(error));
 			})
 		}).catch(error => console.log(error));

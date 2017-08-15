@@ -17,6 +17,10 @@ export class YouTubeService {
 		
 	}
 
+	getChannelID(): string {
+		return this.chanelID;
+	}
+
 	getVideos():Promise<any> {
 		let query = this.searchURL + "&type=video&channelId=" + this.chanelID + this.nextPageToken + "&maxResults=" + this.maxResults + "&key=" + this.accessToken + this.nextPageToken;
 		return this.doQuery(query);

@@ -28,7 +28,7 @@ export class BookTablePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http,
     formBuilder: FormBuilder, public postmarkProvider: PostmarkProvider, public alertProvider: AlertProvider) {
     
-    this.initDateInterval();
+    
   this.mask = ['+', /\d{1}/, ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
     this.bookTableForm = formBuilder.group({
@@ -38,7 +38,7 @@ export class BookTablePage {
        males: ['', Validators.required],
        date: ['', Validators.required]
      })
-    
+    this.initDateInterval();
   }
 
   submit() {
@@ -60,8 +60,9 @@ export class BookTablePage {
     let today = new Date();
     this.minDate = today.toISOString().substring(0, 10);
     let maxDateObj = today;
-    maxDateObj.setFullYear(today.getFullYear() + 1);
+    maxDateObj.setFullYear(today.getFullYear() + 5);
     this.maxDate = maxDateObj.toISOString().substring(0, 10);
+    this.bookTableForm.get('date').setValue(this.minDate);
   }
   
   

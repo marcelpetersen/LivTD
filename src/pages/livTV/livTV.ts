@@ -37,23 +37,25 @@ export class LivTVPage {
 	}
 
   	openVideo(id) {
-  		console.log(id);
-  		console.log(this.youtube);
 		this.youtube.openVideo(id);
   	}
 
   	addVideos(data:Array<any>) {
+			let channelID = this.youtubeService.getChannelID();
   		for(let obj of data){
-				let video = {
-					url: "https://www.youtube.com/embed/" + obj.id.videoId + "?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0",
-					id: obj.id.videoId,
-					title : obj.snippet.title,
-					description : obj.snippet.description,
-					img: obj.snippet.thumbnails.high.url,
-					toFullDescription :false,
-					fullDescription: null
+				console.log(obj);
+				if (obj.snippet.channelId === channelID) {
+					let video = {
+						url: "https://www.youtube.com/embed/" + obj.id.videoId + "?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0",
+						id: obj.id.videoId,
+						title: obj.snippet.title,
+						description: obj.snippet.description,
+						img: obj.snippet.thumbnails.high.url,
+						toFullDescription: false,
+						fullDescription: null
+					}
+					this.videos.push(video);
 				}
-			this.videos.push(video);
   		}
   	}
 

@@ -10,14 +10,22 @@
 <ion-content no-bounce class="no-scroll">
 
   <ion-list>
-    <ion-item *ngFor="let album of albums" (click)="showFullPhoto(album)">
+    <button ion-item *ngFor="let album of albums" on-tap="showFullPhoto(album)">
       <ion-thumbnail item-start>
           <div [ngStyle]="{'background-image': 'url(' + album.coverURL + ')'}" class="album-photo"></div>
         </ion-thumbnail>
         <h2 light>{{album.name}}</h2>
         <p style="white-space:normal;">{{album.photoCount}} photos</p>
         <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
-    </ion-item>
+    </button >
+    <!-- <ion-item *ngFor="let album of albums" (click)="showFullPhoto(album)">
+      <ion-thumbnail item-start>
+          <div [ngStyle]="{'background-image': 'url(' + album.coverURL + ')'}" class="album-photo"></div>
+        </ion-thumbnail>
+        <h2 light>{{album.name}}</h2>
+        <p style="white-space:normal;">{{album.photoCount}} photos</p>
+        <button ion-button clear item-end><ion-icon name="ios-arrow-forward" item-left></ion-icon></button>
+    </ion-item> -->
   </ion-list>
 
    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

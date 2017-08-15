@@ -47,7 +47,7 @@
 </ion-content>
 <ion-footer>
 	<div class="chatButtons">
-		<form>
+		<form (ngSubmit)="sendMessage()">
 			<div class="chatTextarea">
 				<ion-row class="chat-row">
 					<ion-col col-10 class="chat-col">
@@ -56,12 +56,12 @@
 						</ion-item>
 					</ion-col>
 					<ion-col col-2 class="chat-col">
-							<a style="float: left; width: 100%; height: 100%;" (click)="sendMessage()"><ion-icon class="send-icon" name="ios-arrow-dropup-circle" item-right></ion-icon></a>
+							<a style="float: left; width: 100%; height: 100%;" type="submit" (click)="sendMessage()"><ion-icon class="send-icon" name="ios-arrow-dropup-circle" item-right></ion-icon></a>
 					</ion-col>
 				</ion-row>
 			</div>
 			<div class="chatAddMedia">
-				<button (click)="uploadPhotoClick()"><ion-icon name="ios-camera" item-right></ion-icon></button>
+				<button on-tap="uploadPhotoClick()"><ion-icon name="ios-camera" item-right></ion-icon></button>
 				<!-- <ion-row style="margin-top: 9px;">
 					<ion-col>
 						<button (click)="uploadPhotoClick()"><ion-icon name="ios-camera" item-right></ion-icon></button>

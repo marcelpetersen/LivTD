@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { StorageProvider } from '../providers/storage';
 
-declare var window: any;
+declare var window;
 
 @Injectable()
 export class FirebaseProvider {
@@ -213,8 +213,10 @@ export class FirebaseProvider {
   uploadPhotoToStorage(storageRef:any, imageData:any):any {
    // var photoURL = 'data:image/jpeg;base64,' + imageData;
    // const filename = Math.floor(Date.now() / 1000);
+    console.log('CCCCCCCCCCCCCCCCCCCCCCCCCCCC');
     return this.makeFileIntoBlob(imageData).then((blob:any) => {
-
+       console.log('DDDDDDDDDDDDDDDDDDDDDD');
+       console.log(blob.name);
 
       let filename = blob.name;
       const imageRef = storageRef.child(`/${filename}.jpg`);
@@ -230,17 +232,21 @@ export class FirebaseProvider {
   
 
   makeFileIntoBlob(_imagePath) {
-
+    console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLL');
     // INSTALL PLUGIN - cordova plugin add cordova-plugin-file
     return new Promise((resolve, reject) => {
+      console.log('OOOOOOOOOOOOOOOOOOOOOOOOOO');
       window.resolveLocalFileSystemURL(_imagePath, (fileEntry) => {
-
+        console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
         fileEntry.file((resFile) => {
-
+          console.log('GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG');
           var reader = new FileReader();
           reader.onloadend = (evt: any) => {
             var imgBlob: any = new Blob([evt.target.result], { type: 'image/jpeg' });
             imgBlob.name = Math.floor(Date.now() / 1000);
+
+            console.log('EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+
             resolve(imgBlob);
           };
 

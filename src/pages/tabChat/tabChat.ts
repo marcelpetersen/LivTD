@@ -37,13 +37,12 @@ export class tabChatPage {
 	isInitCompleteInit: boolean = true;
 	isSending: boolean = false;
 	isLoading: boolean = false;
-	isSendingPicrute = false;
 	limitCount: any = 30;
 	prevScroll: any = 0;
 
 	
 	constructor(public navCtrl: NavController, private scrollFix: ScrollProvider, public element: ElementRef, public navParams: NavParams, public firebaseProvider: FirebaseProvider, public storageProvider: StorageProvider,public inAppBrowserProvider: InAppBrowserProvider, 
-			public cameraProvider: CameraProvider, events: Events, public clipboard: Clipboard, public actionSheetController: ActionSheetController, public alertProvider: AlertProvider, public fileTransferProvider: FileTransferProvider) {
+			public cameraProvider: CameraProvider,private events: Events, public clipboard: Clipboard, public actionSheetController: ActionSheetController, public alertProvider: AlertProvider, public fileTransferProvider: FileTransferProvider) {
 
 		
 		this.storageProvider.getItem('curent_user').then(data => {
@@ -65,13 +64,7 @@ export class tabChatPage {
 			this.initMessageStory(data);
 		});
 
-		events.subscribe('chat:changedPhoto', (imageData) => {							
-			if(this.isSendingPicrute)
-			this.firebaseProvider.uploadChatPhoto(imageData).then(url => {
-				this.pictureURL = url 
-				this.sendMessage();
-			});
-		}); 
+		
     }
 
     ngAfterViewInit() {
@@ -136,7 +129,7 @@ export class tabChatPage {
 
 	sendMessage() {
 		let messageText = this.messageText.trim()
-		if(messageText!==""|| this.pictureURL){
+		if(messageText!=="" || this.pictureURL){
 			this.isSending = true;
 			let message = {
 				senderID: this.userID,
@@ -149,14 +142,12 @@ export class tabChatPage {
 			this.messageText = "";
 			this.recieverID = "";
 			this.pictureURL = null;
-			this.isSendingPicrute = false;
 		}
 	}
 
 	uploadPhotoClick() {
-		this.isSendingPicrute = true;
 		this.storageProvider.getItem('pictureToPast').then(data => {
-			let alert = this.cameraProvider.showChoiceAlert(CameraProvider.TO_CHAT);
+			let alert = this.cameraProvider.showChoiceAlert(this);
 			if(data){
 				alert.addButton(
 					{
@@ -170,7 +161,15 @@ export class tabChatPage {
 			alert.present();
 		})
 	}
-	
+
+	imageReadyHandler(imageData:any) {
+		this.firebaseProvider.uploadChatPhoto(imageData).then(url => {
+			this.pictureURL = url;
+			console.log('imageReadyHandlerHHHHH ' + this.pictureURL);
+			this.sendMessage();
+		});
+	}
+
 	onMessagePress(message) {
 		let messageSheet = this.actionSheetController.create({
 			buttons: [{
@@ -237,8 +236,7 @@ export class tabChatPage {
 		});
 	}
 
-	openURL(message){
-		console.log('bla')	
+	openURL(message){	
 		if(message.link){
 			this.inAppBrowserProvider.openURL(message.link);
 		}
