@@ -15,7 +15,7 @@ export class InAppBrowserProvider {
 				color: '#282828'
 			},
 			toolbar: {
-				height: 56,
+				height: 44,
 				color: '#282828'
 			},
 			title: {

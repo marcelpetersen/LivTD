@@ -6,7 +6,7 @@
 
 <ion-content no-bounce class="no-scroll">
 
-  <ion-card *ngFor="let photo of photos" (click)="showFullPhoto(photo)">
+  <ion-card *ngFor="let photo of photos" on-tap="showFullPhoto(photo)">
     <!-- <ion-item> -->
       <!-- <ion-avatar item-left>
         <div [ngStyle]="{'background-image': 'url(' + album.coverURL + ')'}" class="album-photo"></div>

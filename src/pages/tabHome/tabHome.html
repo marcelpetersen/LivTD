@@ -1,6 +1,6 @@
 <ion-content class="no-scroll">
 
     <ion-slides *ngIf="images.length>0" pager="true" paginationType='bullets' loop='true' autoplay='2500'>
-	  <ion-slide [ngStyle]="{'background-image': 'url(' + image.coverURL + ')'}" *ngFor="let image of images" (click)="onEventClick(image)"></ion-slide>
+	  <ion-slide [ngStyle]="{'background-image': 'url(' + image.coverURL + ')'}" *ngFor="let image of images" on-tap="onEventClick(image)"></ion-slide>
 	</ion-slides>
 </ion-content>

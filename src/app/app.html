@@ -13,7 +13,7 @@
       <div class="profile-image">
         <div style="background-image: url('../assets/default.png');" [ngStyle]="{'background-image': 'url(' + userPhotoURL + ')'}" class="img-container" on-tap ="onChengePhotoClick()"></div>
       </div>
-      <p (click)="openMyProfilePage()" menuClose>{{userName}}</p>
+      <p on-tap="openMyProfilePage()" menuClose>{{userName}}</p>
     </div>
     <ion-list>
         <button ion-item class="item-icon-left ion-item" *ngFor="let p of pages" (click)="openPage(p)" menuClose>

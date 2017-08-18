@@ -22,8 +22,8 @@
 	    <ion-row>
 	        <ion-col>
 				<div class="video-container">
-					<img class="play-youtube-video" src="assets/play-youtube.png" (click)="openVideo(video.id)">
-					<img [src]="video.img" (click)="openVideo(video.id)">
+					<img class="play-youtube-video" src="assets/play-youtube.png" on-tap="openVideo(video.id)">
+					<img [src]="video.img" on-tap="openVideo(video.id)">
 				
 				</div>
 	        </ion-col>	
@@ -33,8 +33,8 @@
 				<p class="title-video">{{video.title}}</p>
 			    <div class="show-list-numbers-and-dots" >
 			      <p  class="description-video">{{video.toFullDescription?video.fullDescription:video.description}}
-				      <a *ngIf="!video.toFullDescription" (click)="onSeeMoreClick(video)">see more</a>
-				      <a *ngIf="video.toFullDescription" (click)="onSeeMoreClick(video)">less</a>
+				      <a *ngIf="!video.toFullDescription" on-tap="onSeeMoreClick(video)">see more</a>
+				      <a *ngIf="video.toFullDescription" on-tap="onSeeMoreClick(video)">less</a>
 			      </p>
 			    </div>
 	        </ion-col>

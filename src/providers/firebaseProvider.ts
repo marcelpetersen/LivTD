@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import { Facebook } from '@ionic-native/facebook';
 import { StorageProvider } from '../providers/storage';
 
-declare var window;
+declare var window: any;
 
 @Injectable()
 export class FirebaseProvider {
@@ -205,24 +205,14 @@ export class FirebaseProvider {
   }
 
   uploadUserPhoto(imageData: any): any {
-   
     let storageRef = firebase.storage().ref();
     this.uploadPhotoToStorage(storageRef, imageData).then((url) => this.updatePhotoURL(url));
   }
 
   uploadPhotoToStorage(storageRef:any, imageData:any):any {
-   // var photoURL = 'data:image/jpeg;base64,' + imageData;
-   // const filename = Math.floor(Date.now() / 1000);
-    console.log('CCCCCCCCCCCCCCCCCCCCCCCCCCCC');
     return this.makeFileIntoBlob(imageData).then((blob:any) => {
-       console.log('DDDDDDDDDDDDDDDDDDDDDD');
-       console.log(blob.name);
-
       let filename = blob.name;
       const imageRef = storageRef.child(`/${filename}.jpg`);
-     // return imageRef.putString(photoURL, firebase.storage.StringFormat.DATA_URL).then(() => {
-     //   return imageRef.getDownloadURL();
-     // });
       return imageRef.put(blob).then(() => {
         return imageRef.getDownloadURL();
      })
@@ -232,32 +222,29 @@ export class FirebaseProvider {
   
 
   makeFileIntoBlob(_imagePath) {
-    console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLL');
-    // INSTALL PLUGIN - cordova plugin add cordova-plugin-file
     return new Promise((resolve, reject) => {
-      console.log('OOOOOOOOOOOOOOOOOOOOOOOOOO');
-      window.resolveLocalFileSystemURL(_imagePath, (fileEntry) => {
-        console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
-        fileEntry.file((resFile) => {
-          console.log('GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG');
-          var reader = new FileReader();
-          reader.onloadend = (evt: any) => {
-            var imgBlob: any = new Blob([evt.target.result], { type: 'image/jpeg' });
-            imgBlob.name = Math.floor(Date.now() / 1000);
 
-            console.log('EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+        window.resolveLocalFileSystemURL(_imagePath, (fileEntry) => {
+          fileEntry.file((resFile) => {
+    
+            var reader = new FileReader();
 
-            resolve(imgBlob);
-          };
+            reader.onloadend = (evt: any) => {
+              var imgBlob: any = new Blob([evt.target.result], { type: 'image/jpeg' });
+              imgBlob.name = Math.floor(Date.now() / 1000);
 
-          reader.onerror = (e) => {
-            console.log('Failed file read: ' + e.toString());
-            reject(e);
-          };
+              resolve(imgBlob);
+            };
 
-          reader.readAsArrayBuffer(resFile);
+            reader.onerror = (e) => {
+              console.log('Failed file read: ' + e.toString());
+              reject(e);
+            };
+
+            reader.readAsArrayBuffer(resFile);
+          });
         });
-      });
+    
     });
   }
   /*

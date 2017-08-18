@@ -5,7 +5,7 @@
       <button ion-button menuToggle *ngIf="!isEdit" style="margin-top: -15px;">
         <ion-icon name="menu"></ion-icon>
       </button>
-      <button start *ngIf="isEdit" ion-button clear (click)="cancelChanges()">
+      <button start *ngIf="isEdit" ion-button clear on-tap="cancelChanges()">
           Cancel
       </button>
     </ion-buttons>
@@ -13,10 +13,10 @@
     <ion-title>My Profile</ion-title>
 
     <ion-buttons end >
-      <button *ngIf="!isEdit " ion-button clear (click)="editProfile()">
+      <button *ngIf="!isEdit " ion-button clear on-tap="editProfile()">
           Edit
       </button>
-      <button *ngIf="isEdit " ion-button clear (click)="saveProfile()">
+      <button *ngIf="isEdit " ion-button clear on-tap="saveProfile()">
           Done
       </button>
     </ion-buttons>
@@ -69,7 +69,7 @@
 
     <ion-item>
       <ion-icon name="ios-musical-notes" item-left></ion-icon>
-       <ion-label (click)="onMusicPreferenceClick()" >Music Preference</ion-label>
+       <ion-label on-tap="onMusicPreferenceClick()" >Music Preference</ion-label>
     </ion-item>
     <button ion-button class="button button-assertive button-block"  on-tap="logOutUser()">Log Out</button>  
   </ion-list>

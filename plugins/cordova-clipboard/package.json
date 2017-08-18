@@ -1,41 +1,19 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "cordova-clipboard@1.0.0",
-        "scope": null,
-        "escapedName": "cordova-clipboard",
-        "name": "cordova-clipboard",
-        "rawSpec": "1.0.0",
-        "spec": "1.0.0",
-        "type": "version"
-      },
-      "C:\\Users\\Yulia\\Documents\\LIV_app\\node_modules"
-    ]
-  ],
-  "_from": "cordova-clipboard@1.0.0",
+  "_from": "cordova-clipboard@^1.0.0",
   "_id": "cordova-clipboard@1.0.0",
-  "_inCache": true,
+  "_inBundle": false,
+  "_integrity": "sha1-vuiEdXB+0np2fjc5WSeW7zUq6Zk=",
   "_location": "/cordova-clipboard",
-  "_nodeVersion": "6.8.0",
-  "_npmOperationalInternal": {
-    "host": "packages-16-east.internal.npmjs.com",
-    "tmp": "tmp/cordova-clipboard-1.0.0.tgz_1476425036754_0.5510441290680319"
-  },
-  "_npmUser": {
-    "name": "ihadeed",
-    "email": "i.hadeed@zyra.ca"
-  },
-  "_npmVersion": "3.10.8",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "cordova-clipboard@1.0.0",
-    "scope": null,
-    "escapedName": "cordova-clipboard",
+    "type": "range",
+    "registry": true,
+    "raw": "cordova-clipboard@^1.0.0",
     "name": "cordova-clipboard",
-    "rawSpec": "1.0.0",
-    "spec": "1.0.0",
-    "type": "version"
+    "escapedName": "cordova-clipboard",
+    "rawSpec": "^1.0.0",
+    "saveSpec": null,
+    "fetchSpec": "^1.0.0"
   },
   "_requiredBy": [
     "#USER",
@@ -43,15 +21,15 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-clipboard/-/cordova-clipboard-1.0.0.tgz",
   "_shasum": "bee88475707ed27a767e3739592796ef352ae999",
-  "_shrinkwrap": null,
-  "_spec": "cordova-clipboard@1.0.0",
-  "_where": "C:\\Users\\Yulia\\Documents\\LIV_app\\node_modules",
+  "_spec": "cordova-clipboard@^1.0.0",
+  "_where": "/Users/yuliaseverina/Documents/LIV_app/node_modules",
   "author": {
     "name": "Ibrahim Hadeed"
   },
   "bugs": {
     "url": "https://github.com/ihadeed/cordova-clipboard/issues"
   },
+  "bundleDependencies": false,
   "cordova": {
     "id": "cordova-clipboard",
     "platforms": [
@@ -60,15 +38,8 @@
       "wp8"
     ]
   },
-  "dependencies": {},
+  "deprecated": false,
   "description": "Clipboard management plugin for Cordova/PhoneGap that supports iOS, Android, and WP8",
-  "devDependencies": {},
-  "directories": {},
-  "dist": {
-    "shasum": "bee88475707ed27a767e3739592796ef352ae999",
-    "tarball": "https://registry.npmjs.org/cordova-clipboard/-/cordova-clipboard-1.0.0.tgz"
-  },
-  "gitHead": "f90a87e9e9d7bbd7a3ccb2a153d66622db1fa177",
   "homepage": "https://github.com/ihadeed/cordova-clipboard#readme",
   "keywords": [
     "cordova",
@@ -78,19 +49,10 @@
     "ionic"
   ],
   "license": "MIT",
-  "maintainers": [
-    {
-      "name": "ihadeed",
-      "email": "i.hadeed@zyra.ca"
-    }
-  ],
   "name": "cordova-clipboard",
-  "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ihadeed/cordova-clipboard.git"
   },
-  "scripts": {},
   "version": "1.0.0"
 }

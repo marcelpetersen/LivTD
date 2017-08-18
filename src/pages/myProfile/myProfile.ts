@@ -193,7 +193,7 @@ export class MyProfilePage {
     alert.present(); 
   }
   imageReadyHandler(imageData: any) {
-    this.userPhoto = encodeURI(imageData);
+    this.userPhoto = imageData;
     this.imageData = imageData;
     this.isPhotoLoading = false;
   }

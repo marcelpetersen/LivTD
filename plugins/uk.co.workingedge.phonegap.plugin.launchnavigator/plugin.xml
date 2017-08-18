@@ -3,7 +3,7 @@
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="uk.co.workingedge.phonegap.plugin.launchnavigator"
-    version="4.0.2">
+    version="4.0.4">
 
   <name>Launch Navigator</name>
   <description>Cordova/Phonegap plugin to navigate to a destination using native navigation apps on Android, iOS, and Windows Phone</description>
@@ -22,7 +22,7 @@
     <clobbers target="launchnavigator" />
   </js-module>
 
-  <js-module src="www/localforage.v1.5.0.nopromises.min.js" name="LocalForage">
+  <js-module src="www/localforage.v1.5.0.min.js" name="LocalForage">
     <clobbers target="localforage" />
   </js-module>
 
@@ -88,8 +88,15 @@
         <string>here-route</string>
         <string>moovit</string>
         <string>lyft</string>
+        <string>mapsme</string>
       </array>
     </config-file>
+
+    <preference name="LOCATION_USAGE_DESCRIPTION" default="This app requires access to your location for navigation purposes" />
+    <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+      <string>$LOCATION_USAGE_DESCRIPTION</string>
+    </config-file>
+
   </platform>
 
   <!-- windows -->

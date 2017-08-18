@@ -1,4 +1,12 @@
 {
+    "com.bunkerpalace.cordova.YoutubeVideoPlayer": {
+        "source": {
+            "type": "registry",
+            "id": "com.bunkerpalace.cordova.YoutubeVideoPlayer@git+https://github.com/JonSmart/CordovaYoutubeVideoPlayer.git"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
     "cordova-clipboard": {
         "source": {
             "type": "registry",
@@ -61,6 +69,22 @@
             "APP_NAME": "LIV_app"
         }
     },
+    "cordova-plugin-file": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-file@^4.0.0"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-file-transfer": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-file-transfer@^1.6.3"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
     "cordova-plugin-googlemaps": {
         "source": {
             "type": "registry",
@@ -78,6 +102,24 @@
         "source": {
             "type": "registry",
             "id": "https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk"
+        },
+        "is_top_level": false,
+        "variables": {}
+    },
+    "cordova-plugin-photo-library": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-photo-library@^2.0.4"
+        },
+        "is_top_level": true,
+        "variables": {
+            "PHOTO_LIBRARY_USAGE_DESCRIPTION": "To choose photos"
+        }
+    },
+    "cordova-plugin-add-swift-support": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-add-swift-support@1.6.0"
         },
         "is_top_level": false,
         "variables": {}
@@ -136,7 +178,9 @@
             "id": "uk.co.workingedge.phonegap.plugin.launchnavigator@^4.0.2"
         },
         "is_top_level": true,
-        "variables": {}
+        "variables": {
+            "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes"
+        }
     },
     "cordova-plugin-actionsheet": {
         "source": {
@@ -152,48 +196,6 @@
             "id": "cordova-plugin-dialogs@1"
         },
         "is_top_level": false,
-        "variables": {}
-    },
-    "com.bunkerpalace.cordova.YoutubeVideoPlayer": {
-        "source": {
-            "type": "registry",
-            "id": "com.bunkerpalace.cordova.YoutubeVideoPlayer@git+https://github.com/JonSmart/CordovaYoutubeVideoPlayer.git"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-file": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-file@4.3.2"
-        },
-        "is_top_level": false,
-        "variables": {}
-    },
-    "cordova-plugin-photo-library": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-photo-library"
-        },
-        "is_top_level": true,
-        "variables": {
-            "PHOTO_LIBRARY_USAGE_DESCRIPTION": "To choose photos"
-        }
-    },
-    "cordova-plugin-add-swift-support": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-add-swift-support@1.6.0"
-        },
-        "is_top_level": false,
-        "variables": {}
-    },
-    "cordova-plugin-file-transfer": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-file-transfer"
-        },
-        "is_top_level": true,
         "variables": {}
     }
 }

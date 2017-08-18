@@ -3,13 +3,13 @@
 	<div class="relative">
 		<div class="chatLog">
 
-		
+	
 			<ion-grid class="chatLog" >
-	<ion-infinite-scroll position="top" threshold="20%" (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content>
+				<ion-infinite-scroll position="top" threshold="20%" (ionInfinite)="doInfinite($event)">
+    				<ion-infinite-scroll-content>
 
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    				</ion-infinite-scroll-content>
+ 				 </ion-infinite-scroll>
 				<div #sidebar *ngFor="let message of messageStory; let last = last" (press)="onMessagePress(message)">
 				    <div #task>
 				      	<!-- <p *ngIf="(message.recieverID === userID)">Reply to you</p> -->
@@ -19,7 +19,8 @@
 							</div>
 							<div  class="chatMessage">
 								<div [innerHtml]="message.message" (click)="openURL(message)"><!-- {{message.message}} --></div>
-								<img *ngIf="message.pictureURL " [src]="message.pictureURL">
+								<!-- <img *ngIf="message.pictureURL " [src]="message.pictureURL"> -->
+								<div *ngIf="message.pictureURL" class="message-picture" [ngStyle]="{'background-image': 'url(' + message.pictureURL + ')'}"></div>
 							</div>
 						</div>
 						<div *ngIf="(message.senderID === userID)" class="chatRow from-me">
@@ -28,7 +29,8 @@
 							</div>
 							<div  class="chatMessage">
 								<div [innerHtml]="message.message" (click)="openURL(message)"><!-- {{message.message}} --></div>
-								<img *ngIf="message.pictureURL " [src]="message.pictureURL" src="assets/default.png">
+								<!-- <img *ngIf="message.pictureURL " [src]="message.pictureURL" src="assets/default.png"> -->
+								<div *ngIf="message.pictureURL" class="message-picture" [ngStyle]="{'background-image': 'url(' + message.pictureURL + ')'}"></div>
 							</div>
 						</div>
 						{{last ? scrollFunction() : ''}}

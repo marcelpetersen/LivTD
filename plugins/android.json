@@ -8,78 +8,78 @@
     },
     "installed_plugins": {
         "com.bunkerpalace.cordova.YoutubeVideoPlayer": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-clipboard": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-email-composer": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-facebook4": {
             "APP_ID": "2002709960016162",
             "APP_NAME": "LIV_app",
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-file-transfer": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-googlemaps": {
             "API_KEY_FOR_ANDROID": "AIzaSyBzL2Zby_UmcGdt5VQ7jlQvDwiW428GQyY",
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-photo-library": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-themeablebrowser": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-sqlite-storage": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         }
     },
     "dependent_plugins": {
         "com.googlemaps.ios": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-actionsheet": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-add-swift-support": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "arbi.liv.com"
-        },
-        "cordova-plugin-file": {
-            "PACKAGE_NAME": "arbi.liv.com"
+            "PACKAGE_NAME": "com.JM.liv"
         }
     }
 }

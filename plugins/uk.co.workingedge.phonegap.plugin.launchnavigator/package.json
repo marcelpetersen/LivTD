@@ -1,57 +1,35 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "uk.co.workingedge.phonegap.plugin.launchnavigator@4.0.2",
-        "scope": null,
-        "escapedName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
-        "name": "uk.co.workingedge.phonegap.plugin.launchnavigator",
-        "rawSpec": "4.0.2",
-        "spec": "4.0.2",
-        "type": "version"
-      },
-      "C:\\Users\\Yulia\\Documents\\LIV_app\\node_modules"
-    ]
-  ],
-  "_from": "uk.co.workingedge.phonegap.plugin.launchnavigator@4.0.2",
-  "_id": "uk.co.workingedge.phonegap.plugin.launchnavigator@4.0.2",
-  "_inCache": true,
+  "_from": "uk.co.workingedge.phonegap.plugin.launchnavigator@^4.0.2",
+  "_id": "uk.co.workingedge.phonegap.plugin.launchnavigator@4.0.4",
+  "_inBundle": false,
+  "_integrity": "sha1-LnjerSHvue9s7OrN1mDr01xHBDA=",
   "_location": "/uk.co.workingedge.phonegap.plugin.launchnavigator",
-  "_nodeVersion": "7.10.0",
-  "_npmOperationalInternal": {
-    "host": "s3://npm-registry-packages",
-    "tmp": "tmp/uk.co.workingedge.phonegap.plugin.launchnavigator-4.0.2.tgz_1500405029619_0.9174676928669214"
-  },
-  "_npmUser": {
-    "name": "davealden",
-    "email": "dave@workingedge.co.uk"
-  },
-  "_npmVersion": "4.2.0",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "uk.co.workingedge.phonegap.plugin.launchnavigator@4.0.2",
-    "scope": null,
-    "escapedName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+    "type": "range",
+    "registry": true,
+    "raw": "uk.co.workingedge.phonegap.plugin.launchnavigator@^4.0.2",
     "name": "uk.co.workingedge.phonegap.plugin.launchnavigator",
-    "rawSpec": "4.0.2",
-    "spec": "4.0.2",
-    "type": "version"
+    "escapedName": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+    "rawSpec": "^4.0.2",
+    "saveSpec": null,
+    "fetchSpec": "^4.0.2"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/uk.co.workingedge.phonegap.plugin.launchnavigator/-/uk.co.workingedge.phonegap.plugin.launchnavigator-4.0.2.tgz",
-  "_shasum": "b51b4fe52e2842c5d18835a6c220596e6aa8a38f",
-  "_shrinkwrap": null,
-  "_spec": "uk.co.workingedge.phonegap.plugin.launchnavigator@4.0.2",
-  "_where": "C:\\Users\\Yulia\\Documents\\LIV_app\\node_modules",
+  "_resolved": "https://registry.npmjs.org/uk.co.workingedge.phonegap.plugin.launchnavigator/-/uk.co.workingedge.phonegap.plugin.launchnavigator-4.0.4.tgz",
+  "_shasum": "2e78dead21efb9ef6ceceacdd660ebd35c470430",
+  "_spec": "uk.co.workingedge.phonegap.plugin.launchnavigator@^4.0.2",
+  "_where": "/Users/yuliaseverina/Documents/LIV_app/node_modules",
   "author": {
     "name": "Dave Alden"
   },
   "bugs": {
     "url": "https://github.com/dpa99c/phonegap-launch-navigator/issues"
   },
+  "bundleDependencies": false,
   "cordova": {
     "id": "uk.co.workingedge.phonegap.plugin.launchnavigator",
     "platforms": [
@@ -62,15 +40,8 @@
     ]
   },
   "cordova_name": "Launch Navigator",
-  "dependencies": {},
+  "deprecated": false,
   "description": "Cordova/Phonegap plugin to navigate to a destination using native navigation apps on Android, iOS, and Windows Phone",
-  "devDependencies": {},
-  "directories": {},
-  "dist": {
-    "shasum": "b51b4fe52e2842c5d18835a6c220596e6aa8a38f",
-    "tarball": "https://registry.npmjs.org/uk.co.workingedge.phonegap.plugin.launchnavigator/-/uk.co.workingedge.phonegap.plugin.launchnavigator-4.0.2.tgz"
-  },
-  "gitHead": "adfe066889a7fda4e7e9a6f91d939ab87325dabc",
   "homepage": "https://github.com/dpa99c/phonegap-launch-navigator#readme",
   "issue": "https://github.com/dpa99c/phonegap-launch-navigator/issues",
   "keywords": [
@@ -85,20 +56,11 @@
     "navigator"
   ],
   "license": "MIT",
-  "maintainers": [
-    {
-      "name": "davealden",
-      "email": "dave@workingedge.co.uk"
-    }
-  ],
   "name": "uk.co.workingedge.phonegap.plugin.launchnavigator",
-  "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dpa99c/phonegap-launch-navigator.git"
   },
-  "scripts": {},
   "types": "./uk.co.workingedge.phonegap.plugin.launchnavigator.d.ts",
-  "version": "4.0.2"
+  "version": "4.0.4"
 }

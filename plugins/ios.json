@@ -32,6 +32,9 @@
             "APP_NAME": "LIV_app",
             "PACKAGE_NAME": "com.JM.liv"
         },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.JM.liv"
+        },
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.JM.liv"
         },
@@ -64,6 +67,7 @@
             "PACKAGE_NAME": "com.JM.liv"
         },
         "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+            "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
             "PACKAGE_NAME": "com.JM.liv"
         }
     },
@@ -81,9 +85,6 @@
             "PACKAGE_NAME": "com.JM.liv"
         },
         "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "com.JM.liv"
-        },
-        "cordova-plugin-file": {
             "PACKAGE_NAME": "com.JM.liv"
         }
     }

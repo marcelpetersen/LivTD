@@ -14,7 +14,7 @@ export class CameraProvider {
 
 	constructor(public camera: Camera, public alertProvider: AlertProvider, public events: Events) {
 		this.cameraOptions = {
-      		quality:60,
+      		quality: 60,
       		destinationType : this.camera.DestinationType.FILE_URI,
       		encodingType: this.camera.EncodingType.JPEG,
       		mediaType: this.camera.MediaType.PICTURE,
@@ -45,13 +45,13 @@ export class CameraProvider {
 				{
 					text: 'Choose From Gallery',
 					handler: () => {
-						
-						this.choosePhotoFromGalery().then((imageData) => {
-							obj.imageReadyHandler(imageData);
+					    this.choosePhotoFromGalery().then((imageData) => {
+							obj.imageReadyHandler(encodeURI(imageData));
 						}).catch((error: any) => {
 							console.log('Error2' + error);
 						});
 						
+						return true;
 					}
 				},
 				{
@@ -59,7 +59,7 @@ export class CameraProvider {
 					handler: () => {
 						;
 						this.takePhotoFromCamera().then((imageData) => {
-							obj.imageReadyHandler(imageData);						
+							obj.imageReadyHandler(encodeURI(imageData));						
 						}).catch((error: any) => {
 							console.log(error);
 

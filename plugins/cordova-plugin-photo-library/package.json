@@ -1,41 +1,19 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "cordova-plugin-photo-library",
-        "scope": null,
-        "escapedName": "cordova-plugin-photo-library",
-        "name": "cordova-plugin-photo-library",
-        "rawSpec": "",
-        "spec": "latest",
-        "type": "tag"
-      },
-      "C:\\Users\\Yulia\\Documents\\LIV_app\\node_modules"
-    ]
-  ],
-  "_from": "cordova-plugin-photo-library@latest",
+  "_from": "cordova-plugin-photo-library@^2.0.4",
   "_id": "cordova-plugin-photo-library@2.0.4",
-  "_inCache": true,
+  "_inBundle": false,
+  "_integrity": "sha1-wjP1tnkn7w7W1ffdR2BkB8i1kCM=",
   "_location": "/cordova-plugin-photo-library",
-  "_nodeVersion": "6.10.1",
-  "_npmOperationalInternal": {
-    "host": "packages-18-east.internal.npmjs.com",
-    "tmp": "tmp/cordova-plugin-photo-library-2.0.4.tgz_1490464642601_0.5785174719057977"
-  },
-  "_npmUser": {
-    "name": "terikon",
-    "email": "npm@terikon.com"
-  },
-  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "cordova-plugin-photo-library",
-    "scope": null,
-    "escapedName": "cordova-plugin-photo-library",
+    "type": "range",
+    "registry": true,
+    "raw": "cordova-plugin-photo-library@^2.0.4",
     "name": "cordova-plugin-photo-library",
-    "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
+    "escapedName": "cordova-plugin-photo-library",
+    "rawSpec": "^2.0.4",
+    "saveSpec": null,
+    "fetchSpec": "^2.0.4"
   },
   "_requiredBy": [
     "#USER",
@@ -43,9 +21,8 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-photo-library/-/cordova-plugin-photo-library-2.0.4.tgz",
   "_shasum": "c233f5b67927ef0ed6d5f7dd47606407c8b59023",
-  "_shrinkwrap": null,
-  "_spec": "cordova-plugin-photo-library",
-  "_where": "C:\\Users\\Yulia\\Documents\\LIV_app\\node_modules",
+  "_spec": "cordova-plugin-photo-library@^2.0.4",
+  "_where": "/Users/yuliaseverina/Documents/LIV_app/node_modules",
   "author": {
     "name": "Roman Viskin",
     "email": "npm@terikon.com",
@@ -54,9 +31,11 @@
   "bugs": {
     "url": "https://github.com/terikon/cordova-plugin-photo-library/issues"
   },
+  "bundleDependencies": false,
   "dependencies": {
     "async": "^2.1.4"
   },
+  "deprecated": false,
   "description": "Plugin that just gets photos from the gallery",
   "devDependencies": {
     "@types/cordova": "^0.0.34",
@@ -68,24 +47,10 @@
     "es7-shim": "6.0.0",
     "eslint": "^3.14.1"
   },
-  "directories": {},
-  "dist": {
-    "shasum": "c233f5b67927ef0ed6d5f7dd47606407c8b59023",
-    "tarball": "https://registry.npmjs.org/cordova-plugin-photo-library/-/cordova-plugin-photo-library-2.0.4.tgz"
-  },
-  "gitHead": "486216a0ea1f77c48eb6363d492afb5181b89726",
   "homepage": "https://github.com/terikon/cordova-plugin-photo-library#readme",
   "license": "MIT",
   "main": "index.js",
-  "maintainers": [
-    {
-      "name": "terikon",
-      "email": "npm@terikon.com"
-    }
-  ],
   "name": "cordova-plugin-photo-library",
-  "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/terikon/cordova-plugin-photo-library.git"

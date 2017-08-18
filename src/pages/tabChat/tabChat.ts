@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, ViewChildren, QueryList} from '@angular/core';
-import { NavController, NavParams, Content, ActionSheetController } from 'ionic-angular';
+import { NavController, NavParams, Content, ActionSheetController, Platform } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebaseProvider'
 import { StorageProvider } from '../../providers/storage'
 import { CameraProvider } from '../../providers/camera'
@@ -33,8 +33,8 @@ export class tabChatPage {
 	chatUsers: any = {};
 	public eventMock;
   	public eventPosMock;
-	isInitComplete: boolean = false;
-	isInitCompleteInit: boolean = true;
+	isHistoryInitComplete: boolean = false;
+	isInitCompleteInit: boolean = false;
 	isSending: boolean = false;
 	isLoading: boolean = false;
 	limitCount: any = 30;
@@ -42,7 +42,7 @@ export class tabChatPage {
 
 	
 	constructor(public navCtrl: NavController, private scrollFix: ScrollProvider, public element: ElementRef, public navParams: NavParams, public firebaseProvider: FirebaseProvider, public storageProvider: StorageProvider,public inAppBrowserProvider: InAppBrowserProvider, 
-			public cameraProvider: CameraProvider,private events: Events, public clipboard: Clipboard, public actionSheetController: ActionSheetController, public alertProvider: AlertProvider, public fileTransferProvider: FileTransferProvider) {
+			public cameraProvider: CameraProvider, public plt: Platform, private events: Events, public clipboard: Clipboard, public actionSheetController: ActionSheetController, public alertProvider: AlertProvider, public fileTransferProvider: FileTransferProvider) {
 
 		
 		this.storageProvider.getItem('curent_user').then(data => {
@@ -54,9 +54,11 @@ export class tabChatPage {
 	  	this.chatRef = this.firebaseProvider.getChatRef(); 
 
 		this.chatRef.on('child_added', data => { 
-			if(this.isInitComplete) {
-				this.isInitCompleteInit = true;
+			if (this.isHistoryInitComplete) {
 				this.messageStory.push(this.addMessage(data.val()));
+				setTimeout(() => {
+					this.content.scrollToBottom(0);
+				}, 500)				
 			}
 		});
 	
@@ -91,17 +93,22 @@ export class tabChatPage {
     }
 
 	initMessageStory(snapshot: any) {
+
 		let snapshotObj = snapshot.val();
 		if (snapshotObj) {
 			this.alertProvider.presentLoadingCustom();
 			var keyNames = Object.keys(snapshotObj);
 			for (let name of keyNames) {
 				this.messageStory.push(this.addMessage(snapshotObj[name]));
+				if(keyNames.indexOf(name)===keyNames.length-1){
+						this.isHistoryInitComplete = true;
+						this.isInitCompleteInit = true;
+						this.alertProvider.dismissLoadingCustom();										
+				}
 			}
-			this.alertProvider.dismissLoadingCustom();
+			
 		}
-
-		this.isInitComplete = true;
+		
     }
 
   	addMessage(data) {
@@ -159,13 +166,12 @@ export class tabChatPage {
 					})			
 			}
 			alert.present();
-		})
+		});
 	}
 
 	imageReadyHandler(imageData:any) {
 		this.firebaseProvider.uploadChatPhoto(imageData).then(url => {
 			this.pictureURL = url;
-			console.log('imageReadyHandlerHHHHH ' + this.pictureURL);
 			this.sendMessage();
 		});
 	}
@@ -203,12 +209,16 @@ export class tabChatPage {
 	}
 
 	scrollFunction() {
-		if( this.isSending ) {
+		// if( this.isSending ) {
+		// 	this.content.scrollToBottom(0);
+	 //    	this.isSending = false;
+		// } else if( this.isInitCompleteInit) {
+		// 	this.content.scrollToBottom(0);
+		// 	this.isInitCompleteInit = false;
+		// }
+		if(this.isInitCompleteInit){
 			this.content.scrollToBottom(0);
-	    	this.isSending = false;
-		} else if( this.isInitCompleteInit ) {
-			this.content.scrollToBottom(0);
-	    	
+			this.isInitCompleteInit = false;
 		}
     }
 
@@ -227,13 +237,16 @@ export class tabChatPage {
 					if (name !== keyNames[0])
 						this.messageStory.unshift(this.addMessage(snapshotObj[name]));
 					if (name === keyNames[keyNames.length - 1]) {						
-						event.complete();	
+						event.complete();
+
 					}
 				}
 			} else {
 				event.complete();
+
 			}
 		});
+		
 	}
 
 	openURL(message){	

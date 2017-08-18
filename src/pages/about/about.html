@@ -14,7 +14,7 @@
     <h4 class="h4-about"><b>Address</b></h4>
    </ion-col>
  </ion-row>
- <ion-row (click)="onAddressClick()">
+ <ion-row on-tap="onAddressClick()">
    <ion-col>
     <ion-label class="label-about">
      {{address}}
@@ -36,7 +36,7 @@
     <h4 class="h4-about"><b>Corporate/Private Events</b></h4>
    </ion-col>
  </ion-row>
- <ion-row (click)="onEmailClick(this.email)">
+ <ion-row on-tap="onEmailClick(this.email)">
    <ion-col>
     <ion-label class="label-about">
      E-Mail: <span class="span-email">{{email}}</span>
@@ -59,7 +59,7 @@
     <h4 class="h4-about"><b>For Media/Press Inquiries</b></h4>
    </ion-col>
  </ion-row>
- <ion-row (click)="onEmailClick(this.mediaEmail)">
+ <ion-row on-tap="onEmailClick(this.mediaEmail)">
    <ion-col>
     <ion-label class="label-about">
      E-Mail: <span class="span-email">{{mediaEmail}}</span>
