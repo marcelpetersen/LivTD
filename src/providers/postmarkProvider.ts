@@ -1,5 +1,6 @@
 import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { FirebaseProvider } from '../providers/firebaseProvider'
 
 @Injectable()
 
@@ -8,9 +9,14 @@ export class PostmarkProvider   {
 	headers: any;
 	accessToken: any = '327fd15e-00c7-4d79-a319-78cf6727b37d';
 	senderEmail:string = 'rachel@livnightclub.com';
-	bookTableEmail:string = 'liv.app10.07@gmail.com';
+	bookTableEmail:string;
 	
-	constructor(private http: Http) {
+	constructor(private http: Http, firebaseProvider: FirebaseProvider) {
+		firebaseProvider.getPostEmailRef().once('value', snapshot => {
+			let snapshotObj = snapshot.val();
+			var keyNames = Object.keys(snapshotObj);
+			this.bookTableEmail = snapshotObj[keyNames[0]].email;
+		})
 		this.headers = new Headers();
 		this.headers.append('Accept', 'application/json');
 		this.headers.append('Content-Type', 'application/json');
@@ -58,10 +64,10 @@ export class PostmarkProvider   {
 		return this.sendDataToEmail(data);
 	}
 
-	sendBookTableMessage(date: Date, females: string, males: string, phoneNumber: string, email: string): Promise<any> {
-		
-		let htmlEmail =
+	sendBookTableMessage(date: Date, females: string, males: string, phoneNumber: string, email: string, senderName:string): Promise<any> {
+		let htmlEmail =		 
 		'<p>' + 'Book a Table' + '</p>' +
+		'<p>' + 'Name: <b>' + senderName + '</b></p>' +
 		'<p>' + 'Email: <b>' + email + '</b></p>' +
 		'<p>' + 'Date: ' + date + '</p>' +
 		'<p>' + 'Females: ' + females + '</p>' +

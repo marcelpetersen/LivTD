@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "835519479865",
+    "firebase_url": "https://liv-app-8af89.firebaseio.com",
+    "project_id": "liv-app-8af89",
+    "storage_bucket": "liv-app-8af89.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835519479865:android:7d443e25543a6682",
+        "android_client_info": {
+          "package_name": "com.JM.liv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835519479865-3oq56uinfpsplk0o5s2md0doscendub1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGDEbM5Wp7xtbyJvaRBV_gIBWlNuFvFv0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

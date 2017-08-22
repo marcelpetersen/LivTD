@@ -24,8 +24,11 @@ export class tabHomePage {
 
     if (snapshotObj) {
       var keyNames = Object.keys(snapshotObj);
+      let currentDateStamp = new Date().getTime();
       for (let name of keyNames) {
-        this.images.push(snapshotObj[name]);
+        let obj = snapshotObj[name];
+        if (new Date(obj.scheduleFromDate).getTime() <= currentDateStamp && new Date(obj.scheduleToDate).getTime() > currentDateStamp )
+            this.images.push(obj);
       }
 
     }

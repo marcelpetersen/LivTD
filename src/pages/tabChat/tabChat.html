@@ -3,9 +3,12 @@
 	<div class="relative">
 		<div class="chatLog">
 
-	
-			<ion-grid class="chatLog" >
-				<ion-infinite-scroll position="top" threshold="20%" (ionInfinite)="doInfinite($event)">
+		<div class="parent-warn-message" *ngIf="!access_level">
+			<p style="text-align: center;">We’re sorry. But you can’t contribute to the chat at this very moment.</p>
+		</div>
+			
+			<ion-grid class="chatLog" *ngIf="access_level" >
+				<ion-infinite-scroll *ngIf="!isEndOfHistory" position="top" threshold="20%" (ionInfinite)="doInfinite($event)">
     				<ion-infinite-scroll-content>
 
     				</ion-infinite-scroll-content>
@@ -48,22 +51,22 @@
 
 </ion-content>
 <ion-footer>
-	<div class="chatButtons">
-		<form (ngSubmit)="sendMessage()">
+	<div class="chatButtons"> 
+		<form (ngSubmit)="sendMessage()" *ngIf="access_level" >
 			<div class="chatTextarea">
 				<ion-row class="chat-row">
 					<ion-col col-10 class="chat-col">
 						<ion-item class="chat-item">
-							<ion-input class="chatInput" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}" placeholder="Say something..."></ion-input>
+							<ion-input class="chatInput" [disabled]="!access_level" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}" placeholder="Say something..."></ion-input>
 						</ion-item>
 					</ion-col>
 					<ion-col col-2 class="chat-col">
-							<a style="float: left; width: 100%; height: 100%;" type="submit" (click)="sendMessage()"><ion-icon class="send-icon" name="ios-arrow-dropup-circle" item-right></ion-icon></a>
+							<a  style="float: left; width: 100%; height: 100%;" type="submit" (click)="sendMessage()"><ion-icon class="send-icon" name="ios-arrow-dropup-circle" item-right></ion-icon></a>
 					</ion-col>
 				</ion-row>
 			</div>
 			<div class="chatAddMedia">
-				<button on-tap="uploadPhotoClick()"><ion-icon name="ios-camera" item-right></ion-icon></button>
+				<button [disabled]="!access_level" on-tap="uploadPhotoClick()"><ion-icon name="ios-camera" item-right></ion-icon></button>
 				<!-- <ion-row style="margin-top: 9px;">
 					<ion-col>
 						<button (click)="uploadPhotoClick()"><ion-icon name="ios-camera" item-right></ion-icon></button>

@@ -65,6 +65,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { PhotoLibrary } from '@ionic-native/photo-library';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FileTransferProvider } from '../providers/fileTransfer';
+import { Push } from '@ionic-native/push';
 
  firebase.initializeApp({
       apiKey: "AIzaSyCGm_zj91dJXbel2VwqSSSWoOfyc1jERP8",
@@ -174,6 +175,7 @@ import { FileTransferProvider } from '../providers/fileTransfer';
     ScrollProvider,
     PhotoLibrary,
     FileTransferProvider,
+    Push,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

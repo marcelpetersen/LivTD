@@ -43,7 +43,6 @@ export class LivTVPage {
   	addVideos(data:Array<any>) {
 			let channelID = this.youtubeService.getChannelID();
   		for(let obj of data){
-				console.log(obj);
 				if (obj.snippet.channelId === channelID) {
 					let video = {
 						url: "https://www.youtube.com/embed/" + obj.id.videoId + "?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0",

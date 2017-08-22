@@ -35,11 +35,11 @@ export class FirebaseProvider {
   //
   */
 
-  signupUser(name: string, domTimeStamp: number, email: string, password: string, musicPreferences:any, zipCode: string): firebase.Promise<any> {
+  signupUser(name: string, domTimeStamp: number, email: string, password: string, musicPreferences: any, zipCode: string): firebase.Promise<any> {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(newUser => {
-          this.saveDataToDataBase(name, domTimeStamp, email, this.defaultPhotoURL, musicPreferences, zipCode);
-          this.saveDataToLocalStorage(name, domTimeStamp, email, this.defaultPhotoURL, "", zipCode, musicPreferences);
+        this.saveDataToDataBase(name, domTimeStamp, email, this.defaultPhotoURL, musicPreferences, zipCode);
+        this.saveDataToLocalStorage(name, domTimeStamp, email, this.defaultPhotoURL, "", zipCode, musicPreferences, false);
       });
   }
 
@@ -48,7 +48,7 @@ export class FirebaseProvider {
       firebase.database().ref('/userProfile/').child(firebase.auth().currentUser.uid).once('value', (snapshot) => {
         var musicPreference = snapshot.val().musicPreference;
         this.saveDataToLocalStorage(snapshot.val().displayName, snapshot.val().domTimeStamp, snapshot.val().email,
-          snapshot.val().photoURL, snapshot.val().phoneNumber, snapshot.val().zipCode, musicPreference);
+          snapshot.val().photoURL, snapshot.val().phoneNumber, snapshot.val().zipCode, musicPreference, snapshot.val().access_level);
       })
     });
   }
@@ -72,14 +72,14 @@ export class FirebaseProvider {
           latin: false,
           underground: false
         }
-
+        var accessLevel = false;
         if (photoURL === "")
           photoURL = this.defaultPhotoURL;
 
         firebase.database().ref('/userProfile/').child(firebase.auth().currentUser.uid).once('value', (snapshot) => {
 
-      if (!snapshot.exists()) {         
-           this.saveDataToDataBase(success['displayName'], 0, success['email'], photoURL, musicPreference,"");
+          if (!snapshot.exists()) {
+            this.saveDataToDataBase(success['displayName'], 0, success['email'], photoURL, musicPreference, "");
           } else {
             displayName = snapshot.val().displayName;
             photoURL = snapshot.val().photoURL;
@@ -87,8 +87,9 @@ export class FirebaseProvider {
             zipCode = snapshot.val().zipCode;
             dob = snapshot.val().domTimeStamp;
             musicPreference = snapshot.val().musicPreference;
+            accessLevel = snapshot.val().access_level;
           }
-          this.saveDataToLocalStorage(displayName, dob, success['email'], photoURL, phoneNumber, zipCode, musicPreference);
+          this.saveDataToLocalStorage(displayName, dob, success['email'], photoURL, phoneNumber, zipCode, musicPreference, accessLevel);
         });
 
       });
@@ -97,7 +98,7 @@ export class FirebaseProvider {
     });
   }
 
-  saveDataToLocalStorage(name: string, domTimeStamp: number, email: string, photoURL: string, phoneNumber: string, zipCode: string, musicPreference: any): void {
+  saveDataToLocalStorage(name: string, domTimeStamp: number, email: string, photoURL: string, phoneNumber: string, zipCode: string, musicPreference: any, accessLevel:boolean): void {
     var key = 'curent_user';
     var data = {
       displayName: name,
@@ -107,12 +108,13 @@ export class FirebaseProvider {
       id: firebase.auth().currentUser.uid,
       phoneNumber: phoneNumber,
       zipCode: zipCode,
-      musicPreference: musicPreference
+      musicPreference: musicPreference,
+      access_level : accessLevel
     };
     this.storageProvider.setItem(key, data);
   }
 
-  saveDataToDataBase(name: string, domTimeStamp: number, email: string, photoURL: string, musicPreferences:any,zipCode: string) {
+  saveDataToDataBase(name: string, domTimeStamp: number, email: string, photoURL: string, musicPreferences: any, zipCode: string) {
     var currentUser = firebase.auth().currentUser;
     if (currentUser !== null) {
       firebase.database().ref('/userProfile').child(currentUser.uid)
@@ -124,7 +126,8 @@ export class FirebaseProvider {
           photoURL: photoURL,
           phoneNumber: "",
           zipCode: zipCode,
-          musicPreference: musicPreferences
+          musicPreference: musicPreferences,
+          access_level: false
         });
     }
   }
@@ -199,7 +202,7 @@ export class FirebaseProvider {
   //
   */
 
-  uploadChatPhoto(imageData: any) : any {
+  uploadChatPhoto(imageData: any): any {
     let storageRef = firebase.storage().ref().child('/chatPhotos');
     return this.uploadPhotoToStorage(storageRef, imageData);
   }
@@ -209,42 +212,42 @@ export class FirebaseProvider {
     this.uploadPhotoToStorage(storageRef, imageData).then((url) => this.updatePhotoURL(url));
   }
 
-  uploadPhotoToStorage(storageRef:any, imageData:any):any {
-    return this.makeFileIntoBlob(imageData).then((blob:any) => {
+  uploadPhotoToStorage(storageRef: any, imageData: any): any {
+    return this.makeFileIntoBlob(imageData).then((blob: any) => {
       let filename = blob.name;
       const imageRef = storageRef.child(`/${filename}.jpg`);
       return imageRef.put(blob).then(() => {
         return imageRef.getDownloadURL();
-     })
+      })
     })
   }
 
-  
+
 
   makeFileIntoBlob(_imagePath) {
     return new Promise((resolve, reject) => {
 
-        window.resolveLocalFileSystemURL(_imagePath, (fileEntry) => {
-          fileEntry.file((resFile) => {
-    
-            var reader = new FileReader();
+      window.resolveLocalFileSystemURL(_imagePath, (fileEntry) => {
+        fileEntry.file((resFile) => {
 
-            reader.onloadend = (evt: any) => {
-              var imgBlob: any = new Blob([evt.target.result], { type: 'image/jpeg' });
-              imgBlob.name = Math.floor(Date.now() / 1000);
+          var reader = new FileReader();
 
-              resolve(imgBlob);
-            };
+          reader.onloadend = (evt: any) => {
+            var imgBlob: any = new Blob([evt.target.result], { type: 'image/jpeg' });
+            imgBlob.name = Math.floor(Date.now() / 1000);
 
-            reader.onerror = (e) => {
-              console.log('Failed file read: ' + e.toString());
-              reject(e);
-            };
+            resolve(imgBlob);
+          };
 
-            reader.readAsArrayBuffer(resFile);
-          });
+          reader.onerror = (e) => {
+            console.log('Failed file read: ' + e.toString());
+            reject(e);
+          };
+
+          reader.readAsArrayBuffer(resFile);
         });
-    
+      });
+
     });
   }
   /*
@@ -263,12 +266,22 @@ export class FirebaseProvider {
     return firebase.database().ref('/userProfile').child(uid);
   }
 
-  getEventsRef():any {
+  getEventsRef(): any {
     return firebase.database().ref('/events');
   }
 
-  getWallpapersRef():any {
+  getWallpapersRef(): any {
     return firebase.database().ref('/wallpapers');
+  }
+
+  getPostEmailRef(): any {
+    return firebase.database().ref('/VIPEmail');
+  }
+
+  updatePushNotificationsID(regID:any):void {
+     this.getUserProfileRef().update({
+        RegistrationId: regID
+     });
   }
 
   getServerTimestamp():any{

@@ -16,7 +16,9 @@
       <p on-tap="openMyProfilePage()" menuClose>{{userName}}</p>
     </div>
     <ion-list>
+
         <button ion-item class="item-icon-left ion-item" *ngFor="let p of pages" (click)="openPage(p)" menuClose>
+
           <ion-icon [name]="p.icon" item-left></ion-icon>{{p.title}}</button >
 
     </ion-list>

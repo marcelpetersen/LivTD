@@ -26,6 +26,7 @@ import { FirebaseProvider } from '../providers/firebaseProvider';
 import { AlertProvider } from '../providers/alert';
 import { InAppBrowserProvider } from '../providers/inAppBrowserProvider';
 import { StorageProvider } from '../providers/storage';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 
 
@@ -40,11 +41,13 @@ export class MyApp {
   userName : string;
   userPhotoURL: string;
   pages : Array<{title: string, component: any, icon: string}>;
+  pushObject: PushObject;
   
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public events: Events, public cameraProvider: CameraProvider
-    , public firebaseProvider: FirebaseProvider, public browser : InAppBrowserProvider, public alertProvider : AlertProvider,    public storageProvider: StorageProvider) {
+    , public firebaseProvider: FirebaseProvider, public browser: InAppBrowserProvider, public alertProvider: AlertProvider, public storageProvider: StorageProvider, public push: Push) {
     
     this.initializeApp(); 
+   
     this.userPhotoURL = '../assets/default.png'
   
     this.storageProvider.getItem('curent_user').then(data => {
@@ -52,6 +55,9 @@ export class MyApp {
         this.userName = data.displayName;
         this.userPhotoURL = data.photoURL;
         this.rootPage = HomePage;
+        this.platform.ready().then(() => {
+          this.pushSetup();
+        })  
       } else {
         this.storageProvider.getItem('livapp_init_complete')
           .then((data) => {
@@ -89,16 +95,56 @@ export class MyApp {
     events.subscribe('user:changed', (name, photoURL) => {
       this.userName = name;
       this.userPhotoURL = photoURL;
-      this.alertProvider.dismissLoadingCustom();  
+      this.alertProvider.dismissLoadingCustom();
+      this.platform.ready().then(() => {
+        this.pushSetup();
+      })  
     }); 
 
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.statusBar.overlaysWebView(false);
       this.statusBar.styleLightContent();
+      this.statusBar.backgroundColorByHexString('#282828');
       this.splashScreen.hide();
+
     });
+  }
+
+  pushSetup() {
+    const options: PushOptions = {
+      android: {
+        senderID: '835519479865',
+        "sound": true,
+        "forceShow": true
+      },
+      ios: {
+        alert: 'true',
+        badge: 'true',
+        sound: 'true',
+        clearBadge: 'true'
+      }
+    };
+
+    this.pushObject = this.push.init(options);
+
+    this.pushObject.on('registration').subscribe((registration: any) => {
+      console.log(registration);
+      this.firebaseProvider.updatePushNotificationsID(registration.registrationId);
+    });
+
+
+    this.pushObject.on('notification').subscribe((notification: any) => {
+      console.log('sdasdadas');
+      console.log(notification);
+      if (notification.additionalData.foreground) {
+        this.alertProvider.presentAlertWithTittle(notification.message);
+      }
+    })
+
+    this.pushObject.on('error').subscribe(error =>console.log(error));
   }
 
   openPage(page) {

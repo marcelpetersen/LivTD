@@ -63,6 +63,9 @@
         },
         "uk.co.workingedge.phonegap.plugin.launchnavigator": {
             "PACKAGE_NAME": "com.JM.liv"
+        },
+        "phonegap-plugin-push": {
+            "PACKAGE_NAME": "com.JM.liv"
         }
     },
     "dependent_plugins": {

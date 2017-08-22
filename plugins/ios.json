@@ -66,6 +66,9 @@
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.JM.liv"
         },
+        "phonegap-plugin-push": {
+            "PACKAGE_NAME": "com.JM.liv"
+        },
         "uk.co.workingedge.phonegap.plugin.launchnavigator": {
             "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
             "PACKAGE_NAME": "com.JM.liv"

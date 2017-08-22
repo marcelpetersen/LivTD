@@ -39,34 +39,39 @@ export class tabChatPage {
 	isLoading: boolean = false;
 	limitCount: any = 30;
 	prevScroll: any = 0;
+	access_level: boolean;
 
+	isEndOfHistory: boolean ;
 	
 	constructor(public navCtrl: NavController, private scrollFix: ScrollProvider, public element: ElementRef, public navParams: NavParams, public firebaseProvider: FirebaseProvider, public storageProvider: StorageProvider,public inAppBrowserProvider: InAppBrowserProvider, 
 			public cameraProvider: CameraProvider, public plt: Platform, private events: Events, public clipboard: Clipboard, public actionSheetController: ActionSheetController, public alertProvider: AlertProvider, public fileTransferProvider: FileTransferProvider) {
 
-		
+		this.isEndOfHistory = false;
 		this.storageProvider.getItem('curent_user').then(data => {
 			this.userID = data.id
 			this.userPhotoURL = data.photoURL;
-			this.displayName = data.displayName;
-		});
-		
-	  	this.chatRef = this.firebaseProvider.getChatRef(); 
+			this.displayName = data.displayName;		
 
-		this.chatRef.on('child_added', data => { 
-			if (this.isHistoryInitComplete) {
-				this.messageStory.push(this.addMessage(data.val()));
-				setTimeout(() => {
-					this.content.scrollToBottom(0);
-				}, 500)				
-			}
-		});
-	
-		this.chatRef.orderByChild("date").limitToLast(this.limitCount).once('value', data => {
-			this.initMessageStory(data);
-		});
+			this.firebaseProvider.getUserRef(this.userID).child('access_level').on('value', data => {
+				this.access_level = data.val();
+				if (this.access_level) {
+					this.chatRef = this.firebaseProvider.getChatRef();
 
-		
+					this.chatRef.on('child_added', data => {
+						if (this.isHistoryInitComplete) {
+							this.messageStory.push(this.addMessage(data.val()));
+							setTimeout(() => {
+								this.content.scrollToBottom(0);
+							}, 500)
+						}
+					});
+
+					this.chatRef.orderByChild("date").limitToLast(this.limitCount).once('value', data => {
+						this.initMessageStory(data);
+					});
+				}
+			})
+		});
     }
 
     ngAfterViewInit() {
@@ -119,9 +124,12 @@ export class tabChatPage {
 				displayName: "",
 				photoURL: '../../assets/default.png'
 			}
+
 			this.firebaseProvider.getUserRef(data.senderID).once('value').then(snaphot => {
-				this.chatUsers[data.senderID].displayName = snaphot.val().displayName;
-				this.chatUsers[data.senderID].photoURL = snaphot.val().photoURL;						
+				if (snaphot.val()) {
+					this.chatUsers[data.senderID].displayName = snaphot.val().displayName;
+					this.chatUsers[data.senderID].photoURL = snaphot.val().photoURL;
+				}						
 			}, 	function(error) { 
 				console.error(error);
 			})
@@ -135,38 +143,42 @@ export class tabChatPage {
   	}
 
 	sendMessage() {
-		let messageText = this.messageText.trim()
-		if(messageText!=="" || this.pictureURL){
-			this.isSending = true;
-			let message = {
-				senderID: this.userID,
-				recieverID: this.recieverID,
-				message: messageText,
-				date: this.firebaseProvider.getServerTimestamp(),
-				pictureURL: this.pictureURL
+		if (this.access_level) {
+			let messageText = this.messageText.trim()
+			if (messageText !== "" || this.pictureURL) {
+				this.isSending = true;
+				let message = {
+					senderID: this.userID,
+					recieverID: this.recieverID,
+					message: messageText,
+					date: this.firebaseProvider.getServerTimestamp(),
+					pictureURL: this.pictureURL
+				}
+				this.chatRef.push(message);
+				this.messageText = "";
+				this.recieverID = "";
+				this.pictureURL = null;
 			}
-			this.chatRef.push(message);
-			this.messageText = "";
-			this.recieverID = "";
-			this.pictureURL = null;
 		}
 	}
 
 	uploadPhotoClick() {
-		this.storageProvider.getItem('pictureToPast').then(data => {
-			let alert = this.cameraProvider.showChoiceAlert(this);
-			if(data){
-				alert.addButton(
-					{
-						text: 'Past image',
-						handler: () => {
-							this.pictureURL = data;
-							this.sendMessage();
-						}
-					})			
-			}
-			alert.present();
-		});
+		if (this.access_level) {
+			this.storageProvider.getItem('pictureToPast').then(data => {
+				let alert = this.cameraProvider.showChoiceAlert(this);
+				if (data) {
+					alert.addButton(
+						{
+							text: 'Past image',
+							handler: () => {
+								this.pictureURL = data;
+								this.sendMessage();
+							}
+						})
+				}
+				alert.present();
+			});
+		}
 	}
 
 	imageReadyHandler(imageData:any) {
@@ -230,8 +242,11 @@ export class tabChatPage {
 			
 			if (snapshotObj) {
 				var keyNames = Object.keys(snapshotObj).sort().reverse();
-				if (!keyNames||keyNames.length <= 1)
+				
+				if (!keyNames||keyNames.length == 1){
 					event.complete();
+					this.isEndOfHistory = true;
+				}
 				else
 				for (let name of keyNames) {
 					if (name !== keyNames[0])
