@@ -79,7 +79,7 @@ export class PostmarkProvider   {
 		let data = {
 			From: this.senderEmail,
 			To: this.bookTableEmail,
-			Subject: 'Book A Table',
+			Subject: 'LIV App Table Inquiry',
 			HtmlBody: htmlEmail
 		}
 		 return this.sendDataToEmail(data);

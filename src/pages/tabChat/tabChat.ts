@@ -53,24 +53,23 @@ export class tabChatPage {
 			this.displayName = data.displayName;		
 
 			this.firebaseProvider.getUserRef(this.userID).child('access_level').on('value', data => {
-				this.access_level = data.val();
-				if (this.access_level) {
-					this.chatRef = this.firebaseProvider.getChatRef();
-
-					this.chatRef.on('child_added', data => {
-						if (this.isHistoryInitComplete) {
-							this.messageStory.push(this.addMessage(data.val()));
-							setTimeout(() => {
-								this.content.scrollToBottom(0);
-							}, 500)
-						}
-					});
-
-					this.chatRef.orderByChild("date").limitToLast(this.limitCount).once('value', data => {
-						this.initMessageStory(data);
-					});
-				}
+				this.access_level = data.val();		
 			})
+			this.chatRef = this.firebaseProvider.getChatRef();
+
+			this.chatRef.on('child_added', data => {
+				if (this.isHistoryInitComplete) {
+					this.messageStory.push(this.addMessage(data.val()));
+					setTimeout(() => {
+						if(this.content._scroll)
+							this.content.scrollToBottom(0);
+					}, 500)
+				}
+			});
+
+			this.chatRef.orderByChild("date").limitToLast(this.limitCount).once('value', data => {
+				this.initMessageStory(data);
+			});
 		});
     }
 
@@ -100,9 +99,15 @@ export class tabChatPage {
 	initMessageStory(snapshot: any) {
 
 		let snapshotObj = snapshot.val();
+
 		if (snapshotObj) {
 			this.alertProvider.presentLoadingCustom();
 			var keyNames = Object.keys(snapshotObj);
+
+			if(keyNames.length === 0){
+				this.isHistoryInitComplete = true;
+				this.isInitCompleteInit = true;
+			}
 			for (let name of keyNames) {
 				this.messageStory.push(this.addMessage(snapshotObj[name]));
 				if(keyNames.indexOf(name)===keyNames.length-1){
@@ -112,6 +117,10 @@ export class tabChatPage {
 				}
 			}
 			
+		}
+		else {
+			this.isHistoryInitComplete = true;
+			this.isInitCompleteInit = true;
 		}
 		
     }
@@ -159,6 +168,8 @@ export class tabChatPage {
 				this.recieverID = "";
 				this.pictureURL = null;
 			}
+		} else {
+			this.alertProvider.presentCustomToast("We’re sorry. But you can’t contribute to the chat at this very moment.")
 		}
 	}
 

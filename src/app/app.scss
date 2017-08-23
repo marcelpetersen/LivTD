@@ -47,15 +47,12 @@ $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
 	color: white;
 	position: absolute;
 }
-
-.bar-button-default-md, .bar-button-default.bar-button-md-default, .bar-button-clear-md-default {
-	margin-top: 10px;
-}
-
 .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default {
 	margin-top: 0px;
 }
-
+.bar-button-default-md, .bar-button-default.bar-button-md-default, .bar-button-clear-md-default {
+	margin-top: 3px;
+}
 .content-ios, .content-md {
 	color: #fff;
     background: -webkit-linear-gradient(left top, $CONTENT, $CONTENT);

@@ -139,9 +139,11 @@ export class MyApp {
     this.pushObject.on('notification').subscribe((notification: any) => {
       console.log('sdasdadas');
       console.log(notification);
-      if (notification.additionalData.foreground) {
-        this.alertProvider.presentAlertWithTittle(notification.message);
-      }
+      if (this.platform.is('ios')) {
+        if (notification.additionalData.foreground) {
+          this.alertProvider.presentAlertWithTittle(notification.message);
+        }
+      } else this.alertProvider.presentAlertWithTittle(notification.message);
     })
 
     this.pushObject.on('error').subscribe(error =>console.log(error));
