@@ -50,13 +50,17 @@ export class AlertProvider {
   }
 
   resetPasswordToast(message:string) {
+    this.toastWithButton(message);
+  }
+
+  toastWithButton(message:string){
     let toast = this.toastController.create({
       message: message,
-      showCloseButton :true,
+      showCloseButton: true,
       closeButtonText: 'Ok',
       position: 'middle'
     });
-    
+
     toast.present();
   }
 }

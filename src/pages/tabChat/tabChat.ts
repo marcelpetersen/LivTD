@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ViewChildren, QueryList} from '@angular/core';
+import { Component, ViewChild, ElementRef, ViewChildren, QueryList, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { NavController, NavParams, Content, ActionSheetController, Platform } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebaseProvider'
 import { StorageProvider } from '../../providers/storage'
@@ -16,7 +16,7 @@ import {InAppBrowserProvider} from '../../providers/inAppBrowserProvider'
   templateUrl: 'tabChat.html'
 })
 
-export class tabChatPage {
+export class tabChatPage implements OnDestroy {
 
 	@ViewChild(Content) content: Content;
 	@ViewChild('sidebar') sidebar: ElementRef;
@@ -44,7 +44,7 @@ export class tabChatPage {
 	isEndOfHistory: boolean ;
 	
 	constructor(public navCtrl: NavController, private scrollFix: ScrollProvider, public element: ElementRef, public navParams: NavParams, public firebaseProvider: FirebaseProvider, public storageProvider: StorageProvider,public inAppBrowserProvider: InAppBrowserProvider, 
-			public cameraProvider: CameraProvider, public plt: Platform, private events: Events, public clipboard: Clipboard, public actionSheetController: ActionSheetController, public alertProvider: AlertProvider, public fileTransferProvider: FileTransferProvider) {
+		public cameraProvider: CameraProvider, public plt: Platform, private events: Events, public clipboard: Clipboard, public actionSheetController: ActionSheetController, public alertProvider: AlertProvider, public fileTransferProvider: FileTransferProvider, private ref: ChangeDetectorRef) {
 
 		this.isEndOfHistory = false;
 		this.storageProvider.getItem('curent_user').then(data => {
@@ -60,7 +60,9 @@ export class tabChatPage {
 			this.chatRef.on('child_added', data => {
 				if (this.isHistoryInitComplete) {
 					this.messageStory.push(this.addMessage(data.val()));
+					this.ref.detectChanges();
 					setTimeout(() => {
+
 						if(this.content._scroll)
 							this.content.scrollToBottom(0);
 					}, 500)
@@ -76,6 +78,11 @@ export class tabChatPage {
     ngAfterViewInit() {
        // this.isInitCompleteInit = false;
     }
+
+	ngOnDestroy() {
+		this.ref.detach(); // try this
+		// this.authObserver.unsubscribe(); // for me I was detect changes inside "subscribe" so was enough for me to just unsubscribe;
+	}
 
     // openEmoji() {
     // 	var result = this.element.nativeElement.querySelector('[_nghost-c0] .emoji-search[_ngcontent-c0]');
@@ -126,7 +133,7 @@ export class tabChatPage {
     }
 
   	addMessage(data) {
-		
+
 		if( !this.chatUsers[data.senderID] ) {
 			this.chatUsers[data.senderID] = {
 				uid: data.senderID,
@@ -181,7 +188,7 @@ export class tabChatPage {
 					alert.addButton(
 						{
 							text: 'Past image',
-							handler: () => {
+								handler: () => {
 								this.pictureURL = data;
 								this.sendMessage();
 							}
