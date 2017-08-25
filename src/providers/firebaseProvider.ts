@@ -35,6 +35,7 @@ export class FirebaseProvider {
   //
   */
 
+
   signupUser(name: string, domTimeStamp: number, email: string, password: string, musicPreferences: any, zipCode: string): firebase.Promise<any> {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(newUser => {

@@ -72,7 +72,7 @@ export class RegistrationPage {
               this.userPassword, this.musicPreference, this.regForm.value.zipCode ? this.regForm.value.zipCode : "" ).then(() => {
                     this.alertProvider.presentAlertWithTittle('Welcome to LIV!');
                     this.alertProvider.dismissLoadingCustom();
-                    this.postmarkProvider.sendGreettingEmail(this.regForm.value.email);
+                    //this.postmarkProvider.sendGreettingEmail(this.regForm.value.email); to firebaseProvider
                             this.navCtrl.setRoot(HomePage);
                   }).catch((error:any) => {                
                         var errorMessage:string;

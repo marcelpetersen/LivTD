@@ -50,27 +50,30 @@ export class MyApp {
    
     this.userPhotoURL = '../assets/default.png'
   
-    this.storageProvider.getItem('curent_user').then(data => {
-      if (data) {
-        this.userName = data.displayName;
-        this.userPhotoURL = data.photoURL;
-        this.rootPage = HomePage;
-        this.platform.ready().then(() => {
-          this.pushSetup();
-        })  
-      } else {
-        this.storageProvider.getItem('livapp_init_complete')
-          .then((data) => {
-            if (data) {
-              this.rootPage = LoginPage
-            }
-            else {
-              this.rootPage = WelcomePage
-              this.storageProvider.setItem('livapp_init_complete', true);
-            }
+
+
+      this.storageProvider.getItem('curent_user').then(data => {
+        if (data) {
+          let refer = this.firebaseProvider.getUserRef(data.id)
+          refer.once('value', snapshot => {     
+            if (snapshot.val()) {
+
+              this.userName = data.displayName;
+              this.userPhotoURL = data.photoURL;
+              this.rootPage = HomePage;
+              this.platform.ready().then(() => {
+                this.pushSetup();
+              })
+            } else this.checkForFirstLaunch();
           })
-      }
-    })
+         
+        } else {
+          this.checkForFirstLaunch();
+        }
+      })
+ 
+
+
 
     this.userName = "";
     this.userPhotoURL = "";
@@ -186,5 +189,18 @@ export class MyApp {
   onChengePhotoClick(){
     let alert = this.cameraProvider.showChoiceAlert(this);
     alert.present();
+  }
+
+  checkForFirstLaunch():void {
+    this.storageProvider.getItem('livapp_init_complete')
+      .then((data) => {
+        if (data) {
+          this.rootPage = LoginPage
+        }
+        else {
+          this.rootPage = WelcomePage
+          this.storageProvider.setItem('livapp_init_complete', true);
+        }
+      })
   }
 }
